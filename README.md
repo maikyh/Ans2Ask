@@ -28,7 +28,6 @@ Age: 17
 Technology Access: Regularly uses a smartphone and a laptop for schoolwork.
 Motivation: Alex is a high school student who seeks assistance with subjects such as history, geography, and English. They want to improve their understanding and grades in these areas.
 Pain Points: Alex often struggles with essay writing and needs guidance on research methods and structuring their assignments.
-
 Persona 4 - Problem Solver:
 Name: Emily
 Location: Sydney, Australia
