@@ -1,4 +1,5 @@
 Week 2 - User Stories https://docs.google.com/document/d/1PKi8_-cJQxfv1gLUdhTgxw2CE99GaaObgMxlvi53HZ0/edit?usp=sharing
+
 User Roles:
 User: Individuals seeking help with their tasks. 
 This user can engage in two primary activities: 
