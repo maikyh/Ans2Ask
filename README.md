@@ -1,4 +1,4 @@
-Week 2 - User Stories https://docs.google.com/document/d/1PKi8_-cJQxfv1gLUdhTgxw2CE99GaaObgMxlvi53HZ0/edit?usp=sharing
+Miguel's Project Plan - Weekly Updates: https://docs.google.com/document/d/1PKi8_-cJQxfv1gLUdhTgxw2CE99GaaObgMxlvi53HZ0/edit?usp=sharing
 
 ### User Roles:
 - User: Individuals seeking help with their tasks. 
@@ -47,3 +47,6 @@ Pain Points: Emily finds it challenging to connect with students who need help i
 - Story 8: As a Question Seeker, I want to browse through a list of top-rated problem solvers, so that I can connect with highly regarded experts. 
 - Story 9: As a Problem Solver, I want to receive recognition and positive ratings from Question Seekers for my helpful contributions, so that I can build a reputable profile.
 - Story 10: As a Question Seeker, I want to have the option to mark a question as urgent or prioritize it, so that I can attract the attention of experienced problem solvers and receive quick responses in critical situations.
+
+### Wireframe:
+https://drive.google.com/file/d/1K50UlmkKlrFXajyK1yW3_5ua349OsxOZ/view?usp=sharing
