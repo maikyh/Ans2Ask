@@ -90,15 +90,16 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | --------- | ---------------------------------- | -------------------------------------------------------------------- | ------------ |
 | POST      | users                              | Creates new user account                                             | 1            | 
 | GET       | users/me                           | Gets current user information                                        | 1, 2         |
-| PUT       | users/me                           | Updates current user information (like visual/reading preference)    | 3,           |
-| POST      | questions                          | Creates a new question                                               | 3            |
-| GET       | courses/subject                    | Gets the courses based on the subject                                |              |
-| GET       | questions/subject                  | Gets the questions based on the subject                              |              |
-| GET       | questions/:questionId              | Get a question based on the ID                                       |              |
-| PUT       | questions/:questionId              | Updates a question based on the ID                                   |              |
-| DELETE    | questions/:questionId              | Deletes a question based on the ID                                   |              |
-| GET       | questions/me                       | Gets the questions that the user has asked                           |              |
-| GET       | questions/answered                 | Gets the questions that the user has answered                        |              |
+| PUT       | users/me                           | Updates current user information (like visual/reading preference)    | 11,          |
+| POST      | questions                          | Creates a new question                                               | 3, 4         |
+| GET       | courses/subject                    | Gets the courses based on the subject                                | 6            |
+| GET       | questions/subject                  | Gets the questions based on the subject                              | 6            |
+| GET       | questions/query                    | Get a question based on a query                                      | 7            |
+| GET       | questions/:questionId              | Get a question based on the ID                                       | 5, 6, 8      |
+| PUT       | questions/:questionId              | Updates a question based on the ID                                   | 3            |
+| DELETE    | questions/:questionId              | Deletes a question based on the ID                                   | 3            |
+| GET       | questions/me                       | Gets the questions that the user has asked                           | 9            |
+| GET       | questions/answered                 | Gets the questions that the user has answered                        | 9            |
 
 ## Models
 ### Users
