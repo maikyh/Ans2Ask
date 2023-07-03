@@ -66,16 +66,16 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   -  Pain Points: Emily finds it challenging to connect with students who need help in specific subjects and wishes to find a platform where she can share her knowledge effectively.
 
 ## User Stories:
-- Story 1: As a Question Seeker, I want to create an account, so that I can start asking questions and receiving assistance from experts. 
-- Story 2: As a Question Seeker, I want to browse different categories or topics, so that I can ask my questions in the appropriate context. 
-- Story 3: As a Problem Solver, I want to search for questions related to my areas of expertise, so that I can provide accurate answers and help others. 
-- Story 4: As a Question Seeker, I want to receive notifications when someone answers my question, so that I can promptly review the responses. 
-- Story 5: As a Problem Solver, I want to receive notifications when new questions are posted in my preferred topics, so that I can contribute to discussions and provide solutions. 
-- Story 6: As a Question Seeker, I want to earn coins or points for asking high-quality questions, so that I can use them to ask more questions in the future. 
-- Story 7: As a Problem Solver, I want to earn coins or points for providing helpful answers, so that I can unlock additional features or benefits within the application. 
-- Story 8: As a Question Seeker, I want to browse through a list of top-rated problem solvers, so that I can connect with highly regarded experts. 
-- Story 9: As a Problem Solver, I want to receive recognition and positive ratings from Question Seekers for my helpful contributions, so that I can build a reputable profile.
-- Story 10: As a Question Seeker, I want to have the option to mark a question as urgent or prioritize it, so that I can attract the attention of experienced problem solvers and receive quick responses in critical situations.
+1. As a Question Seeker, I want to create an account, so that I can start asking questions and receiving assistance from experts. 
+2. As a Question Seeker, I want to browse different categories or topics, so that I can ask my questions in the appropriate context. 
+3. As a Problem Solver, I want to search for questions related to my areas of expertise, so that I can provide accurate answers and help others. 
+4. As a Question Seeker, I want to receive notifications when someone answers my question, so that I can promptly review the responses. 
+5. As a Problem Solver, I want to receive notifications when new questions are posted in my preferred topics, so that I can contribute to discussions and provide solutions. 
+6. As a Question Seeker, I want to earn coins or points for asking high-quality questions, so that I can use them to ask more questions in the future. 
+7. As a Problem Solver, I want to earn coins or points for providing helpful answers, so that I can unlock additional features or benefits within the application. 
+8. As a Question Seeker, I want to browse through a list of top-rated problem solvers, so that I can connect with highly regarded experts. 
+9. As a Problem Solver, I want to receive recognition and positive ratings from Question Seekers for my helpful contributions, so that I can build a reputable profile.
+10. As a Question Seeker, I want to have the option to mark a question as urgent or prioritize it, so that I can attract the attention of experienced problem solvers and receive quick responses in critical situations.
 
 ## Wireframes:
 ![MacBook Pro 16_ - 1](https://github.com/maikyh/Ans2Ask/assets/98727536/c9fb4db9-4315-4969-a339-719650ef21b8)
