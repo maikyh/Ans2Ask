@@ -156,4 +156,4 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 ![MacBook Pro 16_ - 7](https://github.com/maikyh/Ans2Ask/assets/98727536/264b2a4b-9e0f-47f6-8c94-df685475a0f3)
 
 ## Screens flow:
-![New Note](https://github.com/maikyh/Ans2Ask/assets/98727536/d321ae23-8179-43c2-9931-669d2c2aea2b)
+![New Note](https://github.com/maikyh/Ans2Ask/assets/98727536/8f85fb0b-0b2d-4ffe-8eff-883597bb81f5)
