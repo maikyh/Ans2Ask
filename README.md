@@ -61,4 +61,16 @@ Pain Points: Emily finds it challenging to connect with students who need help i
 - Story 10: As a Question Seeker, I want to have the option to mark a question as urgent or prioritize it, so that I can attract the attention of experienced problem solvers and receive quick responses in critical situations.
 
 ## Wireframes:
-https://drive.google.com/file/d/1K50UlmkKlrFXajyK1yW3_5ua349OsxOZ/view?usp=sharing
+![MacBook Pro 16_ - 1](https://github.com/maikyh/Ans2Ask/assets/98727536/c9fb4db9-4315-4969-a339-719650ef21b8)
+![MacBook Pro 16_ - 2](https://github.com/maikyh/Ans2Ask/assets/98727536/ad859f2b-64f0-402d-ad68-ea0a737954ec)
+![MacBook Pro 16_ - 3](https://github.com/maikyh/Ans2Ask/assets/98727536/24eb63a0-45ae-4bd5-a92f-ac0437a039bb)
+![MacBook Pro 16_ - 4](https://github.com/maikyh/Ans2Ask/assets/98727536/53c1b2c6-c003-4e48-b99f-31f513239483)
+![MacBook Pro 16_ - 6](https://github.com/maikyh/Ans2Ask/assets/98727536/8aa610ab-1fcd-4fb7-abf7-2d290dc3f688)
+![MacBook Pro 16_ - 5](https://github.com/maikyh/Ans2Ask/assets/98727536/cbebdb6c-c6bf-484d-8bd0-4f2caea7ad60)
+![MacBook Pro 16_ - 7](https://github.com/maikyh/Ans2Ask/assets/98727536/264b2a4b-9e0f-47f6-8c94-df685475a0f3)
+
+
+
+
+
+
