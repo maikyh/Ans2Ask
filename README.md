@@ -1,7 +1,6 @@
 # Ans2Ask
 
-Your Title
-==========
+<h1 align="center">Your Title</h1>
 
 
 ## Overview:
