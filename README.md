@@ -4,6 +4,12 @@
 ## Overview:
 Ans2Ask is about a Q&A network in which users will ask their questions (this will cost digital points), but to continue asking (as they will be running out of points), they will have to answer other’s question (this will allow users to earn digital points and at the same time improve their rating).
 
+- **Category**: Education
+- **Story**: A Q&A network would have users sign up, ask their questions and respond to other’s questions.
+- **Market**: Students and Employees.
+- **Habit**: Being curious, having questions is part of human behavior, each day there will always be more questions to ask!
+- **Scope**: As a Q&A network, the content will be questions, answers and guides/courses.
+
 ## User Roles:
 - User: Individuals seeking help with their tasks. 
 This user can engage in two primary activities: Question Seeker: A user who desires to ask questions and seek assistance with their problems, tasks, projects, or exams. Problem Solver: A user who derives satisfaction from answering questions and helping others by offering solutions and insights. 
