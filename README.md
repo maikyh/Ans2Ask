@@ -10,13 +10,12 @@
 | [User Roles](#user-roles)       |
 | [User Personas](#user-personas) |
 | [User Stories](#user-stories)   |
-| [Wireframes](#wireframes)       |
-| [Screens flow](#screens-flow)   |
 | [Endpoints](#endpoints)         |
 | [Models](#models)               |
+| [Wireframes](#wireframes)       |
+| [Screens flow](#screens-flow)   |
 
 </div>
-
 
 ## Overview:
 Ans2Ask is about a Q&A network in which users will ask their questions (this will cost digital points), but to continue asking (as they will be running out of points), they will have to answer other’s question (this will allow users to earn digital points and at the same time improve their rating).
@@ -65,25 +64,82 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   - Motivation: Michael works as a recruiter in an advertising agency and aims to discover talented individuals for creative roles.
   - Pain Points: Michael struggles to find a platform that caters specifically to the creative industry and provides a pool of qualified candidates. He often spends significant       time searching for potential candidates and reaching out to them individually.
 
-
 ## User Stories:
-- As a user, I want to create an account, so that I can access all the features and functionalities of the platform.
-- As a user, I want to login, so that I can securely access my account and personalize my experience.
-- As a user, I want to create/edit/delete questions, so that I can manage the content I post.
-- As a user, I want to pick a subject on the creation of each question, so that I can categorize them and receive relevant responses.
-- As a user, I want to respond to questions, so that I can share my thoughts or provide answers.
-- As a user, I want to view a feed of questions/courses of the selected subject, so that I can stay updated on the discussions.
-- As a user, I want to search for questions, so that I can find specific topics or information easily.
-- As a user, I want to rate answers, so that I can provide feedback on their quality.
-- As a user, I want to see my profile, so that I can view my personal information and activity history.
-- As a user, I want to edit my profile information, so that I can keep it up-to-date.
-- As a user, I want to see badges on my profile, so that I can showcase my achievements.
-- As a user, I want to get notifications when someone answers my question, so that I can stay updated on the responses.
-- As a user, I want to get notifications when someone asks a question related to my area of expertise, so that I can share my knowledge.
-- As a user, I want to mark questions as urgent, so that they receive immediate attention.
-- As a user, I want to see a ranking of the top-rated problem solvers, so that I can identify knowledgeable contributors.
-- As a user, I want to be certified as a recruiter, so that I can have credibility and access additional features related to recruiting.
-- As a recruiter, I want to reach out to users, so that I can connect with potential candidates.
+### Required
+  1. As a user, I want to create an account, so that I can access all the features and functionalities of the platform.
+  2. As a user, I want to login, so that I can securely access my account and personalize my experience.
+  3. As a user, I want to create/edit/delete questions, so that I can manage the content I post.
+  4. As a user, I want to pick a subject on the creation of each question, so that I can categorize them and receive relevant responses.
+  5. As a user, I want to respond to questions, so that I can share my thoughts or provide answers.
+  6. As a user, I want to view a feed of questions/courses of the selected subject, so that I can stay updated on the discussions.
+  7. As a user, I want to search for questions, so that I can find specific topics or information easily.
+  8. As a user, I want to thank answers, so that I can provide them the points they earned.
+  9. As a user, I want to see my profile, so that I can view my personal information and activity history.
+### Optional
+  11. As a user, I want to edit my profile information, so that I can keep it up-to-date.
+  12. As a user, I want to see badges on my profile, so that I can showcase my achievements.
+  13. As a user, I want to get notifications when someone answers my question, so that I can stay updated on the responses.
+  14. As a user, I want to get notifications when someone asks a question related to my area of expertise, so that I can share my knowledge.
+  15. As a user, I want to mark questions as urgent, so that they receive immediate attention.
+  16. As a user, I want to see a ranking of the top-rated problem solvers, so that I can identify knowledgeable contributors.
+  17. As a user, I want to be certified as a recruiter, so that I can have credibility and access additional features related to recruiting.
+  18. As a recruiter, I want to reach out to users, so that I can connect with potential candidates.
+
+## Endpoints
+| HHTP Verb | Name                               | Description                                                          | User Stories |
+| --------- | ---------------------------------- | -------------------------------------------------------------------- | ------------ |
+| POST      | users                              | Creates new user account                                             | 1            | 
+| GET       | users/me                           | Gets current user information                                        | 1, 2         |
+| PUT       | users/me                           | Updates current user information (like visual/reading preference)    | 3,           |
+| POST      | questions                          | Creates a new question                                               | 3            |
+| GET       | courses/subject                    | Gets the courses based on the subject                                |              |
+| GET       | questions/subject                  | Gets the questions based on the subject                              |              |
+| GET       | questions/:questionId              | Get a question based on the ID                                       |              |
+| PUT       | questions/:questionId              | Updates a question based on the ID                                   |              |
+| DELETE    | questions/:questionId              | Deletes a question based on the ID                                   |              |
+| GET       | questions/me                       | Gets the questions that the user has asked                           |              |
+| GET       | questions/answered                 | Gets the questions that the user has answered                        |              |
+
+## Models
+### Users
+| Column Name | Type    | Description                  |
+| ----------- | ------- | ---------------------------- |
+| id          | integer | primary key                  |
+| name        | text    | user name                    |
+| email       | text    | user email                   |
+| title       | text    | user title                   |
+| isRecruiter | bool    | user or recruiter            |
+| passoword   | text    | hashed password              |
+| token       | text    | password reset token         |
+| createdAt   | date    | date the account was created |
+
+### Questions
+| Column Name | Type    | Description      |
+| ----------- | ------- | ---------------- |
+| id          | integer | primary key      |
+| title       | text    | question title   |
+| text        | text    | question text    |
+| subject     | text    | question subject |
+
+### Answers
+| Column Name | Type    | Description      |
+| ----------- | ------- | ---------------- |
+| id          | integer | primary key      |
+| id_user     | text    | user id          |
+| text        | text    | answer text      |
+| thanks      | bool    | answer thanked   |
+
+### Question_Answer
+| Column Name | Type    | Description |
+| ----------- | ------- | ----------- |
+| id_question | integer | question id |
+| id_answer   | integer | answer id   |
+
+### User_Question
+| Column Name | Type    | Description |
+| ----------- | ------- | ----------- |
+| id_user     | integer | user id     |
+| id_question | integer | question id |
 
 ## Wireframes:
 ![MacBook Pro 16_ - 1](https://github.com/maikyh/Ans2Ask/assets/98727536/c9fb4db9-4315-4969-a339-719650ef21b8)
@@ -96,9 +152,3 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 
 ## Screens flow:
 ![New Note](https://github.com/maikyh/Ans2Ask/assets/98727536/d321ae23-8179-43c2-9931-669d2c2aea2b)
-
-
-
-
-
-
