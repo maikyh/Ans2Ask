@@ -1,11 +1,11 @@
 
-### User Roles:
+## User Roles:
 - User: Individuals seeking help with their tasks. 
 This user can engage in two primary activities: Question Seeker: A user who desires to ask questions and seek assistance with their problems, tasks, projects, or exams. Problem Solver: A user who derives satisfaction from answering questions and helping others by offering solutions and insights. 
 - Recruiter: individuals who are looking for potential candidates.
 To accumulate points and continue asking questions, users must either solve problems for others or purchase points. However, the only way to earn trust points and improve their rating is by providing answers to questions.
 
-### User Personas:
+## User Personas:
 - Persona 1 - Question Seeker:
 Name: Sarah
 Location: New York City, USA
@@ -35,7 +35,7 @@ Technology Access: Proficient in using smartphones, laptops, and tablets for var
 Motivation: Emily is a college student with expertise in subjects like biology, chemistry, and languages. She enjoys helping high school students by providing clear explanations and study tips.
 Pain Points: Emily finds it challenging to connect with students who need help in specific subjects and wishes to find a platform where she can share her knowledge effectively.
 
-### User Stories:
+## User Stories:
 - Story 1: As a Question Seeker, I want to create an account, so that I can start asking questions and receiving assistance from experts. 
 - Story 2: As a Question Seeker, I want to browse different categories or topics, so that I can ask my questions in the appropriate context. 
 - Story 3: As a Problem Solver, I want to search for questions related to my areas of expertise, so that I can provide accurate answers and help others. 
@@ -47,5 +47,5 @@ Pain Points: Emily finds it challenging to connect with students who need help i
 - Story 9: As a Problem Solver, I want to receive recognition and positive ratings from Question Seekers for my helpful contributions, so that I can build a reputable profile.
 - Story 10: As a Question Seeker, I want to have the option to mark a question as urgent or prioritize it, so that I can attract the attention of experienced problem solvers and receive quick responses in critical situations.
 
-### Wireframes:
+## Wireframes:
 https://drive.google.com/file/d/1K50UlmkKlrFXajyK1yW3_5ua349OsxOZ/view?usp=sharing
