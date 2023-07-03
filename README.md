@@ -37,33 +37,33 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 
 ## User Personas:
 - Persona 1 - Question Seeker:
-Name: Sarah
-Location: New York City, USA
-Age: 25
-Technology Access: Regularly uses a smartphone and a laptop for daily tasks.
-Motivation: Sarah wants to seek assistance from knowledgeable individuals to overcome challenges in her work projects and tasks.
-Pain Points: Sarah often struggles to find reliable sources to ask her questions, resulting in delays in completing her tasks.
+  - Name: Sarah
+  - Location: New York City, USA
+  - Age: 25
+  - Technology Access: Regularly uses a smartphone and a laptop for daily tasks.
+  - Motivation: Sarah wants to seek assistance from knowledgeable individuals to overcome challenges in her work projects and tasks.
+  - Pain Points: Sarah often struggles to find reliable sources to ask her questions, resulting in delays in completing her tasks.
 - Persona 2 - Problem Solver:
-Name: John
-Location: London, UK
-Age: 30
-Technology Access: Tech-savvy and proficient in using various devices, including smartphones, tablets, and computers.
-Motivation: John enjoys sharing his expertise and helping others by providing accurate answers and solutions to their questions.
-Pain Points: John finds it challenging to find a platform where he can contribute his knowledge and receive recognition for his efforts.
+  - Name: John
+  - Location: London, UK
+  - Age: 30
+  - Technology Access: Tech-savvy and proficient in using various devices, including smartphones, tablets, and computers.
+  - Motivation: John enjoys sharing his expertise and helping others by providing accurate answers and solutions to their questions.
+  - Pain Points: John finds it challenging to find a platform where he can contribute his knowledge and receive recognition for his efforts.
 - Persona 3 - Question Seeker:
-Name: Alex
-Location: Toronto, Canada
-Age: 17
-Technology Access: Regularly uses a smartphone and a laptop for schoolwork.
-Motivation: Alex is a high school student who seeks assistance with subjects such as history, geography, and English. They want to improve their understanding and grades in these areas.
-Pain Points: Alex often struggles with essay writing and needs guidance on research methods and structuring their assignments.
+  - Name: Alex
+  - Location: Toronto, Canada
+  - Age: 17
+  - Technology Access: Regularly uses a smartphone and a laptop for schoolwork.
+  - Motivation: Alex is a high school student who seeks assistance with subjects such as history, geography, and English. They want to improve their understanding and grades in         these areas.
+  - Pain Points: Alex often struggles with essay writing and needs guidance on research methods and structuring their assignments.
 - Persona 4 - Problem Solver:
-Name: Emily
-Location: Sydney, Australia
-Age: 20
-Technology Access: Proficient in using smartphones, laptops, and tablets for various purposes.
-Motivation: Emily is a college student with expertise in subjects like biology, chemistry, and languages. She enjoys helping high school students by providing clear explanations and study tips.
-Pain Points: Emily finds it challenging to connect with students who need help in specific subjects and wishes to find a platform where she can share her knowledge effectively.
+  - Name: Emily
+  - Location: Sydney, Australia
+  - Age: 20
+  - Technology Access: Proficient in using smartphones, laptops, and tablets for various purposes.
+  - Motivation: Emily is a college student with expertise in subjects like biology, chemistry, and languages. She enjoys helping high school students by providing clear   -     explanations and study tips.
+  -  Pain Points: Emily finds it challenging to connect with students who need help in specific subjects and wishes to find a platform where she can share her knowledge effectively.
 
 ## User Stories:
 - Story 1: As a Question Seeker, I want to create an account, so that I can start asking questions and receiving assistance from experts. 
