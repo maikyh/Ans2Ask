@@ -66,16 +66,23 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   -  Pain Points: Emily finds it challenging to connect with students who need help in specific subjects and wishes to find a platform where she can share her knowledge effectively.
 
 ## User Stories:
-1. As a Question Seeker, I want to create an account, so that I can start asking questions and receiving assistance from experts. 
-2. As a Question Seeker, I want to browse different categories or topics, so that I can ask my questions in the appropriate context. 
-3. As a Problem Solver, I want to search for questions related to my areas of expertise, so that I can provide accurate answers and help others. 
-4. As a Question Seeker, I want to receive notifications when someone answers my question, so that I can promptly review the responses. 
-5. As a Problem Solver, I want to receive notifications when new questions are posted in my preferred topics, so that I can contribute to discussions and provide solutions. 
-6. As a Question Seeker, I want to earn coins or points for asking high-quality questions, so that I can use them to ask more questions in the future. 
-7. As a Problem Solver, I want to earn coins or points for providing helpful answers, so that I can unlock additional features or benefits within the application. 
-8. As a Question Seeker, I want to browse through a list of top-rated problem solvers, so that I can connect with highly regarded experts. 
-9. As a Problem Solver, I want to receive recognition and positive ratings from Question Seekers for my helpful contributions, so that I can build a reputable profile.
-10. As a Question Seeker, I want to have the option to mark a question as urgent or prioritize it, so that I can attract the attention of experienced problem solvers and receive quick responses in critical situations.
+- As a user, I want to create an account, so that I can access all the features and functionalities of the platform.
+- As a user, I want to login, so that I can securely access my account and personalize my experience.
+- As a user, I want to create/edit/delete questions, so that I can manage the content I post.
+- As a user, I want to pick a subject on the creation of each question, so that I can categorize them and receive relevant responses.
+- As a user, I want to respond to questions, so that I can share my thoughts or provide answers.
+- As a user, I want to view a feed of questions/courses of the selected subject, so that I can stay updated on the discussions.
+- As a user, I want to search for questions, so that I can find specific topics or information easily.
+- As a user, I want to rate answers, so that I can provide feedback on their quality.
+- As a user, I want to see my profile, so that I can view my personal information and activity history.
+- As a user, I want to edit my profile information, so that I can keep it up-to-date.
+- As a user, I want to see badges on my profile, so that I can showcase my achievements.
+- As a user, I want to get notifications when someone answers my question, so that I can stay updated on the responses.
+- As a user, I want to get notifications when someone asks a question related to my area of expertise, so that I can share my knowledge.
+- As a user, I want to mark questions as urgent, so that they receive immediate attention.
+- As a user, I want to see a ranking of the top-rated problem solvers, so that I can identify knowledgeable contributors.
+- As a user, I want to be certified as a recruiter, so that I can have credibility and access additional features related to recruiting.
+- As a recruiter, I want to reach out to users, so that I can connect with potential candidates.
 
 ## Wireframes:
 ![MacBook Pro 16_ - 1](https://github.com/maikyh/Ans2Ask/assets/98727536/c9fb4db9-4315-4969-a339-719650ef21b8)
