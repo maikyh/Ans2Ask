@@ -90,7 +90,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | --------- | ---------------------------------- | -------------------------------------------------------------------- | ------------ |
 | POST      | users                              | Creates new user account                                             | 1, 17        | 
 | GET       | users/me                           | Gets current user information                                        | 1, 2, 12, 18 |
-| PUT       | users/me                           | Updates current user information (like visual/reading preference)    | 11           |
+| PUT       | users/me                           | Updates current user information                                     | 11           |
 | POST      | questions                          | Creates a new question                                               | 3, 4, 15     |
 | GET       | courses/subject                    | Gets the courses based on the subject                                | 6            |
 | GET       | questions/subject                  | Gets the questions based on the subject                              | 6            |
