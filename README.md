@@ -1,3 +1,7 @@
+# Ans2Ask
+
+## Overview:
+Ans2Ask is about a Q&A network in which users will ask their questions (this will cost digital points), but to continue asking (as they will be running out of points), they will have to answer other’s question (this will allow users to earn digital points and at the same time improve their rating).
 
 ## User Roles:
 - User: Individuals seeking help with their tasks. 
