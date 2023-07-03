@@ -28,7 +28,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 - **Scope**: As a Q&A network, the content will be questions, answers and guides/courses.
 
 ## User Roles:
-- **User**: Individuals seeking help with their tasks.
+- **User**: This user can engage in two primary activities: 
   - **Question Seeker**: A user who desires to ask questions and seek assistance with their problems, tasks, projects, or exams.
   - **Problem Solver**: A user who derives satisfaction from answering questions and helping others by offering solutions and insights. 
 - **Recruiter**: individuals who are looking for potential candidates.
