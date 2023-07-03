@@ -13,7 +13,7 @@
 | [User Personas](#user-personas) |
 | [User Stories](#user-stories)   |
 | [Endpoints](#endpoints)         |
-| [Models](#models)               |
+| [Dara Models](#data-models)     |
 | [Wireframes](#wireframes)       |
 | [Screens flow](#screens-flow)   |
 
@@ -105,7 +105,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | GET       | questions/me                       | Gets the questions that the user has asked                           | 9            |
 | GET       | questions/answered                 | Gets the questions that the user has answered                        | 9, 16        |
 
-## Models
+## Data Models
 ### Users
 | Column Name | Type    | Description                  |
 | ----------- | ------- | ---------------------------- |
