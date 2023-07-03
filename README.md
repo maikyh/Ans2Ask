@@ -1,6 +1,8 @@
 <h1 align="center">Ans2Ask</h1>
 
-[Project Plan](https://docs.google.com/document/d/1sODIOBoNPjGYA7svBBwlI6oFuucbcb_NxHpgq47s6sk/edit?usp=sharing)
+<div align="center">
+  
+**Project Plan:** [Miguel Garza - Meta U Eng Project Plan](https://docs.google.com/document/d/1sODIOBoNPjGYA7svBBwlI6oFuucbcb_NxHpgq47s6sk/edit?usp=sharing)
 
 | Table of contents               |
 | ------------------------------- |
@@ -12,6 +14,9 @@
 | [Screens flow](#screens-flow)   |
 | [Endpoints](#endpoints)         |
 | [Models](#models)               |
+
+</div>
+
 
 ## Overview:
 Ans2Ask is about a Q&A network in which users will ask their questions (this will cost digital points), but to continue asking (as they will be running out of points), they will have to answer other’s question (this will allow users to earn digital points and at the same time improve their rating).
