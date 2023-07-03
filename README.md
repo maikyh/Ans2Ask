@@ -1,6 +1,3 @@
-Miguel's Project Plan - Weekly Updates:
-
-https://docs.google.com/document/d/1PKi8_-cJQxfv1gLUdhTgxw2CE99GaaObgMxlvi53HZ0/edit?usp=sharing
 
 ### User Roles:
 - User: Individuals seeking help with their tasks. 
