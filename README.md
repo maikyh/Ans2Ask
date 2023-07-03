@@ -7,7 +7,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 - **Category**: Education
 - **Story**: A Q&A network would have users sign up, ask their questions and respond to other’s questions.
 - **Market**: Students and Employees.
-- xHabit**: Being curious, having questions is part of human behavior, each day there will always be more questions to ask!
+- **Habit**: Being curious, having questions is part of human behavior, each day there will always be more questions to ask!
 - **Scope**: As a Q&A network, the content will be questions, answers and guides/courses.
 
 ## User Roles:
