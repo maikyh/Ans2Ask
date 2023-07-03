@@ -4,10 +4,11 @@
 
 | Table of contents               |
 | ------------------------------- |
-| [Overview](#overview)       |
+| [Overview](#overview)           |
 | [User Roles](#user-roles)       |
 | [User Personas](#user-personas) |
 | [User Stories](#user-stories)   |
+| [Wireframes](#wireframes)       |
 | [Endpoints](#endpoints)         |
 | [Models](#models)               |
 
