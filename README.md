@@ -69,6 +69,9 @@ Pain Points: Emily finds it challenging to connect with students who need help i
 ![MacBook Pro 16_ - 5](https://github.com/maikyh/Ans2Ask/assets/98727536/cbebdb6c-c6bf-484d-8bd0-4f2caea7ad60)
 ![MacBook Pro 16_ - 7](https://github.com/maikyh/Ans2Ask/assets/98727536/264b2a4b-9e0f-47f6-8c94-df685475a0f3)
 
+## Screens flow:
+![New Note](https://github.com/maikyh/Ans2Ask/assets/98727536/d321ae23-8179-43c2-9931-669d2c2aea2b)
+
 
 
 
