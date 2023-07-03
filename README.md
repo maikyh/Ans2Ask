@@ -13,7 +13,7 @@
 | [User Personas](#user-personas) |
 | [User Stories](#user-stories)   |
 | [Endpoints](#endpoints)         |
-| [Dara Models](#data-models)     |
+| [Data Models](#data-models)     |
 | [Wireframes](#wireframes)       |
 | [Screens flow](#screens-flow)   |
 
