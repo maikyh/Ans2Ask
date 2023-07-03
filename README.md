@@ -36,34 +36,35 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 *To accumulate points and continue asking questions, users must either solve problems for others or purchase points. However, the only way to earn trust points and improve their rating is by providing answers to questions.*
 
 ## User Personas:
-- Persona 1 - Question Seeker:
+- Persona 1 - User (Question Seeker):
   - Name: Sarah
   - Location: New York City, USA
   - Age: 25
   - Technology Access: Regularly uses a smartphone and a laptop for daily tasks.
   - Motivation: Sarah wants to seek assistance from knowledgeable individuals to overcome challenges in her work projects and tasks.
   - Pain Points: Sarah often struggles to find reliable sources to ask her questions, resulting in delays in completing her tasks.
-- Persona 2 - Problem Solver:
+- Persona 2 - User (Problem Solver):
   - Name: John
   - Location: London, UK
   - Age: 30
   - Technology Access: Tech-savvy and proficient in using various devices, including smartphones, tablets, and computers.
   - Motivation: John enjoys sharing his expertise and helping others by providing accurate answers and solutions to their questions.
   - Pain Points: John finds it challenging to find a platform where he can contribute his knowledge and receive recognition for his efforts.
-- Persona 3 - Question Seeker:
-  - Name: Alex
-  - Location: Toronto, Canada
-  - Age: 17
-  - Technology Access: Regularly uses a smartphone and a laptop for schoolwork.
-  - Motivation: Alex is a high school student who seeks assistance with subjects such as history, geography, and English. They want to improve their understanding and grades in         these areas.
-  - Pain Points: Alex often struggles with essay writing and needs guidance on research methods and structuring their assignments.
-- Persona 4 - Problem Solver:
-  - Name: Emily
+- Persona 3 - Recruiter:
+  - Name: Emma
+  - Location: San Francisco, USA
+  - Age: 35
+  - Technology Access: Regularly uses a smartphone, laptop, and other tech devices for work.
+  - Motivation: Emma works as a recruiter for a tech company and wants to connect with potential candidates who have the right skills and knowledge.
+  - Pain Points: Emma has difficulty finding a reliable platform where she can easily connect with qualified individuals and reach out to them for job opportunities.
+- Persona 4 - Recruiter:
+  - Name: Michael
   - Location: Sydney, Australia
-  - Age: 20
-  - Technology Access: Proficient in using smartphones, laptops, and tablets for various purposes.
-  - Motivation: Emily is a college student with expertise in subjects like biology, chemistry, and languages. She enjoys helping high school students by providing clear   -     explanations and study tips.
-  -  Pain Points: Emily finds it challenging to connect with students who need help in specific subjects and wishes to find a platform where she can share her knowledge effectively.
+  - Age: 28
+  - Technology Access: Proficient in using smartphones, laptops, and other digital devices for work.
+  - Motivation: Michael works as a recruiter in an advertising agency and aims to discover talented individuals for creative roles.
+  - Pain Points: Michael struggles to find a platform that caters specifically to the creative industry and provides a pool of qualified candidates. He often spends significant       time searching for potential candidates and reaching out to them individually.
+
 
 ## User Stories:
 - As a user, I want to create an account, so that I can access all the features and functionalities of the platform.
