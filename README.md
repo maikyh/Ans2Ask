@@ -69,7 +69,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   - Pain Points: Michael struggles to find a platform that caters specifically to the creative industry and provides a pool of qualified candidates. He often spends significant       time searching for potential candidates and reaching out to them individually.
 
 ## User Stories:
-### Required
+### Core
   1. As a user, I want to create an account, so that I can access all the features and functionalities of the platform.
   2. As a user, I want to login, so that I can securely access my account and personalize my experience.
   3. As a user, I want to create/edit/delete questions, so that I can manage the content I post.
@@ -79,7 +79,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   7. As a user, I want to search for questions, so that I can find specific topics or information easily.
   8. As a user, I want to thank answers, so that I can provide them the points they earned.
   9. As a user, I want to see my profile, so that I can view my personal information and activity history.
-### Optional
+### Stretch
   11. As a user, I want to edit my profile information, so that I can keep it up-to-date.
   12. As a user, I want to see badges on my profile, so that I can showcase my achievements.
   13. As a user, I want to get notifications when someone answers my question, so that I can stay updated on the responses.
