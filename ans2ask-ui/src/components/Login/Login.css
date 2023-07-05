@@ -1,0 +1,18 @@
+.custom-container {
+    max-width: 600px; 
+    width: 100%;
+}
+
+.custom-margin {
+    margin-top: 185px;
+    margin-bottom: 185px;
+}
+
+.custom-link {
+    color: gray;
+    text-decoration: none;
+}
+
+.custom-link:hover {
+    text-decoration: underline;
+}
