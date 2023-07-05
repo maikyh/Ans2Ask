@@ -21,18 +21,18 @@ export default function Login() {
                     <label className="mb-2 fw-bold" htmlFor="usernameOrEmail">Username or Email</label>
                     <input type="text" className="form-control bg-lighter" id="usernameOrEmail" placeholder="" />
                 </div>
-                <div className="form-group mb-4">
+                <div className="form-group mb-5">
                     <label className="mb-2 fw-bold" htmlFor="password">Password</label>
                     <input type="password" className="form-control bg-lighter" id="password" placeholder="" />
                 </div>
                 <div className="text-center">
+                    <button type="submit" className="btn btn-dark w-100 d-block fw-bold mb-4">Login</button>
                     <div className="mb-2">
                         <a className="custom-link" href="#" >Forgot password?</a>
                     </div>
                     <div className="mb-2">
                         <a className="custom-link" href="#" >Don't have an account?</a>
                     </div>
-                    <button type="submit" className="btn btn-dark w-100 d-block fw-bold">Login</button>
                 </div>
                 </form>
             </div>
