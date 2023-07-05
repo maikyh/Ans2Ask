@@ -27,6 +27,9 @@ export default function Login() {
                 </div>
                 <div className="text-center">
                     <div className="mb-2">
+                        <a className="custom-link" href="#" >Forgot password?</a>
+                    </div>
+                    <div className="mb-2">
                         <a className="custom-link" href="#" >Don't have an account?</a>
                     </div>
                     <button type="submit" className="btn btn-dark w-100 d-block fw-bold">Login</button>
