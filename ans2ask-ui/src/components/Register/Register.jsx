@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Register.css";
 
 export default function Register() {
@@ -8,7 +9,9 @@ export default function Register() {
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <a className="navbar-brand" href="#">Ans2Ask</a>
-                    <button type="button" class="btn btn-outline-dark">Login</button>
+                    <Link to={`/login`} className="btn btn-outline-dark">
+                        Login
+                    </Link>
                 </div>
             </div>
         </nav>
@@ -30,9 +33,11 @@ export default function Register() {
                     <input type="password" className="form-control bg-lighter" id="password" placeholder="" />
                 </div>
                 <div className="text-center">
-                    <button type="submit" className="btn btn-dark w-100 d-block fw-bold">Register</button>
+                    <Link to={`/register`} className="btn btn-dark w-100 d-block fw-bold">
+                        Register
+                    </Link>
                     <div className="mt-3">
-                        <a className="custom-link" href="#" >Already have an account?</a>
+                        <a className="custom-link" href="/login" >Already have an account?</a>
                     </div>
                 </div>
                 </form>

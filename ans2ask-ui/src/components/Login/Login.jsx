@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
@@ -8,7 +9,9 @@ export default function Login() {
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
                 <a className="navbar-brand" href="#">Ans2Ask</a>
-                <button type="button" class="btn btn-outline-dark">Register</button>
+                <Link to={`/register`} className="btn btn-outline-dark">
+                    Register
+                </Link>
                 </div>
             </div>
         </nav>
@@ -26,12 +29,14 @@ export default function Login() {
                     <input type="password" className="form-control bg-lighter" id="password" placeholder="" />
                 </div>
                 <div className="text-center">
-                    <button type="submit" className="btn btn-dark w-100 d-block fw-bold mb-4">Login</button>
+                        <Link to={`/login`} className="btn btn-dark w-100 d-block fw-bold mb-4">
+                            Login
+                        </Link>
                     <div className="mb-2">
                         <a className="custom-link" href="#" >Forgot password?</a>
                     </div>
                     <div className="mb-2">
-                        <a className="custom-link" href="#" >Don't have an account?</a>
+                        <a className="custom-link" href="/register" >Don't have an account?</a>
                     </div>
                 </div>
                 </form>
