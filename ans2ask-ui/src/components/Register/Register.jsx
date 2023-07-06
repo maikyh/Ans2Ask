@@ -13,7 +13,7 @@ export default function Register() {
             </div>
         </nav>
 
-        <div className="d-flex justify-content-center align-items-center custom-margin">
+        <div className="d-flex justify-content-center align-items-center custom-margin-register">
             <div className="custom-container bg-light p-4 border rounded px-5">
                 <h1 className="text-center mb-4 fw-bold">Welcome to Ans2Ask</h1>
                 <form>
