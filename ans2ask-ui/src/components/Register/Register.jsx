@@ -25,15 +25,15 @@ export default function Register() {
                     <label className="mb-2 fw-bold" htmlFor="email">Email</label>
                     <input type="email" className="form-control bg-lighter" id="email" placeholder="" />
                 </div>
-                <div className="form-group mb-4">
+                <div className="form-group mb-5">
                     <label className="mb-2 fw-bold" htmlFor="password">Password</label>
                     <input type="password" className="form-control bg-lighter" id="password" placeholder="" />
                 </div>
                 <div className="text-center">
-                    <div className="mb-2">
+                    <button type="submit" className="btn btn-dark w-100 d-block fw-bold">Register</button>
+                    <div className="mt-3">
                         <a className="custom-link" href="#" >Already have an account?</a>
                     </div>
-                    <button type="submit" className="btn btn-dark w-100 d-block fw-bold">Register</button>
                 </div>
                 </form>
             </div>
