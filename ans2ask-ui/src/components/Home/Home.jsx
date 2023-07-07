@@ -20,8 +20,8 @@ export default function Home() {
                 </div>
                 
                 <div className="">
-                    <Question id={1} user={"Miguel"} />
-                    <Question id={2} user={"Diego"} />
+                    <Question id={1} username={"Miguel"} />
+                    <Question id={2} username={"Diego"} />
                 </div>
               
             </div>
