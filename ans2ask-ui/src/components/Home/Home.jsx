@@ -15,8 +15,8 @@ export default function Home() {
                 <h1 className="text-center mb-2 fw-bold">Subject</h1>
                 
                 <div className="d-flex">
-                  <button className="btn btn-dark w-100 d-block fw-bold mx-4 mt-4 mb-1 p-3">Questions</button>
-                  <button className="btn btn-dark w-100 d-block fw-bold mx-4 mt-4 mb-1 p-3">Courses</button>
+                  <button className="btn btn-dark w-100 d-block fw-bold mx-4 mt-4 mb-1 p-2"> <h4>Questions</h4> </button>
+                  <button className="btn btn-dark w-100 d-block fw-bold mx-4 mt-4 mb-1 p-2"> <h4>Courses</h4> </button>
                 </div>
                 
                 <div className="">
