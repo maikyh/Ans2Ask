@@ -3,7 +3,7 @@ import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
 import { sequelize } from './database.js';
-import { User, Post } from './models/index.js';
+import { User, Question } from './models/index.js';
 import userRoutes from './routes/users.js';
 import SequelizeStoreInit from 'connect-session-sequelize';
 
@@ -63,21 +63,21 @@ sessionStore.sync();
 
 app.use(userRoutes);
 
-// Route to get all posts, with associated users
-app.get('/posts', async (req, res) => {
+// Route to get all questions, with associated users
+app.get('/questions', async (req, res) => {
   try {
-    const posts = await Post.findAll({
+    const questions = await Question.findAll({
       include: [{ model: User, as: 'user' }],
       order: [['createdAt', 'DESC']]
     });
-    res.json(posts);
+    res.json(questions);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 });
 
-// Route to create a new post
-app.post('/posts', async (req, res) => {
+// Route to create a new question
+app.post('/questions', async (req, res) => {
   try {
     // Check if user is logged in
     if (!req.session.user) {
@@ -87,18 +87,18 @@ app.post('/posts', async (req, res) => {
     // Retrieve the current user from the session
     const currentUser = req.session.user;
 
-    // Create the post with the current user ID
-    const post = await Post.create({
+    // Create the question with the current user ID
+    const question = await Question.create({
       ...req.body,
       userId: currentUser.id
     });
 
-    const postWithUser = await Post.findOne({
-      where: { id: post.id },
+    const questionWithUser = await Question.findOne({
+      where: { id: question.id },
       include: [{ model: User, as: 'user' }]
     });
 
-    res.status(201).json(postWithUser);
+    res.status(201).json(questionWithUser);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

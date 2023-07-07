@@ -1,13 +1,17 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../database.js';
 
-export const Post = sequelize.define('Post', {
+export const Question = sequelize.define('Question', {
   title: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  content: {
+  text: {
     type: DataTypes.TEXT,
+    allowNull: false
+  },
+  subject: {
+    type: DataTypes.STRING,
     allowNull: false
   }
 });
