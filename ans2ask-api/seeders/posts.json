@@ -1,3 +1,52 @@
-{ 
-    
-}
+[
+    {
+        "title": "Breaking: Major Earthquake Hits Coastal City",
+        "content": "A powerful earthquake with a magnitude of 7.5 struck a coastal city today, causing widespread damage and triggering a tsunami warning. The local authorities are urging residents to evacuate to higher ground and have declared a state of emergency. Stay tuned for more updates on this developing story.",
+        "userId": 1
+    },
+    {
+        "title": "Tech Giant Announces Revolutionary New Smartphone",
+        "content": "In a highly anticipated announcement, tech giant XCorp unveiled their latest smartphone model, the XPhone Pro. Packed with innovative features and boasting impressive processing power, the XPhone Pro is set to redefine the smartphone market. Pre-orders start next week, and the device is expected to hit store shelves next month.",
+        "userId": 2
+    },
+    {
+        "title": "Political Scandal Unveiled: High-Ranking Official Resigns",
+        "content": "In a shocking turn of events, a high-ranking government official announced their resignation today amidst a mounting political scandal. The official has been accused of corruption and abuse of power, leading to widespread public outrage. The resignation comes after weeks of intense scrutiny and calls for accountability.",
+        "userId": 3
+    },
+    {
+        "title": "New Study Reveals Alarming Climate Change Impact",
+        "content": "A groundbreaking study published today in a leading scientific journal reveals alarming evidence of the accelerating impact of climate change. The research indicates that rising sea levels, extreme weather events, and biodiversity loss are occurring at an unprecedented rate. Experts warn that urgent action is needed to mitigate these devastating consequences.",
+        "userId": 4
+    },
+    {
+        "title": "Entertainment News: Blockbuster Movie Breaks Box Office Records",
+        "content": "The highly anticipated movie 'Epic Adventures' shattered box office records over the weekend, grossing over $100 million in its opening days. Audiences and critics alike have praised the film's breathtaking visual effects, gripping storyline, and stellar performances. 'Epic Adventures' is poised to become the summer's biggest blockbuster.",
+        "userId": 5
+    },
+    {
+        "title": "Sports Update: Underdog Team Wins Championship Title",
+        "content": "In a stunning upset, the underdog team emerged victorious in the championship final, beating the heavily favored opponents by a narrow margin. The thrilling match captivated fans around the world, showcasing the determination and skill of the underdog team. Celebrations are underway as fans gather to honor the triumphant athletes.",
+        "userId": 1
+    },
+    {
+        "title": "Health Alert: New Virus Strain Detected",
+        "content": "Health authorities have identified a new strain of virus that has been spreading rapidly in several regions. The virus exhibits different symptoms and is believed to be highly contagious. Efforts are underway to contain its spread and develop effective treatments. Stay informed as we bring you the latest updates on this emerging health crisis.",
+        "userId": 2
+    },
+    {
+        "title": "Business News: Global Market Reaches All-Time High",
+        "content": "In a remarkable turn of events, the global stock market soared to an all-time high, surpassing previous records. Analysts attribute the surge to positive economic indicators, favorable trade agreements, and increased investor confidence. However, some experts caution that market volatility may persist, urging investors to exercise caution.",
+        "userId": 3
+    },
+    {
+        "title": "Cultural Phenomenon: New Album Takes the Music World by Storm",
+        "content": "The latest album from renowned artist XYZ has become a cultural phenomenon, dominating music charts and captivating listeners worldwide. With its unique blend of genres, heartfelt lyrics, and infectious melodies, the album has garnered critical acclaim and a dedicated fan following. Don't miss out on experiencing this musical masterpiece.",
+        "userId": 4
+    },
+    {
+        "title": "Travel News: Unexplored Destination Named Best Tourist Spot",
+        "content": "A hidden gem of a destination, the picturesque town of Zephyr Cove, has been named the best tourist spot of the year by renowned travel publications. Offering breathtaking natural beauty, rich history, and a vibrant local culture, Zephyr Cove has quickly become a must-visit for avid travelers seeking off-the-beaten-path experiences.",
+        "userId": 5
+    }
+]
