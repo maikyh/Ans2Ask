@@ -76,6 +76,22 @@ app.get('/questions', async (req, res) => {
   }
 });
 
+// Route to get a specific question, with associated users
+app.get('/questions/:id', async (req, res) => {
+  try {
+    const question = await Question.findByPk(req.params.id, {
+      include: [{ model: User, as: 'user' }],
+      order: [['createdAt', 'DESC']]
+    });
+    if (!question) {
+      return res.status(404).json({ message: 'Question not found' });
+    }
+    res.json(question);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Route to create a new question
 app.post('/questions', async (req, res) => {
   try {
