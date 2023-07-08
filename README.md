@@ -114,7 +114,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | email       | text    | user email                   |
 | title       | text    | user title                   |
 | isRecruiter | bool    | user or recruiter            |
-| passoword   | text    | hashed password              |
+| password    | text    | hashed password              |
 | token       | text    | password reset token         |
 | createdAt   | date    | date the account was created |
 
