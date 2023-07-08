@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-// import ----- { UserContext } from '../../UserContext.js';
 import "./Register.css";
 
 export default function Register() {
@@ -8,7 +7,6 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // ----- const { updateUser } = useContext(UserContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -36,10 +34,7 @@ export default function Register() {
             setEmail('');
             setPassword('');
     
-            // Update the user context
-            // ----------- updateUser(loggedInUser);
-    
-            // Navigate to the home page after successful login
+            // Navigate to the login after successful login
             navigate('/login');
           } else {
             // Handle signup failure case

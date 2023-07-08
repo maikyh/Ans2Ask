@@ -1,4 +1,6 @@
 import React from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../UserContext.js";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import QuestionGrid from "../QuestionGrid/QuestionGrid";
@@ -7,6 +9,10 @@ import Subjects from "../Subjects/Subjects";
 import "./Home.css";
 
 export default function Home() {
+  const { user, updateUser } = useContext(UserContext);
+
+  console.log(user);
+
   return (
     <div className="home">
         <Navbar/>

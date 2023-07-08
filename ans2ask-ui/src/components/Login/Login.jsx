@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// ------ import { UserContext } from '../../UserContext.js';
+import { UserContext } from '../../UserContext.js';
 import "./Login.css";
 
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // ------- const { updateUser } = useContext(UserContext);
+    const { updateUser } = useContext(UserContext);
 
     console.log(username + '' + password);
 
@@ -31,7 +31,7 @@ export default function Login() {
             const loggedInUser = data.user;
     
             // Update the user context
-            // ------- updateUser(loggedInUser);
+            updateUser(loggedInUser);
     
             // Navigate to the home page after successful login
             navigate('/home');
