@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
@@ -11,10 +12,21 @@ import "./Home.css";
 export default function Home() {
   const { user, updateUser } = useContext(UserContext);
 
-  console.log(user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!user) {
+      navigate('/login');
+    }
+  }, [user]);
+  
+  const handleLogout = () => {
+    updateUser(null);
+  };
 
   return (
     <div className="home">
+        <button onClick={handleLogout}>Logout</button>
         <Navbar/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
