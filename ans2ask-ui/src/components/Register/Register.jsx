@@ -63,45 +63,45 @@ export default function Register() {
             <div className="custom-container bg-light p-4 border rounded px-5">
                 <h1 className="text-center mb-4 fw-bold">Welcome to Ans2Ask</h1>
                 <form onSubmit={handleSubmit}>
-                <div className="form-group mb-4">
-                    <label className="mb-2 fw-bold" htmlFor="username">Username</label>
-                    <input
-                        className="form-control bg-lighter" 
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group mb-4">
-                    <label className="mb-2 fw-bold" htmlFor="email">Email</label>
-                    <input 
-                        className="form-control bg-lighter" 
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group mb-5">
-                    <label className="mb-2 fw-bold" htmlFor="password">Password</label>
-                    <input 
-                        className="form-control bg-lighter"  
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="text-center">
-                    <button className="btn btn-dark w-100 d-block fw-bold">Register</button>
-                    <div className="mt-3">
-                        <a className="custom-link" href="/login" >Already have an account?</a>
-                    </div>
-                </div>
+                  <div className="form-group mb-4">
+                      <label className="mb-2 fw-bold" htmlFor="username">Username</label>
+                      <input
+                          className="form-control bg-lighter" 
+                          type="text"
+                          id="username"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          required
+                      />
+                  </div>
+                  <div className="form-group mb-4">
+                      <label className="mb-2 fw-bold" htmlFor="email">Email</label>
+                      <input 
+                          className="form-control bg-lighter" 
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                      />
+                  </div>
+                  <div className="form-group mb-5">
+                      <label className="mb-2 fw-bold" htmlFor="password">Password</label>
+                      <input 
+                          className="form-control bg-lighter"  
+                          type="password"
+                          id="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          required
+                      />
+                  </div>
+                  <div className="text-center">
+                      <button className="btn btn-dark w-100 d-block fw-bold">Register</button>
+                      <div className="mt-3">
+                          <a className="custom-link" href="/login" >Already have an account?</a>
+                      </div>
+                  </div>
                 </form>
             </div>
         </div>
