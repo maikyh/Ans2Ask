@@ -26,8 +26,7 @@ export default function Home() {
 
   return (
     <div className="home">
-        <button onClick={handleLogout}>Logout</button>
-        <Navbar/>
+        <Navbar handleLogout={handleLogout}/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
                 <Subjects/>

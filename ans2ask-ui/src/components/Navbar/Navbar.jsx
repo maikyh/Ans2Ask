@@ -5,7 +5,7 @@ import { faBell, faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons"
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({handleLogout}) {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
@@ -22,7 +22,10 @@ export default function Navbar() {
                         <NavDropdown style={{ marginLeft: "1.75rem" }} alignRight title={<FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
                             <NavDropdown.Item href="#profile">View Profile</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#logout">Log Out &nbsp; <FontAwesomeIcon icon={faSignOutAlt} /></NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleLogout} style={{ color: "red" }}>
+                                <span style={{ color: "red" }}>Log Out &nbsp; </span>
+                                <FontAwesomeIcon icon={faSignOutAlt} style={{ color: "red" }} />
+                            </NavDropdown.Item>
                         </NavDropdown>
                     </div>
                 </div>
