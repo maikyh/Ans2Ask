@@ -8,8 +8,6 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const { updateUser } = useContext(UserContext);
 
-    console.log(username + '' + password);
-
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
