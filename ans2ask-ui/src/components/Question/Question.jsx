@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./Question.css";
 
-export default function Question({id, username, subject}) {
+export default function Question({id, username, subject, title, text}) {
   return (
     <div className="question">
       <div className="question-card bg-white mt-4 p-3">
@@ -26,10 +26,10 @@ export default function Question({id, username, subject}) {
           </div>
         </div>
         <div>
-          <span className="fw-bold">Lorem ipsum dolor sit amet consectetur.</span>
+          <span className="fw-bold">{title}</span>
         </div>
         <div className="">
-          <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim ducimus, blanditiis veniam tempore, animi porro perferendis eaque sequi laboriosam, illo ad adipisci praesentium eveniet temporibus suscipit? Fuga velit est non corrupti odio neque, molestias veritatis. Esse dicta nemo quis velit? Ex veritatis voluptates eaque corrupti. </p>
+          <p> {text} </p>
         </div>
       </div>
     </div>

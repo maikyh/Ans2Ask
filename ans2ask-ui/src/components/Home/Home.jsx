@@ -11,6 +11,18 @@ import "./Home.css";
 
 export default function Home() {
   const { user, updateUser } = useContext(UserContext);
+  const [selectedSubject, setSelectedSubject] = useState("All");
+  const [selectedOption, setSelectedOption] = useState(1);
+  // 1 == Questions
+  // 2 == Courses
+
+  const handleSetSelectedSubject = (subject) => {
+    setSelectedSubject(subject);
+  };
+
+  const handleSetSelectedOption = (option) => {
+    setSelectedOption(option);
+  };
 
   const navigate = useNavigate();
 
@@ -29,9 +41,9 @@ export default function Home() {
         <Navbar handleLogout={handleLogout}/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
-                <Subjects/>
-                <QuestionsOrCourses/>
-                <QuestionGrid/>
+                <Subjects selectedSubject={selectedSubject} handleSetSelectedSubject={handleSetSelectedSubject} />
+                <QuestionsOrCourses selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
+                <QuestionGrid selectedOption={selectedOption} selectedSubject={selectedSubject}/>
             </div>
         </div>
         <Footer/>
