@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
@@ -27,7 +28,7 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
                         <input onKeyDown={handleKeyPress} type="text" className="form-control" />
                     </div>
                     <div className="d-flex align-items-center">
-                        <button type="button" className="btn btn-outline-dark">Ask</button>
+                        <Link to={`/ask`} className="btn btn-outline-dark"> Ask </Link>
                         <div style={{ marginLeft: "1.75rem" }}>
                             <FontAwesomeIcon icon={faBell} />
                         </div>
