@@ -5,6 +5,7 @@ import { UserContext } from './UserContext';
 import Home from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
+import SearchResults from "./components/SearchResults/SearchResults";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -33,6 +34,7 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/search" element={<SearchResults />} />
             </Routes>
           </main>
         </BrowserRouter>
