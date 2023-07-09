@@ -1,27 +1,2 @@
 [
-    {
-        "username": "newslover23",
-        "email": "newslover23@example.com",
-        "password": "mysecretpassword"
-    },
-    {
-        "username": "currentevents",
-        "email": "currentevents@example.com",
-        "password": "letmein123"
-    },
-    {
-        "username": "breakingnews77",
-        "email": "breakingnews77@example.com",
-        "password": "news2023"
-    },
-    {
-        "username": "insightfulreader",
-        "email": "insightfulreader@example.com",
-        "password": "booksandnews"
-    },
-    {
-        "username": "journalismfanatic",
-        "email": "journalismfanatic@example.com",
-        "password": "journalismrocks"
-    }
 ]

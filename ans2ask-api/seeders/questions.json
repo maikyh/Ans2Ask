@@ -1,0 +1,182 @@
+[
+    {
+        "title": "What are some effective time management strategies?",
+        "text": "I often struggle with managing my time effectively. Are there any proven techniques or strategies that can help me improve my time management skills?",
+        "subject": "All",
+        "userId": 7
+    },
+    {
+        "title": "How does stress affect our overall well-being?",
+        "text": "I've heard that stress can have a negative impact on our health, but I'm not sure exactly how it affects us. Can someone explain the connection between stress and our overall well-being?",
+        "subject": "All",
+        "userId": 8
+    },
+    {
+        "title": "What are the benefits of learning a second language?",
+        "text": "I'm considering learning a second language, but I'm not sure if it's worth the effort. What are some tangible benefits of learning a second language that can positively impact my personal and professional life?",
+        "subject": "All",
+        "userId": 9
+    },
+    {
+        "title": "What is the difference between artificial intelligence and machine learning?",
+        "text": "I often hear these terms used interchangeably, but I'm not sure if they mean the same thing. Can someone clarify the difference between artificial intelligence and machine learning in the field of informatics?",
+        "subject": "Informatics",
+        "userId": 10
+    },
+    {
+        "title": "How does encryption work in data security?",
+        "text": "I've heard that encryption plays a crucial role in data security, but I'm not familiar with the technical details. Can someone explain how encryption works and how it helps protect sensitive information?",
+        "subject": "Informatics",
+        "userId": 11
+    },
+    {
+        "title": "What are the key challenges in implementing big data analytics?",
+        "text": "Big data analytics has gained significant attention in recent years, but what are some of the major challenges organizations face when implementing big data analytics projects? How can these challenges be overcome?",
+        "subject": "Informatics",
+        "userId": 12
+    },
+    {
+        "title": "What are the real-world applications of calculus?",
+        "text": "I've studied calculus in school, but I'm curious about its practical applications outside the classroom. Can someone provide examples of how calculus is used in various fields or industries?",
+        "subject": "Mathematics",
+        "userId": 13
+    },
+    {
+        "title": "What is the significance of prime numbers in cryptography?",
+        "text": "I've heard that prime numbers play a crucial role in cryptography, but I'm not sure why. Can someone explain why prime numbers are significant in the field of cryptography and how they are utilized?",
+        "subject": "Mathematics",
+        "userId": 14
+    },
+    {
+        "title": "What are some strategies for solving complex algebraic equations?",
+        "text": "Sometimes I come across algebraic equations that seem difficult to solve. Are there any specific strategies or techniques that can help me approach complex algebraic equations more effectively?",
+        "subject": "Mathematics",
+        "userId": 15
+    },
+    {
+        "title": "How does gene expression regulate cellular functions?",
+        "text": "I've learned about gene expression in biology, but I'm interested in understanding how it regulates various cellular functions. Can someone explain the relationship between gene expression and cellular activities?",
+        "subject": "Biology",
+        "userId": 7
+    },
+    {
+        "title": "What are the potential risks and benefits of genetically modified organisms (GMOs)?",
+        "text": "GMOs have become a topic of debate in recent years. Can someone provide an overview of the potential risks and benefits associated with genetically modified organisms in agriculture and other fields?",
+        "subject": "Biology",
+        "userId": 8
+    },
+    {
+        "title": "How does the immune system respond to vaccines?",
+        "text": "Vaccines are designed to stimulate the immune system, but I would like to understand the specific mechanisms involved. Can someone explain how the immune system responds to vaccines and how it develops immunity?",
+        "subject": "Biology",
+        "userId": 9
+    },
+    {
+        "title": "What are some famous works of art from the Renaissance period?",
+        "text": "I'm interested in learning more about the Renaissance period and its artistic contributions. Can someone provide a list of famous works of art from that era and their significance?",
+        "subject": "Art",
+        "userId": 10
+    },
+    {
+        "title": "How does color theory impact visual design?",
+        "text": "I've heard about color theory in the context of visual design, but I'm not sure how it influences the overall aesthetic. Can someone explain the principles of color theory and how they can be applied in design?",
+        "subject": "Art",
+        "userId": 11
+    },
+    {
+        "title": "What are the different forms of business ownership?",
+        "text": "I'm considering starting a business but want to explore different ownership options. Can someone explain the various forms of business ownership, such as sole proprietorship, partnership, and corporation?",
+        "subject": "Business",
+        "userId": 12
+    },
+    {
+        "title": "What are some effective marketing strategies for small businesses?",
+        "text": "As a small business owner, I'm looking for cost-effective marketing strategies to reach a wider audience. Can someone provide some tried-and-tested marketing techniques specifically tailored for small businesses?",
+        "subject": "Business",
+        "userId": 13
+    },
+    {
+        "title": "What are the legal requirements for starting an online business?",
+        "text": "I'm interested in launching an online business, but I'm unsure about the legal aspects involved. Can someone outline the legal requirements and considerations for starting and operating an online business?",
+        "subject": "Business",
+        "userId": 14
+    },
+    {
+        "title": "How does the stock market work?",
+        "text": "I'm new to investing and want to understand the basics of the stock market. Can someone explain how the stock market operates, including concepts like stocks, exchanges, and trading?",
+        "subject": "Investment",
+        "userId": 15
+    },
+    {
+        "title": "What are the key factors to consider when evaluating investment opportunities?",
+        "text": "I want to make informed investment decisions, but I'm unsure about the important factors to consider. Can someone provide guidance on evaluating investment opportunities and assessing their potential returns and risks?",
+        "subject": "Investment",
+        "userId": 7
+    },
+    {
+        "title": "What are the different types of investment vehicles?",
+        "text": "I'm looking to diversify my investment portfolio, but I'm not familiar with the various types of investment vehicles available. Can someone explain different options, such as stocks, bonds, mutual funds, and real estate?",
+        "subject": "Investment",
+        "userId": 8
+    },
+    {
+        "title": "What were the major events of World War II?",
+        "text": "I'm studying World War II in history class and would like to have a comprehensive understanding of the major events that occurred during that time. Can someone provide a list of significant events from the war?",
+        "subject": "History",
+        "userId": 9
+    },
+    {
+        "title": "What are some popular video game genres and their characteristics?",
+        "text": "I enjoy playing video games but would like to explore different genres. Can someone provide an overview of popular video game genres and their defining characteristics?",
+        "subject": "Videogames",
+        "userId": 10
+    },
+    {
+        "title": "How does chemical bonding influence the properties of substances?",
+        "text": "I'm studying chemistry and want to understand how different types of chemical bonds affect the properties of substances. Can someone explain the relationship between chemical bonding and substance characteristics?",
+        "subject": "Chemistry",
+        "userId": 11
+    },
+    {
+        "title": "What are the fundamental laws and principles of physics?",
+        "text": "I'm interested in learning the basics of physics. Can someone provide an overview of the fundamental laws and principles that form the foundation of physics?",
+        "subject": "Physics",
+        "userId": 12
+    },
+    {
+        "title": "How is animation created in movies and video games?",
+        "text": "I'm fascinated by animation in movies and video games and would like to know how it is created. Can someone explain the techniques and processes involved in producing animation?",
+        "subject": "Animation",
+        "userId": 13
+    },
+    {
+        "title": "What are the different types of landforms found on Earth?",
+        "text": "I'm studying geography and want to learn more about the diverse landforms present on our planet. Can someone provide an overview of different types of landforms and their characteristics?",
+        "subject": "Geography",
+        "userId": 14
+    },
+    {
+        "title": "What are some effective strategies for preparing for the SAT?",
+        "text": "I'm planning to take the SAT and want to perform well. Can someone share effective strategies and tips for preparing for the SAT exam?",
+        "subject": "SAT",
+        "userId": 15
+    },
+    {
+        "title": "What are some popular dishes from Italian cuisine?",
+        "text": "I'm interested in trying Italian cuisine and would like to know about some popular dishes. Can someone recommend some traditional Italian dishes that are a must-try?",
+        "subject": "Food",
+        "userId": 7
+    },
+    {
+        "title": "What are the benefits of being multilingual?",
+        "text": "I'm considering learning a new language, but I want to know the advantages of being multilingual. Can someone explain the benefits of being able to speak multiple languages?",
+        "subject": "Languages",
+        "userId": 8
+    },
+    {
+        "title": "How do legal contracts protect parties involved in a business transaction?",
+        "text": "I'm starting a business and need to draft contracts. Can someone explain how legal contracts work and how they protect the rights and interests of parties involved in a business transaction?",
+        "subject": "Law",
+        "userId": 9
+    }
+]
