@@ -50,20 +50,22 @@ export default function QuestionGrid({selectedOption, selectedSubject}) {
         ))
       }
 
-      {selectedOption === 2 && 
-        content?.map((course) => (
-          <div>
-            <iframe
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${course.id.videoId}`}
-              title="YouTube Video Player"
-              frameBorder="0"
-              allowFullScreen
-            />
-          </div>
-        ))
-      }
+      {selectedOption === 2 && (
+        <div className="d-flex flex-column align-items-center">
+          {content?.map((course) => (
+            <div key={course.id.videoId} className="my-2">
+              <iframe
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${course.id.videoId}`}
+                title="YouTube Video Player"
+                frameBorder="0"
+                allowFullScreen
+              />
+            </div>
+          ))}
+        </div>
+)}
     </div>
   );
 }
