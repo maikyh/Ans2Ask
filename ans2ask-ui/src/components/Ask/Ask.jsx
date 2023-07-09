@@ -30,14 +30,16 @@ export default function Ask({handleSetSearchQuery}) {
                     
                 </div>
             </div>
+
+
   
-          <footer className="bg-light py-4">
-              <div className="container text-center">
-                  <p className="text-muted mb-0">
-                  &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
-                  </p>
-              </div>
-          </footer>
+            <footer className="bg-light py-4">
+                <div className="container text-center">
+                    <p className="text-muted mb-0">
+                        &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
+                    </p>
+                </div>
+            </footer>
         </div>
     );
 }
