@@ -24,8 +24,6 @@ export default function SearchResults({searchQuery, handleSetSearchQuery}) {
     updateUser(null);
   };
 
-  console.log(searchQuery);
-
   return (
     <div className="">
         <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
