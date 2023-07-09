@@ -10,6 +10,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const [user, setUser] = useState(() => {
     // Retrieve the user data from storage or set it to null if not found
     const storedUser = localStorage.getItem('user');
@@ -25,16 +27,20 @@ export default function App() {
     localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
 
+  const handleSetSearchQuery = (query) => {
+    setSearchQuery(query);
+  };
+
   return (
     <div className="app">
       <UserContext.Provider value={{ user, updateUser }}>
         <BrowserRouter>
           <main>
             <Routes>
-              <Route path="/home" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/search" element={<SearchResults />} />
+              <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
+              <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
             </Routes>
           </main>
         </BrowserRouter>

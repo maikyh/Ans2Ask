@@ -7,14 +7,10 @@ import QuestionGrid from "../QuestionGrid/QuestionGrid";
 import Footer from "../Footer/Footer";
 import "./SearchResults.css";
 
-export default function Home() {
+export default function SearchResults({searchQuery, handleSetSearchQuery}) {
   const { user, updateUser } = useContext(UserContext);
   const [selectedSubject, setSelectedSubject] = useState("All");
   const [selectedOption, setSelectedOption] = useState(1);
-
-  const handleSetSelectedSubject = (subject) => {
-    setSelectedSubject(subject);
-  };
 
   const navigate = useNavigate();
 
@@ -28,14 +24,16 @@ export default function Home() {
     updateUser(null);
   };
 
+  console.log(searchQuery);
+
   return (
     <div className="">
-        <Navbar handleLogout={handleLogout}/>
+        <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
                 <h1 className="text-center mb-2 fw-bold">All Results</h1>
                 <div className="row border border-dark my-4"></div>
-                <QuestionGrid selectedOption={selectedOption} selectedSubject={selectedSubject}/>
+                <QuestionGrid searchQuery={searchQuery} selectedOption={selectedOption} selectedSubject={selectedSubject}/>
             </div>
         </div>
         <Footer/>

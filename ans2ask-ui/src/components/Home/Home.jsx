@@ -9,7 +9,7 @@ import QuestionsOrCourses from "../QuestionsOrCourses/QuestionsOrCourses";
 import Subjects from "../Subjects/Subjects";
 import "./Home.css";
 
-export default function Home() {
+export default function Home({handleSetSearchQuery}) {
   const { user, updateUser } = useContext(UserContext);
   const [selectedSubject, setSelectedSubject] = useState("All");
   const [selectedOption, setSelectedOption] = useState(1);
@@ -38,12 +38,12 @@ export default function Home() {
 
   return (
     <div className="home">
-        <Navbar handleLogout={handleLogout}/>
+        <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
                 <Subjects selectedSubject={selectedSubject} handleSetSelectedSubject={handleSetSelectedSubject} />
                 <QuestionsOrCourses selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
-                <QuestionGrid selectedOption={selectedOption} selectedSubject={selectedSubject}/>
+                <QuestionGrid searchQuery={""} selectedOption={selectedOption} selectedSubject={selectedSubject}/>
             </div>
         </div>
         <Footer/>

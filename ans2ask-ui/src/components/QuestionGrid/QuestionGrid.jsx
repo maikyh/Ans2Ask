@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
 import "./QuestionGrid.css";
 
-export default function QuestionGrid({selectedOption, selectedSubject}) {
+export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
 
@@ -28,16 +28,25 @@ export default function QuestionGrid({selectedOption, selectedSubject}) {
   }, [selectedSubject]);
 
   let content;
-  if(selectedOption === 1){
-    if(selectedSubject !== "All"){
-      content = questions.filter(question => question.subject === selectedSubject);
+  if(searchQuery.length === 0){
+    if(selectedOption === 1){
+      if(selectedSubject !== "All"){
+        content = questions.filter(question => question.subject === selectedSubject);
+      }
+      else {
+        content = questions;
+      }
     }
-    else {
-      content = questions;
+    else{
+      content = courses.items;
     }
   }
   else{
-    content = courses.items;
+    content = questions.filter(question => {
+      const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const textMatches = question.text.toLowerCase().includes(searchQuery.toLowerCase());
+      return titleMatches || textMatches;
+    });
   }
 
   return (
@@ -65,7 +74,7 @@ export default function QuestionGrid({selectedOption, selectedSubject}) {
             </div>
           ))}
         </div>
-)}
+      )}
     </div>
   );
 }
