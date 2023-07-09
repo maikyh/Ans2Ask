@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
 import "./QuestionGrid.css";
 
-export default function QuestionGrid() {
+export default function QuestionGrid({selectedSubject}) {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -15,11 +15,20 @@ export default function QuestionGrid() {
     fetchPosts();
   }, []);
 
-  console.log(questions);
+  let filteredQuestions;
+  if(selectedSubject !== "All"){
+    filteredQuestions = questions.filter(question => question.subject === selectedSubject);
+    console.log(filteredQuestions);
+  }
+  else {
+    filteredQuestions = questions;
+  }
+
+  //console.log(questions);
 
   return (
     <div className="QuestionGrid">
-      {questions?.map((question) => (
+      {filteredQuestions?.map((question) => (
         <div key={question.id}>
           <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} text={question.text} />
         </div>

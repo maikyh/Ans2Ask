@@ -36,7 +36,7 @@ export default function Home() {
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
                 <Subjects selectedSubject={selectedSubject} handleSetSelectedSubject={handleSetSelectedSubject} />
                 <QuestionsOrCourses/>
-                <QuestionGrid/>
+                <QuestionGrid selectedSubject={selectedSubject}/>
             </div>
         </div>
         <Footer/>
