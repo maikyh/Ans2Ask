@@ -3,36 +3,67 @@ import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
 import "./QuestionGrid.css";
 
-export default function QuestionGrid({selectedSubject}) {
+export default function QuestionGrid({selectedOption, selectedSubject}) {
   const [questions, setQuestions] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchQuestions = async () => {
       const response = await fetch('http://localhost:3001/questions');
       const data = await response.json();
       setQuestions(data);
     };
-    fetchPosts();
+
+    fetchQuestions();
   }, []);
 
-  let filteredQuestions;
-  if(selectedSubject !== "All"){
-    filteredQuestions = questions.filter(question => question.subject === selectedSubject);
-    console.log(filteredQuestions);
-  }
-  else {
-    filteredQuestions = questions;
-  }
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedSubject}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`);
+      const data = await response.json();
+      setCourses(data);
+    };
 
-  //console.log(questions);
+    fetchCourses();
+  }, [selectedSubject]);
+
+  let content;
+  if(selectedOption === 1){
+    if(selectedSubject !== "All"){
+      content = questions.filter(question => question.subject === selectedSubject);
+    }
+    else {
+      content = questions;
+    }
+  }
+  else{
+    content = courses.items;
+  }
 
   return (
     <div className="QuestionGrid">
-      {filteredQuestions?.map((question) => (
-        <div key={question.id}>
-          <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} text={question.text} />
-        </div>
-      ))}
+      {selectedOption === 1 && 
+        content?.map((question) => (
+          <div key={question.id}>
+            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} text={question.text} />
+          </div>
+        ))
+      }
+
+      {selectedOption === 2 && 
+        content?.map((course) => (
+          <div>
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${course.id.videoId}`}
+              title="YouTube Video Player"
+              frameBorder="0"
+              allowFullScreen
+            />
+          </div>
+        ))
+      }
     </div>
   );
 }
