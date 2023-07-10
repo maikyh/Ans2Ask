@@ -8,6 +8,13 @@ import "./Ask.css";
 
 export default function Ask({handleSetSearchQuery}) {
     const { user, updateUser } = useContext(UserContext);
+    const [title, setTitle] = useState("");
+    const [text, setText] = useState("");
+    const [subject, setSubject] = useState("Select Subject");
+
+    const handleSetSubject = (selectedSubject) => {
+        setSubject(selectedSubject);
+    };
 
     const navigate = useNavigate();
 
@@ -34,9 +41,9 @@ export default function Ask({handleSetSearchQuery}) {
                             <input 
                                 className="form-control bg-lighter" 
                                 type="text"
-                                id="username"
-                                //value={username}
-                                //onChange={(e) => setUsername(e.target.value)}
+                                id="title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
                                 required
                             />
                         </div>
@@ -46,30 +53,31 @@ export default function Ask({handleSetSearchQuery}) {
                                 class="form-control bg-lighter" 
                                 id="text" 
                                 rows="6"
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
                                 required
                             ></textarea>
                         </div>
                         <button className='btn btn-secondary'>
-                        <NavDropdown title="Select Subject">
+                        <NavDropdown title={subject}>
                             <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                            <NavDropdown.Item>All</NavDropdown.Item>
-                            <NavDropdown.Item>Informatics</NavDropdown.Item>
-                            <NavDropdown.Item>Mathematics</NavDropdown.Item>
-                            <NavDropdown.Item>Biology</NavDropdown.Item>
-                            <NavDropdown.Item>Health</NavDropdown.Item>
-                            <NavDropdown.Item>Art</NavDropdown.Item>
-                            <NavDropdown.Item>Business</NavDropdown.Item>
-                            <NavDropdown.Item>Law</NavDropdown.Item>
-                            <NavDropdown.Item>Investment</NavDropdown.Item>
-                            <NavDropdown.Item>History</NavDropdown.Item>
-                            <NavDropdown.Item>Videogames</NavDropdown.Item>
-                            <NavDropdown.Item>Chemistry</NavDropdown.Item>
-                            <NavDropdown.Item>Physics</NavDropdown.Item>
-                            <NavDropdown.Item>Animation</NavDropdown.Item>
-                            <NavDropdown.Item>Geography</NavDropdown.Item>
-                            <NavDropdown.Item>SAT</NavDropdown.Item>
-                            <NavDropdown.Item>Food</NavDropdown.Item>
-                            <NavDropdown.Item>Languages</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Biology")}}>Biology</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Health")}}>Health</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Art")}}>Art</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Business")}}>Business</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Law")}}>Law</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Investment")}}>Investment</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("History")}}>History</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Videogames")}}>Videogames</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Chemistry")}}>Chemistry</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Physics")}}>Physics</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Animation")}}>Animation</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Geography")}}>Geography</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("SAT")}}>SAT</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Food")}}>Food</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => {handleSetSubject("Languages")}}>Languages</NavDropdown.Item>
                             </div>
                         </NavDropdown>
                         </button>
