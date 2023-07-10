@@ -23,6 +23,48 @@ export default function Ask({handleSetSearchQuery}) {
         navigate('/login');
         }
     }, [user]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if(subject === "Select Subject") {
+            alert("Select a Subject");
+            return;
+        }
+    
+        try {
+          // Make the signup API request
+          const response = await fetch(`http://localhost:3001/questions`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, text, subject }),
+            credentials: 'include'
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            const loggedInUser = data.user;
+    
+            console.log('The question was successfully posted');
+    
+            // Reset form fields
+            setTitle('');
+            setText('');
+            setSubject("Select Subject");
+    
+            // Navigate to home
+            navigate('/home');
+          } else {
+            // Handle signup failure case
+            alert('Upload failed');
+          }
+        } catch (error) {
+          // Handle any network or API request errors
+          alert('Upload failed: ' + error);
+        }
+    };
     
     const handleLogout = () => {
         updateUser(null);
@@ -35,7 +77,7 @@ export default function Ask({handleSetSearchQuery}) {
             <div className="d-flex justify-content-center align-items-center custom-margin-ask">
                 <div className="custom-container-ask bg-light p-4 border rounded px-5">
                     <h1 className="text-center mb-4 fw-bold">Ask Your Question !</h1>
-                    <form >
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group mb-4">
                             <label className="mb-2 fw-bold" htmlFor="title">Title</label>
                             <input 
@@ -59,7 +101,7 @@ export default function Ask({handleSetSearchQuery}) {
                             ></textarea>
                         </div>
                         <button className='btn btn-secondary'>
-                        <NavDropdown title={subject}>
+                        <NavDropdown required title={subject}>
                             <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
                             <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
                             <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
