@@ -57,7 +57,7 @@ export default function Ask({handleSetSearchQuery}) {
             // Navigate to home
             navigate('/home');
           } else {
-            // Handle signup failure case
+            // Handle upload failure case
             alert('Upload failed');
           }
         } catch (error) {
@@ -129,8 +129,6 @@ export default function Ask({handleSetSearchQuery}) {
                     </form>
                 </div>
             </div>
-
-
   
             <footer className="bg-light py-4">
                 <div className="container text-center">
