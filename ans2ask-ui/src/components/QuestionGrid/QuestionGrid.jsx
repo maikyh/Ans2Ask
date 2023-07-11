@@ -5,6 +5,16 @@ import "./QuestionGrid.css";
 
 const url = `http://localhost:3001`;
 
+//Options
+const question = 1;
+const course = 2;
+
+//Subjects
+const allSubjects = "All";
+
+//Query on search
+const noQuery = 0;
+
 export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
@@ -30,16 +40,16 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
   }, [selectedSubject]);
 
   let content;
-  if(searchQuery.length === 0){
-    if(selectedOption === 1){
-      if(selectedSubject !== "All"){
-        content = questions.filter(question => question.subject === selectedSubject);
-      }
-      else {
+  if(searchQuery.length === noQuery){
+    if(selectedOption === question){
+      if(selectedSubject === allSubjects){  
         content = questions;
       }
+      else {
+        content = questions.filter(question => question.subject === selectedSubject);
+      }
     }
-    else{
+    else if(selectedOption === course){
       content = courses.items;
     }
   }
