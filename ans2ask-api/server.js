@@ -133,6 +133,34 @@ app.get('/answers', async (req, res) => {
   }
 });
 
+// Route to create a new answer
+app.post('/answers', async (req, res) => {
+  try {
+    // Check if user is logged in
+    if (!req.session.user) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    // Retrieve the current user from the session
+    const currentUser = req.session.user;
+
+    // Create the answer with the current user ID
+    const answer = await Answer.create({
+      ...req.body,
+      userId: currentUser.id
+    });
+
+    const answerWithUser = await Answer.findOne({
+      where: { id: answer.id },
+      include: [{ model: User, as: 'user' }]
+    });
+
+    res.status(201).json(answerWithUser);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 sequelize.sync({ alter: true })
   .then(() => {
     const port = 3001;
