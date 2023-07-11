@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
+import Swal from 'sweetalert2';
 import "./Login.css";
 
 export default function Login() {
@@ -14,7 +15,6 @@ export default function Login() {
         e.preventDefault();
     
         try {
-          // Make the login API request
           const response = await fetch(`http://localhost:3001/users/login`, {
             method: 'POST',
             headers: {
@@ -28,18 +28,23 @@ export default function Login() {
             const data = await response.json();
             const loggedInUser = data.user;
     
-            // Update the user context
             updateUser(loggedInUser);
     
-            // Navigate to the home page after successful login
             navigate('/home');
           } else {
-            // Handle the login failure case
-            alert('Login failed');
+            Swal.fire({
+              icon: 'error',
+              title: 'Login Failed',
+              text: 'Invalid username or password. Please try again.',
+            });
           }
         } catch (error) {
-          // Handle any network or API request errors
-          alert('Login failed: ' + error);
+          console.log('Login failed: ' + error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: 'Invalid username or password. Please try again.',
+          });
         }
     };
 

@@ -9,7 +9,7 @@ import "./Ask.css";
 export default function Ask({handleSetSearchQuery}) {
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
-    const [text, setText] = useState("");
+    const [body, setbody] = useState("");
     const [subject, setSubject] = useState("Select Subject");
 
     const handleSetSubject = (selectedSubject) => {
@@ -39,7 +39,7 @@ export default function Ask({handleSetSearchQuery}) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, text, subject }),
+            body: JSON.stringify({ title, body, subject }),
             credentials: 'include'
           });
     
@@ -51,7 +51,7 @@ export default function Ask({handleSetSearchQuery}) {
     
             // Reset form fields
             setTitle('');
-            setText('');
+            setbody('');
             setSubject("Select Subject");
     
             // Navigate to home
@@ -95,8 +95,8 @@ export default function Ask({handleSetSearchQuery}) {
                                 class="form-control bg-lighter" 
                                 id="text" 
                                 rows="6"
-                                value={text}
-                                onChange={(e) => setText(e.target.value)}
+                                value={body}
+                                onChange={(e) => setbody(e.target.value)}
                                 required
                             ></textarea>
                         </div>

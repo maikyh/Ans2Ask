@@ -6,12 +6,13 @@ export const Question = sequelize.define('Question', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  text: {
+  body: {
     type: DataTypes.TEXT,
     allowNull: false
   },
   subject: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM,
+    values: ['All', 'Informatics', 'Mathematics', 'Biology', 'Health', 'Art', 'Business', 'Law', 'Investment', 'History', 'Videogames', 'Chemistry', 'Physics', 'Animation', 'Geography', 'SAT', 'Food', 'Languages'],
     allowNull: false
   }
 });

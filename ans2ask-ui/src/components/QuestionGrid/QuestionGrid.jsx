@@ -3,13 +3,25 @@ import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
 import "./QuestionGrid.css";
 
+const url = `http://localhost:3001`;
+
+//Options
+const question = 1;
+const course = 2;
+
+//Subjects
+const allSubjects = "All";
+
+//Query on search
+const noQuery = 0;
+
 export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch('http://localhost:3001/questions');
+      const response = await fetch(url + '/questions');
       const data = await response.json();
       setQuestions(data);
     };
@@ -27,34 +39,28 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     fetchCourses();
   }, [selectedSubject]);
 
-  let content;
-  if(searchQuery.length === 0){
-    if(selectedOption === 1){
-      if(selectedSubject !== "All"){
-        content = questions.filter(question => question.subject === selectedSubject);
-      }
-      else {
-        content = questions;
-      }
+  function getContent() {
+    if(searchQuery.length !== noQuery){
+      let currentContent = questions.filter(question => {
+        const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const textMatches = question.body.toLowerCase().includes(searchQuery.toLowerCase());
+        return titleMatches || textMatches;
+      });
+      return currentContent; 
     }
-    else{
-      content = courses.items;
-    }
+    if(selectedOption === course) return courses.items;
+    if(selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
+    return questions;
   }
-  else{
-    content = questions.filter(question => {
-      const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
-      const textMatches = question.text.toLowerCase().includes(searchQuery.toLowerCase());
-      return titleMatches || textMatches;
-    });
-  }
+
+  let content = getContent();
 
   return (
     <div className="QuestionGrid">
       {selectedOption === 1 && 
         content?.map((question) => (
           <div key={question.id}>
-            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} text={question.text} />
+            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} />
           </div>
         ))
       }

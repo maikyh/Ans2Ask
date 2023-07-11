@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 import "./Register.css";
 
 export default function Register() {
@@ -13,7 +14,6 @@ export default function Register() {
         e.preventDefault();
     
         try {
-          // Make the signup API request
           const response = await fetch(`http://localhost:3001/users`, {
             method: 'POST',
             headers: {
@@ -29,20 +29,25 @@ export default function Register() {
     
             console.log('The user was successfully registered');
     
-            // Reset form fields
             setUsername('');
             setEmail('');
             setPassword('');
     
-            // Navigate to the login after successful login
             navigate('/login');
           } else {
-            // Handle signup failure case
-            alert('Registration failed');
+            Swal.fire({
+              icon: 'error',
+              title: 'Registration Failed',
+              text: 'An error occurred while processing your registration. Please try again later.',
+            });
           }
         } catch (error) {
-          // Handle any network or API request errors
-          alert('Registration failed: ' + error);
+          console.log("Error: " + error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: 'An error occurred while processing your registration. Please try again later.',
+          });
         }
       };
     
