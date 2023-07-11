@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "./Question.css";
 
-export default function Question({id, username, subject, title, text}) {
+export default function Question({id, username, subject, title, body}) {
   return (
     <div className="question">
       <div className="question-card bg-white mt-4 p-3">
@@ -29,7 +29,7 @@ export default function Question({id, username, subject, title, text}) {
           <span className="fw-bold">{title}</span>
         </div>
         <div className="">
-          <p> {text} </p>
+          <p> {body} </p>
         </div>
       </div>
     </div>

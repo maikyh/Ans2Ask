@@ -3,13 +3,15 @@ import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
 import "./QuestionGrid.css";
 
+const url = `http://localhost:3001`;
+
 export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const response = await fetch('http://localhost:3001/questions');
+      const response = await fetch(url + '/questions');
       const data = await response.json();
       setQuestions(data);
     };
