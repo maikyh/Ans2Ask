@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import SearchResults from "./components/SearchResults/SearchResults";
+import Ask from "./components/Ask/Ask";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -41,6 +42,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
               <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
+              <Route path="/ask" element={<Ask handleSetSearchQuery={handleSetSearchQuery} />} />
             </Routes>
           </main>
         </BrowserRouter>
