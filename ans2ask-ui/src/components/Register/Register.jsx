@@ -13,7 +13,6 @@ export default function Register() {
         e.preventDefault();
     
         try {
-          // Make the signup API request
           const response = await fetch(`http://localhost:3001/users`, {
             method: 'POST',
             headers: {
@@ -29,19 +28,15 @@ export default function Register() {
     
             console.log('The user was successfully registered');
     
-            // Reset form fields
             setUsername('');
             setEmail('');
             setPassword('');
     
-            // Navigate to the login after successful login
             navigate('/login');
           } else {
-            // Handle signup failure case
             alert('Registration failed');
           }
         } catch (error) {
-          // Handle any network or API request errors
           alert('Registration failed: ' + error);
         }
       };
