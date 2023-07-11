@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 import "./Register.css";
 
 export default function Register() {
@@ -34,10 +35,19 @@ export default function Register() {
     
             navigate('/login');
           } else {
-            alert('Registration failed');
+            Swal.fire({
+              icon: 'error',
+              title: 'Registration Failed',
+              text: 'An error occurred while processing your registration. Please try again later.',
+            });
           }
         } catch (error) {
-          alert('Registration failed: ' + error);
+          console.log("Error: " + error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: 'An error occurred while processing your registration. Please try again later.',
+          });
         }
       };
     
