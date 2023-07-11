@@ -39,34 +39,28 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     fetchCourses();
   }, [selectedSubject]);
 
-  let content;
-  if(searchQuery.length === noQuery){
-    if(selectedOption === question){
-      if(selectedSubject === allSubjects){  
-        content = questions;
-      }
-      else {
-        content = questions.filter(question => question.subject === selectedSubject);
-      }
+  function getContent() {
+    if(searchQuery.length !== noQuery){
+      let currentContent = questions.filter(question => {
+        const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
+        const textMatches = question.body.toLowerCase().includes(searchQuery.toLowerCase());
+        return titleMatches || textMatches;
+      });
+      return currentContent; 
     }
-    else if(selectedOption === course){
-      content = courses.items;
-    }
+    if(selectedOption === course) return courses.items;
+    if(selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
+    return questions;
   }
-  else{
-    content = questions.filter(question => {
-      const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
-      const textMatches = question.text.toLowerCase().includes(searchQuery.toLowerCase());
-      return titleMatches || textMatches;
-    });
-  }
+
+  let content = getContent();
 
   return (
     <div className="QuestionGrid">
       {selectedOption === 1 && 
         content?.map((question) => (
           <div key={question.id}>
-            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} text={question.text} />
+            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} />
           </div>
         ))
       }
