@@ -3,7 +3,7 @@ import session from 'express-session';
 import cors from 'cors';
 import morgan from 'morgan';
 import { sequelize } from './database.js';
-import { User, Question } from './models/index.js';
+import { User, Question, Answer } from './models/index.js';
 import userRoutes from './routes/users.js';
 import SequelizeStoreInit from 'connect-session-sequelize';
 
@@ -115,6 +115,19 @@ app.post('/questions', async (req, res) => {
     });
 
     res.status(201).json(questionWithUser);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to get all answers, with associated users
+app.get('/answers', async (req, res) => {
+  try {
+    const answers = await Answer.findAll({
+      include: [{ model: User, as: 'user' }],
+      order: [['createdAt', 'DESC']]
+    });
+    res.json(answers);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
