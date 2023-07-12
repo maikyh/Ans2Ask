@@ -7,17 +7,6 @@ import "./Question.css";
 
 const url = `http://localhost:3001`;
 
-/*
-<div className="answer">
-  {answersToThisQuestion?.map((answer) => (
-      <div key={answer.id}>
-        {answer.body}
-      </div>
-    ))
-  }
-</div>
-*/
-
 export default function Question({id, username, subject, title, body}) {
   const [answers, setAnswers] = useState([]);
 
