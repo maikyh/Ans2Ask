@@ -68,8 +68,8 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
 
             <div className="d-flex justify-content-center align-items-center">
-                <div className="custom-container-question-details bg-light px-4 pt-4">
-                    <div className="question-card bg-white mt-4 px-3 pt-3">
+                <div className="custom-container-question-details bg-light px-4 pt-2">
+                    <div className="question-card bg-white mt-0 px-3 pt-3">
                         <div className="row">
                             <div className="col-auto">
                                 <FontAwesomeIcon icon={faUser} />
@@ -106,7 +106,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                                         <h6 className="mt-1"> {answer.user.username} </h6>
                                     </div>
                                 </div>
-                                <div className="row border border-dark mb-1 mx-1"></div>
+                                <div className="row border border-dark mb-1 mx-0"></div>
                                 <div className="">
                                     <p className="mb-1"> {answer.body} </p>
                                 </div>
@@ -115,6 +115,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                     </div>
                   ))
             }
+
             <Footer/>
         </div>
     );
