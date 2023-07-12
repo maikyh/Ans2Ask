@@ -42,36 +42,35 @@ export default function QuestionDetails({handleSetSearchQuery}) {
     return (
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+
             <div className="d-flex justify-content-center align-items-center">
                 <div className="custom-container-question-details bg-light px-4 pt-4 pb-2">
-                <div className="question-card bg-white mt-4 p-3">
-                <div className="row">
-                <div className="col-auto">
-                    <FontAwesomeIcon icon={faUser} />
-                </div>
+                    <div className="question-card bg-white mt-4 p-3">
+                        <div className="row">
+                            <div className="col-auto">
+                                <FontAwesomeIcon icon={faUser} />
+                            </div>
 
-                <div className="col-auto">
-                    <h6 className="mt-1"> {user.username} </h6>
-                </div>
+                            <div className="col-auto">
+                                <h6 className="mt-1"> {user.username} </h6>
+                            </div>
 
-                <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
+                            <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
 
-                <div className="col-auto">
-                    <h6 className="mt-1"> {question.subject} </h6>
-                </div>
-                <div>
-
-                </div>
-                </div>
-                <div>
-                <span className="fw-bold">{question.title}</span>
-                </div>
-                <div className="">
-                <p> {question.body} </p>
+                            <div className="col-auto">
+                                <h6 className="mt-1"> {question.subject} </h6>
+                            </div>
+                        </div>
+                        <div>
+                            <span className="fw-bold">{question.title}</span>
+                        </div>
+                        <div className="">
+                            <p> {question.body} </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-                </div>
-            </div>
+        
             <Footer/>
         </div>
     );
