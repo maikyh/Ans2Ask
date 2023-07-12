@@ -116,6 +116,14 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                   ))
             }
 
+            <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
+                    <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
+                        <input placeholder="Ans the question.." type="text" className="form-control custom-input-question-details" />
+                    </div>
+                </div>
+            </div>
+
             <Footer/>
         </div>
     );
