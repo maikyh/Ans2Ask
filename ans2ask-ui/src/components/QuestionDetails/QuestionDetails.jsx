@@ -3,9 +3,9 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
-import "./QuestionDetails.css";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer.jsx";
+import "./QuestionDetails.css";
 
 const url = `http://localhost:3001`;
 
@@ -35,7 +35,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         };
     
         fetchQuestion();
-      }, []);
+    }, []);
 
     return (
         <div className="question-details">
