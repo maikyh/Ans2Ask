@@ -13,6 +13,7 @@ const url = `http://localhost:3001`;
 
 export default function QuestionDetails({handleSetSearchQuery}) {
     const [question, setQuestion] = useState([]);
+    const [answers, setAnswers] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
     const [FinishStatus, setFinishStatus] = useState(false);
     const { user, updateUser } = useContext(UserContext);
@@ -22,7 +23,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
     useEffect(() => {
         if(!user) {
-        navigate('/login');
+            navigate('/login');
         }
     }, [user]);
 
@@ -33,8 +34,15 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             setQuestion(data);
             setFinishStatus(true);
         };
-    
+
+        const fetchAnswers = async () => {
+            const response = await fetch(url + `/answers`);
+            const data = await response.json();
+            setAnswers(data);
+        };
+
         fetchQuestion();
+        fetchAnswers();
     }, []);
 
     useEffect(() => {
@@ -51,7 +59,9 @@ export default function QuestionDetails({handleSetSearchQuery}) {
     const handleLogout = () => {
         updateUser(null);
     };
-
+    
+    const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
+    
     return (
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
@@ -81,7 +91,14 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                     </div>
                 </div>
             </div>
-        
+
+            {
+                answersOfCurrentQuestion?.map((answer) => (
+                    <div>
+                        hola
+                    </div>
+                  ))
+            }
             <Footer/>
         </div>
     );
