@@ -41,7 +41,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             <div className="d-flex justify-content-center align-items-center">
-                <div className="custom-container-home bg-light px-4 pt-4 pb-2">
+                <div className="custom-container-question-details bg-light px-4 pt-4 pb-2">
                     lol
                 </div>
             </div>
