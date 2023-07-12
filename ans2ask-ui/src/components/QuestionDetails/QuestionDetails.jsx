@@ -13,7 +13,10 @@ const url = `http://localhost:3001`;
 
 export default function QuestionDetails({handleSetSearchQuery}) {
     const [question, setQuestion] = useState([]);
+    const [userFromQuestion, setUserFromQuestion] = useState([]);
+    const [FinishStatus, setFinishStatus] = useState(false);
     const { user, updateUser } = useContext(UserContext);
+    const { id } = useParams();
 
     const navigate = useNavigate();
 
@@ -22,22 +25,32 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         navigate('/login');
         }
     }, [user]);
-    
-    const handleLogout = () => {
-        updateUser(null);
-    };
-
-    const { id } = useParams();
 
     useEffect(() => {
         const fetchQuestion = async () => {
-          const response = await fetch(url + `/questions/${id}`);
-          const data = await response.json();
-          setQuestion(data);
+            const response = await fetch(url + `/questions/${id}`);
+            const data = await response.json();
+            setQuestion(data);
+            setFinishStatus(true);
         };
     
         fetchQuestion();
     }, []);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const response = await fetch(url + `/users/${question.userId}`);
+            const data = await response.json();
+            setUserFromQuestion(data);
+            setFinishStatus(false);
+        };
+
+        fetchUser();
+    }, [FinishStatus]);
+
+    const handleLogout = () => {
+        updateUser(null);
+    };
 
     return (
         <div className="question-details">
@@ -50,11 +63,9 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                             <div className="col-auto">
                                 <FontAwesomeIcon icon={faUser} />
                             </div>
-
                             <div className="col-auto">
-                                <h6 className="mt-1"> {user.username} </h6>
+                                <h6 className="mt-1"> {userFromQuestion.username} </h6>
                             </div>
-
                             <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
 
                             <div className="col-auto">
