@@ -16,6 +16,8 @@ export default function QuestionDetails({handleSetSearchQuery}) {
     const [answers, setAnswers] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
     const [FinishStatus, setFinishStatus] = useState(false);
+    const [body, setBody] = useState("");
+    const [thanks, setThanks] = useState(false);
     const { user, updateUser } = useContext(UserContext);
     const { id } = useParams();
 
@@ -61,7 +63,41 @@ export default function QuestionDetails({handleSetSearchQuery}) {
     };
     
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
-    console.log(answersOfCurrentQuestion);
+
+    const handleSubmit = async (e) => {
+        const questionId = id;
+
+        try {
+          // Make the question API request
+          const response = await fetch(`http://localhost:3001/answers`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ body, thanks, questionId }),
+            credentials: 'include'
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            const loggedInUser = data.user;
+    
+            console.log(`The answer was successfully added on question ${questionId}`);
+    
+            // Reset form fields
+            setBody('');
+    
+            // Refresh the page
+            navigate(`/question/${id}`);
+          } else {
+            // Handle upload failure case
+            alert('Upload failed');
+          }
+        } catch (error) {
+          // Handle any network or API request errors
+          alert('Upload failed: ' + error);
+        }
+    };
 
     return (
         <div className="question-details">
@@ -119,7 +155,12 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             <div className="d-flex justify-content-center align-items-center">
                 <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
-                        <input placeholder="Ans the question.." type="text" className="form-control custom-input-question-details" />
+                        <form onSubmit={handleSubmit}>
+                            <input onChange={(e) => setBody(e.target.value)} placeholder="Ans the question.." type="text" className="form-control custom-input-question-details" />
+                            <div className="d-flex justify-content-center">
+                                <button className="form-group btn btn-dark fw-bold mt-4">Send Answer</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
