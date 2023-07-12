@@ -44,7 +44,7 @@ export default function App() {
               <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
               <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
               <Route path="/ask" element={<Ask handleSetSearchQuery={handleSetSearchQuery} />} />
-              <Route path="/question/:id" element={<QuestionDetails />} />
+              <Route path="/question/:id" element={<QuestionDetails handleSetSearchQuery={handleSetSearchQuery}  />} />
             </Routes>
           </main>
         </BrowserRouter>
