@@ -3,3 +3,9 @@
     height: 100%;
     width: 100%;
 }
+
+.custom-container-question-details-answer {
+    max-width: 1000px; 
+    height: 100%;
+    width: 100%;
+}

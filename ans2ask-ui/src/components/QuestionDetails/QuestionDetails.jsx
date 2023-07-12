@@ -61,7 +61,8 @@ export default function QuestionDetails({handleSetSearchQuery}) {
     };
     
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
-    
+    console.log(answersOfCurrentQuestion);
+
     return (
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
@@ -94,8 +95,22 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
             {
                 answersOfCurrentQuestion?.map((answer) => (
-                    <div>
-                        hola
+                    <div className="d-flex justify-content-center align-items-center">
+                        <div className="custom-container-question-details bg-light px-4 pt-4 pb-2">
+                            <div className="bg-white mt-4 p-3">
+                                <div className="row">
+                                    <div className="col-auto">
+                                        <FontAwesomeIcon icon={faUser} />
+                                    </div>
+                                    <div className="col-auto">
+                                        <h6 className="mt-1"> {answer.user.username} </h6>
+                                    </div>
+                                </div>
+                                <div className="">
+                                    <p> {answer.body} </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   ))
             }
