@@ -105,7 +105,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
             <div className="d-flex justify-content-center align-items-center">
                 <div className="custom-container-question-details bg-light px-4 pt-2">
-                    <div className="question-card bg-white mt-0 px-3 pt-3">
+                    <div className="question-card bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
                                 <FontAwesomeIcon icon={faUser} />

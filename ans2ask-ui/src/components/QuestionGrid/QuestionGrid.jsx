@@ -57,7 +57,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
 
   return (
     <div className="QuestionGrid">
-      {selectedOption === 1 && 
+      {selectedOption === question && 
         content?.map((question) => (
           <div key={question.id}>
             <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} />
@@ -65,7 +65,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         ))
       }
 
-      {selectedOption === 2 && (
+      {selectedOption === course && (
         <div className="d-flex flex-column align-items-center">
           {content?.map((course) => (
             <div key={course.id.videoId} className="my-2">

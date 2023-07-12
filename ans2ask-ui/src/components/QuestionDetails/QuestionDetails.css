@@ -4,6 +4,10 @@
     width: 100%;
 }
 
+.custom-margin-question-details {
+    height: auto;
+}
+
 .custom-container-question-details-answer {
     max-width: 850px; 
     height: 100%;

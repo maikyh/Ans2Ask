@@ -7,6 +7,8 @@ import "./Question.css";
 
 const url = `http://localhost:3001`;
 
+const MAX_LENGTH = 370;
+
 export default function Question({id, username, subject, title, body}) {
   const [answers, setAnswers] = useState([]);
 
@@ -28,6 +30,11 @@ export default function Question({id, username, subject, title, body}) {
     navigate(`/question/${id}`);
   }
 
+  function truncateText(body) {
+    if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
+    return body;
+  }
+  
   return (
     <div style={{ cursor: 'pointer' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
       <div className="question-card bg-white mt-4 p-3">
@@ -53,7 +60,7 @@ export default function Question({id, username, subject, title, body}) {
           <span className="fw-bold">{title}</span>
         </div>
         <div className="">
-          <p> {body} </p>
+          <p> {truncateText(body)} </p>
         </div>
       </div>
     </div>
