@@ -68,8 +68,8 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
 
             <div className="d-flex justify-content-center align-items-center">
-                <div className="custom-container-question-details bg-light px-4 pt-4 pb-2">
-                    <div className="question-card bg-white mt-4 p-3">
+                <div className="custom-container-question-details bg-light px-4 pt-4">
+                    <div className="question-card bg-white mt-4 px-3 pt-3">
                         <div className="row">
                             <div className="col-auto">
                                 <FontAwesomeIcon icon={faUser} />
@@ -96,8 +96,8 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             {
                 answersOfCurrentQuestion?.map((answer) => (
                     <div className="d-flex justify-content-center align-items-center">
-                        <div className="custom-container-question-details bg-light px-4 pt-4 pb-2">
-                            <div className="bg-white mt-4 p-3">
+                        <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
+                            <div className="custom-container-question-details-answer mt-0 p-2 px-3">
                                 <div className="row">
                                     <div className="col-auto">
                                         <FontAwesomeIcon icon={faUser} />
@@ -106,8 +106,9 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                                         <h6 className="mt-1"> {answer.user.username} </h6>
                                     </div>
                                 </div>
+                                <div className="row border border-dark mb-1 mx-1"></div>
                                 <div className="">
-                                    <p> {answer.body} </p>
+                                    <p className="mb-1"> {answer.body} </p>
                                 </div>
                             </div>
                         </div>
