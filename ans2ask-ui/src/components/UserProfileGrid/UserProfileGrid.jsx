@@ -38,7 +38,6 @@ export default function UserProfileGrid({ selectedOption, userId }) {
             for(let j = 0; j<answers.length; j++){
                 if(questions[i].id === answers[j].questionId){
                     UserAnswers.push(questions[i]);
-                    console.log(questions[i]);
                     break;
                 }
             }
@@ -53,9 +52,13 @@ export default function UserProfileGrid({ selectedOption, userId }) {
 
     return (
         <div className="UserQuestionGrid">
-            <div className="">
-
-            </div>
+            { 
+                content?.map((question) => (
+                <div key={question.id}>
+                    <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} />
+                </div>
+                ))
+            }
         </div>
     );
 }

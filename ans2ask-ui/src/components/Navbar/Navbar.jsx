@@ -22,6 +22,8 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
         }
     };
 
+    console.log(user);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
@@ -43,7 +45,7 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
                                 }
                                 {
                                     !user && 
-                                    <Link style={{ textDecoration: 'none' }}> View Profile </Link> 
+                                    <Link style={{ textDecoration: 'none' }}> View Profilee </Link> 
                                 }
                                 
                             </NavDropdown.Item>
