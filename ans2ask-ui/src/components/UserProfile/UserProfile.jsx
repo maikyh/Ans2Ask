@@ -6,10 +6,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
 import "./UserProfile.css";
 
 export default function UserProfile({handleSetSearchQuery}) {
   const { user, updateUser } = useContext(UserContext);
+  const [selectedOption, setSelectedOption] = useState(1);
+  // 1 == Questions
+  // 2 == Answers
+
+  const handleSetSelectedOption = (option) => {
+    setSelectedOption(option);
+  };
 
   const navigate = useNavigate();
 
@@ -37,7 +45,9 @@ export default function UserProfile({handleSetSearchQuery}) {
                         {user.email}
                 </div>
                 <div className="row border border-dark my-4"></div>
-                    
+
+                <QuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
+
                 <div className="row border border-dark my-4"></div>
             </div>
         </div>
