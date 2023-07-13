@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../UserContext.js";
 import { useNavigate } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
 export default function Navbar({handleSetSearchQuery, handleLogout}) {
+    const { user, updateUser } = useContext(UserContext);
+    
     const navigate = useNavigate();
 
     const handleKeyPress = (event) => {
@@ -33,7 +36,7 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
                             <FontAwesomeIcon icon={faBell} />
                         </div>
                         <NavDropdown style={{ marginLeft: "1.75rem" }} alignRight title={<FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#profile">View Profile</NavDropdown.Item>
+                            <NavDropdown.Item> <Link style={{ textDecoration: 'none' }} to={`/user/${user.id}`}> View Profile </Link> </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={handleLogout} style={{ color: "red" }}>
                                 <span style={{ color: "red" }}>Log Out &nbsp; </span>

@@ -61,6 +61,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
     const handleLogout = () => {
         updateUser(null);
+        navigate('/login');
     };
     
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))

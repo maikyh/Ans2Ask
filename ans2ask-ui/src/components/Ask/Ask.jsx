@@ -68,6 +68,7 @@ export default function Ask({handleSetSearchQuery}) {
     
     const handleLogout = () => {
         updateUser(null);
+        navigate('/login');
     };
 
     return (

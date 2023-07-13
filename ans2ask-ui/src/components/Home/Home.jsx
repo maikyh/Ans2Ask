@@ -34,6 +34,7 @@ export default function Home({handleSetSearchQuery}) {
   
   const handleLogout = () => {
     updateUser(null);
+    navigate('/login');
   };
 
   return (
