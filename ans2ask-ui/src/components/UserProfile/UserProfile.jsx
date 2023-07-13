@@ -7,6 +7,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
+import UserProfileGrid from "../UserProfileGrid/UserProfileGrid";
 import "./UserProfile.css";
 
 export default function UserProfile({handleSetSearchQuery}) {
@@ -49,6 +50,8 @@ export default function UserProfile({handleSetSearchQuery}) {
                 <QuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
 
                 <div className="row border border-dark my-4"></div>
+
+                <UserProfileGrid selectedOption={selectedOption} userId={user.id}></UserProfileGrid>
             </div>
         </div>
         <Footer/>
