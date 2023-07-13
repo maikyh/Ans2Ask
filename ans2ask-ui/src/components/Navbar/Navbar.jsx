@@ -22,6 +22,8 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
         }
     };
 
+    console.log(user);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
@@ -36,7 +38,17 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
                             <FontAwesomeIcon icon={faBell} />
                         </div>
                         <NavDropdown style={{ marginLeft: "1.75rem" }} alignRight title={<FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
-                            <NavDropdown.Item> <Link style={{ textDecoration: 'none' }} to={`/user/${user.id}`}> View Profile </Link> </NavDropdown.Item>
+                            <NavDropdown.Item> 
+                                {
+                                    user && 
+                                    <Link style={{ textDecoration: 'none' }} to={`/user/${user.id}`}> View Profile </Link> 
+                                }
+                                {
+                                    !user && 
+                                    <Link style={{ textDecoration: 'none' }}> View Profile </Link> 
+                                }
+                                
+                            </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={handleLogout} style={{ color: "red" }}>
                                 <span style={{ color: "red" }}>Log Out &nbsp; </span>
