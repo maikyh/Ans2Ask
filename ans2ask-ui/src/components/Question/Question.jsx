@@ -7,6 +7,8 @@ import "./Question.css";
 
 const url = `http://localhost:3001`;
 
+const MAX_LENGTH = 370;
+
 export default function Question({id, username, subject, title, body}) {
   const [answers, setAnswers] = useState([]);
 
@@ -20,7 +22,7 @@ export default function Question({id, username, subject, title, body}) {
     fetchAnswers();
   }, []);
 
-  const answersToThisQuestion = answers.filter(answer => answer.id === id);
+  const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
 
   const navigate = useNavigate();
 
@@ -28,8 +30,13 @@ export default function Question({id, username, subject, title, body}) {
     navigate(`/question/${id}`);
   }
 
+  function truncateText(body) {
+    if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
+    return body;
+  }
+  
   return (
-    <div style={{ cursor: 'pointer' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
+    <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
       <div className="question-card bg-white mt-4 p-3">
         <div className="row">
           <div className="col-auto">
@@ -53,7 +60,19 @@ export default function Question({id, username, subject, title, body}) {
           <span className="fw-bold">{title}</span>
         </div>
         <div className="">
-          <p> {body} </p>
+          <p> {truncateText(body)} </p>
+          {
+            answersOfCurrentQuestion.length > 0 && 
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                {answersOfCurrentQuestion.length} answers
+            </div>
+          }
+          {
+            answersOfCurrentQuestion.length == 0 && 
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                No answers, be the first!
+            </div>
+          }
         </div>
       </div>
     </div>

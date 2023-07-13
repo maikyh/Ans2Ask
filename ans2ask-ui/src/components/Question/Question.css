@@ -1,3 +1,7 @@
 .question-card {
-    height: 160px;
+    max-height: 190px;
+}
+
+.underline-text {
+    text-decoration: underline;
 }
