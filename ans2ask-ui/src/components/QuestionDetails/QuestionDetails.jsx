@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer.jsx";
+import Swal from 'sweetalert2';
 import "./QuestionDetails.css";
 
 const url = `http://localhost:3001`;
@@ -66,6 +67,16 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
     const handleSubmit = async (e) => {
         const questionId = id;
+
+        if(question.userId === user.id) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: "You can't answer your own questions"
+            });
+            return;
+        }
 
         try {
           // Make the question API request
