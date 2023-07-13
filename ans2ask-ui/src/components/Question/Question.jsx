@@ -22,7 +22,7 @@ export default function Question({id, username, subject, title, body}) {
     fetchAnswers();
   }, []);
 
-  const answersToThisQuestion = answers.filter(answer => answer.id === id);
+  const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
 
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ export default function Question({id, username, subject, title, body}) {
   }
   
   return (
-    <div style={{ cursor: 'pointer' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
+    <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
       <div className="question-card bg-white mt-4 p-3">
         <div className="row">
           <div className="col-auto">
@@ -61,6 +61,18 @@ export default function Question({id, username, subject, title, body}) {
         </div>
         <div className="">
           <p> {truncateText(body)} </p>
+          {
+            answersOfCurrentQuestion.length > 0 && 
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                {answersOfCurrentQuestion.length} answers
+            </div>
+          }
+          {
+            answersOfCurrentQuestion.length == 0 && 
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                No answers, be the first!
+            </div>
+          }
         </div>
       </div>
     </div>
