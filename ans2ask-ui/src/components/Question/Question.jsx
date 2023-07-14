@@ -37,7 +37,7 @@ export default function Question({id, username, subject, title, body}) {
   
   return (
     <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
-      <div className="question-card bg-white mt-4 p-3">
+      <div style={{border: '1px solid gray' }} className="question-card bg-white mt-4 p-3">
         <div className="row">
           <div className="col-auto">
             <FontAwesomeIcon icon={faUser} />
