@@ -8,6 +8,7 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
 import UserProfileGrid from "../UserProfileGrid/UserProfileGrid";
+import UserCard from "../UserCard/UserCard";
 import "./UserProfile.css";
 
 export default function UserProfile({handleSetSearchQuery}) {
@@ -34,17 +35,12 @@ export default function UserProfile({handleSetSearchQuery}) {
   };
 
   return (
-    <div className="home">
+    <div className="UserProfile">
         <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
-                <div className="d-flex">
-                    <FontAwesomeIcon className="fa-10x" icon={faUser} />
-                    <FontAwesomeIcon className="fa-10x" icon={faUser} />
-                    <FontAwesomeIcon className="fa-10x" icon={faUser} />
-                        {user.username}
-                        {user.email}
-                </div>
+                <UserCard username={user.username} email={user.email} ></UserCard>
+
                 <div className="row border border-dark my-4"></div>
 
                 <QuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
