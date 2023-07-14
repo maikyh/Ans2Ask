@@ -7,6 +7,9 @@ export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [title, setTitle] = useState("New User");
+    const [about, setAbout] = useState("");
+    const [coins, setCoins] = useState(20);
 
     const navigate = useNavigate();
 
@@ -19,7 +22,7 @@ export default function Register() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ username, email, password, title, about, coins }),
             credentials: 'include'
           });
     
