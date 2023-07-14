@@ -4,8 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { sequelize } from './database.js';
 import userRoutes from './routes/users.js';
-import userQuestions from './routes/questions.js';
-import userAnswers from './routes/answers.js';
+import questionRoutes from './routes/questions.js';
+import answerRoutes from './routes/answers.js';
 import SequelizeStoreInit from 'connect-session-sequelize';
 
 const app = express();
@@ -40,8 +40,8 @@ app.use(
 sessionStore.sync();
 
 app.use(userRoutes);
-app.use(userQuestions);
-app.use(userAnswers);
+app.use(questionRoutes);
+app.use(answerRoutes);
 
 sequelize.sync({ alter: true })
   .then(() => {

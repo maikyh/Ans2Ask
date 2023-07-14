@@ -22,8 +22,6 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
         }
     };
 
-    console.log(user);
-
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
