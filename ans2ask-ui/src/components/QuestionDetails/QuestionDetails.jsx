@@ -117,7 +117,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
             <div className="d-flex justify-content-center align-items-center">
                 <div className="custom-container-question-details bg-light px-4 pt-2">
-                    <div className="question-card bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
+                    <div style={{border: '0.9px solid gray' }} className="question-card bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
                                 <FontAwesomeIcon icon={faUser} />
@@ -145,7 +145,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                 answersOfCurrentQuestion?.map((answer) => (
                     <div className="d-flex justify-content-center align-items-center">
                         <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
-                            <div className="custom-container-question-details-answer mt-0 p-2 px-3">
+                            <div style={{border: '0.5px solid gray' }} className="custom-container-question-details-answer mt-0 p-2 px-3">
                                 <div className="row">
                                     <div className="col-auto">
                                         <FontAwesomeIcon icon={faUser} />
