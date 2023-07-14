@@ -8,8 +8,8 @@ export default function QuestionsOrAnswers({selectedOption, handleSetSelectedOpt
   return (
     <div className="QuestionsOrCourses">
         <div className="d-flex">
-            <button onClick={() => handleSetSelectedOption(1)} className={selectedOption === 1 ? active : inactive}> <h4>Questions</h4> </button>
-            <button onClick={() => handleSetSelectedOption(2)} className={selectedOption === 1 ? inactive : active}> <h4>Answers</h4> </button>
+            <button onClick={() => handleSetSelectedOption(1)} className={selectedOption === 1 ? active : inactive}> <h4>Asked</h4> </button>
+            <button onClick={() => handleSetSelectedOption(2)} className={selectedOption === 1 ? inactive : active}> <h4>Answered</h4> </button>
         </div>
     </div>
   );
