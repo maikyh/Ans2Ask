@@ -7,9 +7,9 @@ const url = `http://localhost:3001`;
 
 //Options
 const Options = {
-    question: 1,
-    answer: 2    
-}
+    questions: 1,
+    answesr: 2    
+  }
 
 export default function UserProfileGrid({ selectedOption, userId }) {
     const [questions, setQuestions] = useState([]);
@@ -33,7 +33,7 @@ export default function UserProfileGrid({ selectedOption, userId }) {
     }, []);
 
     function getContent() {
-        if(selectedOption === Options.question) return questions.filter(question => question.user.id === userId);
+        if(selectedOption === Options.questions) return questions.filter(question => question.user.id === userId);
         
         let UserAnswers = [];
         let AnswersOfUser = answers.filter(answer => answer.user.id === userId);
