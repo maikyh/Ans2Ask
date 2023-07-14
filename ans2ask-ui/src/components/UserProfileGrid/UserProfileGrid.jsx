@@ -6,8 +6,10 @@ import "./UserProfileGrid.css";
 const url = `http://localhost:3001`;
 
 //Options
-const question = 1;
-const answer = 2;
+const Options = {
+    question: 1,
+    answer: 2    
+}
 
 export default function UserProfileGrid({ selectedOption, userId }) {
     const [questions, setQuestions] = useState([]);
@@ -31,7 +33,7 @@ export default function UserProfileGrid({ selectedOption, userId }) {
     }, []);
 
     function getContent() {
-        if(selectedOption === question) return questions.filter(question => question.user.id === userId);
+        if(selectedOption === Options.question) return questions.filter(question => question.user.id === userId);
         
         let UserAnswers = [];
         let AnswersOfUser = answers.filter(answer => answer.user.id === userId);
