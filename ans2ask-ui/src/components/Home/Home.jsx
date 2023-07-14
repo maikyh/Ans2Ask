@@ -9,12 +9,16 @@ import QuestionsOrCourses from "../QuestionsOrCourses/QuestionsOrCourses";
 import Subjects from "../Subjects/Subjects";
 import "./Home.css";
 
+//Options
+const Options = {
+  question: 1,
+  course: 2    
+}
+
 export default function Home({handleSetSearchQuery}) {
   const { user, updateUser } = useContext(UserContext);
   const [selectedSubject, setSelectedSubject] = useState("All");
-  const [selectedOption, setSelectedOption] = useState(1);
-  // 1 == Questions
-  // 2 == Courses
+  const [selectedOption, setSelectedOption] = useState(Options.question);
 
   const handleSetSelectedSubject = (subject) => {
     setSelectedSubject(subject);
