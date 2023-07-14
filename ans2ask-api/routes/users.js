@@ -38,6 +38,36 @@ router.post('/users', async (req, res) => {
   }
 });
 
+// Route for updating user data
+router.put('/users/:id', async (req, res) => {
+  const { id } = req.params; // Get the user ID from the request parameters
+  const { username, title, about, coins } = req.body;
+
+  try {
+    // Check if the user with the given ID exists
+    const existingUser = await User.findByPk(id);
+
+    if (!existingUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update the user's data
+    existingUser.username = username;
+    existingUser.title = title;
+    existingUser.about = about;
+    existingUser.coins = coins;
+
+    // Save the updated user
+    await existingUser.save();
+
+    // Return the updated user data in the response
+    res.json({ user: existingUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Route for user login
 router.post('/users/login', async (req, res) => {
   const { username, password } = req.body;
