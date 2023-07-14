@@ -13,7 +13,7 @@ export default function UserCard({ username, title, email, about, coins }) {
           <h5 className="mb-0"> {title} </h5>
           <p className="mb-0">{email}</p>
           <p className="mb-1">{coins} coins</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus deleniti ex corrupti in eligendi nemo dolore eveniet asperiores porro labore rerum, cupiditate repellat veniam quasi! Animi dolore dolor incidunt quisquam cumque, aliquam quae totam porro explicabo rem officia autem eligendi.</p>
+          <p>{about}</p>
         </div>
       </div>
     </div>
