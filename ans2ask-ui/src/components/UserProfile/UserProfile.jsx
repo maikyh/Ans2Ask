@@ -2,8 +2,6 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
