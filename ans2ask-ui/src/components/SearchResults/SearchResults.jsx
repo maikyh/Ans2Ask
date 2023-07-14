@@ -22,6 +22,7 @@ export default function SearchResults({searchQuery, handleSetSearchQuery}) {
   
   const handleLogout = () => {
     updateUser(null);
+    navigate('/login');
   };
 
   return (
