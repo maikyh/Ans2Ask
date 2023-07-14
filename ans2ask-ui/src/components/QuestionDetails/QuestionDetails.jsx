@@ -107,7 +107,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
           }
         } catch (error) {
           // Handle any network or API request errors
-          alert('Upload failed: ' + error);
+          console.log(error)
         }
     };
 
