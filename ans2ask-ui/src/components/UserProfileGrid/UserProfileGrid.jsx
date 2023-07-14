@@ -15,16 +15,16 @@ export default function UserProfileGrid({ selectedOption, userId }) {
 
     useEffect(() => {
         const fetchQuestions = async () => {
-        const response = await fetch(url + '/questions');
-        const data = await response.json();
-        setQuestions(data);
-    };
+            const response = await fetch(url + '/questions');
+            const data = await response.json();
+            setQuestions(data);
+        };
     
-    const fetchAnswers = async () => {
-        const response = await fetch(url + '/answers');
-        const data = await response.json();
-        setAnswers(data);
-    }
+        const fetchAnswers = async () => {
+            const response = await fetch(url + '/answers');
+            const data = await response.json();
+            setAnswers(data);
+        };
 
         fetchAnswers();
         fetchQuestions();
@@ -34,9 +34,10 @@ export default function UserProfileGrid({ selectedOption, userId }) {
         if(selectedOption === question) return questions.filter(question => question.user.id === userId);
         
         let UserAnswers = [];
+        let AnswersOfUser = answers.filter(answer => answer.user.id === userId);
         for(let i = 0; i<questions.length; i++){
-            for(let j = 0; j<answers.length; j++){
-                if(questions[i].id === answers[j].questionId){
+            for(let j = 0; j<AnswersOfUser.length; j++){
+                if(questions[i].id === AnswersOfUser[j].questionId){
                     UserAnswers.push(questions[i]);
                     break;
                 }
@@ -47,8 +48,6 @@ export default function UserProfileGrid({ selectedOption, userId }) {
     }
 
     let content = getContent();
-
-    console.log(content);
 
     return (
         <div className="UserQuestionGrid">
