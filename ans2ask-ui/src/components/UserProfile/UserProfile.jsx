@@ -12,7 +12,7 @@ import "./UserProfile.css";
 //Options
 const Options = {
   questions: 1,
-  answesr: 2    
+  answers: 2    
 }
 
 export default function UserProfile({handleSetSearchQuery}) {

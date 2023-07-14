@@ -8,7 +8,7 @@ const url = `http://localhost:3001`;
 //Options
 const Options = {
     questions: 1,
-    answesr: 2    
+    answers: 2    
   }
 
 export default function UserProfileGrid({ selectedOption, userId }) {
