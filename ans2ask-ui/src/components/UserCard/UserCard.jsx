@@ -65,10 +65,33 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
           </Editable>
           </div>
         </div>
-          <h5 className="mb-0"> {title} </h5>
+
+        <div className="row">
+          <div className="col d-flex align-items-center">
+          <Editable
+            textAlign='center'
+            defaultValue={title}
+            fontSize='1.25rem'
+            className='fw-bold'
+            isPreviewFocusable={false}
+          >
+            <div className="row">
+              <div className="col d-flex align-items-center">
+                <EditablePreview />
+                <Input className='fw-bold' onChange={(e) => setTitle(e.target.value)} style={{fontSize: '1.25rem'}} as={EditableInput} />  
+              </div>
+              <div className="col-auto d-flex align-items-center">
+                <EditableControls />
+              </div>
+            </div>
+          </Editable>
+          </div>
+        </div>
+
           <p className="mb-0">{Email}</p>
           <p className="mb-1">{Coins} coins</p>
-          <p>{about}</p>
+
+          
         </div>
       </div>
     </div>
