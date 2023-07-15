@@ -21,20 +21,16 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
   const [title, setTitle] = useState(Title);
   const [about, setAbout] = useState(About);
 
-  console.log(Username);
-
   function EditableControls() {
     const {
       isEditing,
       getSubmitButtonProps,
-      getCancelButtonProps,
       getEditButtonProps,
     } = useEditableControls()
 
     return isEditing ? (
       <ButtonGroup justifyContent='center' size='sm'>
         <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
-        <IconButton icon={<CloseIcon />} {...getCancelButtonProps()} />
       </ButtonGroup>
     ) : (
       <Flex justifyContent='center'>
@@ -61,7 +57,7 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <EditablePreview />
-                <Input style={{fontSize: 'calc(1.325rem + .9vw)'}} as={EditableInput} />  
+                <Input onChange={(e) => setUsername(e.target.value)} style={{fontSize: 'calc(1.325rem + .9vw)'}} as={EditableInput} />  
               </div>
               <div className="col-auto d-flex align-items-center">
                 <EditableControls />
@@ -70,8 +66,6 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
           </Editable>
           </div>
         </div>
-
-          <h2 className="mb-0">{username}</h2>
           <h5 className="mb-0"> {title} </h5>
           <p className="mb-0">{Email}</p>
           <p className="mb-1">{Coins} coins</p>
