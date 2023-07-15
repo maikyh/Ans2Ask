@@ -1,7 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
+  IconButton
+} from '@chakra-ui/react' 
 import "./UserCard.css";
+
+import { EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
 export default function UserCard({ username, title, email, about, coins }) {
   return (

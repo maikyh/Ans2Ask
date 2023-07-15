@@ -11,6 +11,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import QuestionDetails from "./components/QuestionDetails/QuestionDetails";
 import UserProfile from "./components/UserProfile/UserProfile";
+import { ChakraProvider } from '@chakra-ui/react'
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,21 +37,23 @@ export default function App() {
 
   return (
     <div className="app">
-      <UserContext.Provider value={{ user, updateUser }}>
-        <BrowserRouter>
-          <main>
-            <Routes>
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
-              <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
-              <Route path="/ask" element={<Ask handleSetSearchQuery={handleSetSearchQuery} />} />
-              <Route path="/question/:id" element={<QuestionDetails handleSetSearchQuery={handleSetSearchQuery} />} />
-              <Route path="/user/:id" element={<UserProfile handleSetSearchQuery={handleSetSearchQuery} />} />
-            </Routes>
-          </main>
-        </BrowserRouter>
-      </UserContext.Provider>
+      <ChakraProvider>
+        <UserContext.Provider value={{ user, updateUser }}>
+          <BrowserRouter>
+            <main>
+              <Routes>
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route path="/ask" element={<Ask handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route path="/question/:id" element={<QuestionDetails handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route path="/user/:id" element={<UserProfile handleSetSearchQuery={handleSetSearchQuery} />} />
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </UserContext.Provider>
+      </ChakraProvider>
     </div>
   );
 }
