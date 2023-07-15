@@ -53,7 +53,6 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
             fontSize='calc(1.325rem + .9vw)'
             isPreviewFocusable={false}
           >
-            {/* Here is the custom input */}
             <div className="row">
               <div className="col d-flex align-items-center">
                 <EditablePreview />
