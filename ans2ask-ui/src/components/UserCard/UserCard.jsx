@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -16,7 +16,13 @@ import "./UserCard.css";
 
 import { EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
-export default function UserCard({ username, title, email, about, coins }) {
+export default function UserCard({ Username, Title, Email, About, Coins }) {
+  const [username, setUsername] = useState(Username);
+  const [title, setTitle] = useState(Title);
+  const [about, setAbout] = useState(About);
+
+  console.log(Username);
+
   function EditableControls() {
     const {
       isEditing,
@@ -67,8 +73,8 @@ export default function UserCard({ username, title, email, about, coins }) {
 
           <h2 className="mb-0">{username}</h2>
           <h5 className="mb-0"> {title} </h5>
-          <p className="mb-0">{email}</p>
-          <p className="mb-1">{coins} coins</p>
+          <p className="mb-0">{Email}</p>
+          <p className="mb-1">{Coins} coins</p>
           <p>{about}</p>
         </div>
       </div>
