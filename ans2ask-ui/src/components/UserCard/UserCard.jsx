@@ -91,7 +91,25 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
           <p className="mb-0">{Email}</p>
           <p className="mb-1">{Coins} coins</p>
 
-          
+          <div className="row">
+            <div className="col d-flex align-items-center">
+            <Editable
+              textAlign='center'
+              defaultValue={about}
+              isPreviewFocusable={false}
+            >
+              <div className="row">
+                <div className="col d-flex align-items-center">
+                  <EditablePreview />
+                  <Input onChange={(e) => setAbout(e.target.value)} as={EditableInput} />  
+                </div>
+                <div className="col-auto d-flex align-items-center">
+                  <EditableControls />
+                </div>
+              </div>
+            </Editable>
+            </div>
+          </div>
         </div>
       </div>
     </div>
