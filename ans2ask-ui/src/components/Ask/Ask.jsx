@@ -6,6 +6,8 @@ import { NavDropdown } from 'react-bootstrap';
 import Navbar from "../Navbar/Navbar";
 import "./Ask.css";
 
+const url = `http://localhost:3001`;
+
 export default function Ask({handleSetSearchQuery}) {
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
@@ -34,7 +36,7 @@ export default function Ask({handleSetSearchQuery}) {
     
         try {
           // Make the question API request
-          const response = await fetch(`http://localhost:3001/questions`, {
+          const response = await fetch(url + `/questions`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
