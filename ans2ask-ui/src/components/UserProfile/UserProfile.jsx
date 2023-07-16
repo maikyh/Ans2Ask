@@ -36,7 +36,7 @@ export default function UserProfile({handleSetSearchQuery}) {
         <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         <div className="d-flex justify-content-center align-items-center">
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
-                <UserCard username={user.username} title={user.title} email={user.email} about={user.about} coins={user.coins} ></UserCard>
+                <UserCard user={user} ></UserCard>
 
                 <div className="row border border-dark my-4"></div>
 
