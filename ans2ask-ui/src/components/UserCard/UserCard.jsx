@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
 import "./UserCard.css";
-
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 
 const url = `http://localhost:3001`;
