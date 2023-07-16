@@ -7,13 +7,8 @@ import Footer from "../Footer/Footer";
 import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
 import UserProfileGrid from "../UserProfileGrid/UserProfileGrid";
 import UserCard from "../UserCard/UserCard";
+import Options from "../../utils/OptionsQA.jsx"
 import "./UserProfile.css";
-
-//Options
-const Options = {
-  questions: 1,
-  answers: 2    
-}
 
 export default function UserProfile({handleSetSearchQuery}) {
   const { user, updateUser } = useContext(UserContext);

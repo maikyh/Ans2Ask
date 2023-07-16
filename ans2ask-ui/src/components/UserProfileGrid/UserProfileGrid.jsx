@@ -1,15 +1,10 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
+import Options from "../../utils/OptionsQA.jsx"
 import "./UserProfileGrid.css";
 
 const url = `http://localhost:3001`;
-
-//Options
-const Options = {
-    questions: 1,
-    answers: 2    
-  }
 
 export default function UserProfileGrid({ selectedOption, userId }) {
     const [questions, setQuestions] = useState([]);

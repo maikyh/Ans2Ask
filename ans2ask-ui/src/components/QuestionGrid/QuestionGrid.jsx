@@ -1,15 +1,10 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
+import Options from "../../utils/OptionsQC.jsx"
 import "./QuestionGrid.css";
 
 const url = `http://localhost:3001`;
-
-//Options
-const Options = {
-  question: 1,
-  course: 2    
-}
 
 //Subjects
 const allSubjects = "All";
