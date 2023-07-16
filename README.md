@@ -123,9 +123,9 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | Column Name | Type    | Description      |
 | ----------- | ------- | ---------------- |
 | id          | integer | primary key      |
-| title       | text    | question title   |
-| text        | text    | question text    |
-| subject     | text    | question subject |
+| title       | string  | question title   |
+| body        | text    | question body    |
+| subject     | enum    | question subject |
 
 ### Answers
 | Column Name | Type    | Description      |
