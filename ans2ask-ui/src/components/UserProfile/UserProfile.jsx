@@ -21,8 +21,6 @@ export default function UserProfile({handleSetSearchQuery}) {
 
   const navigate = useNavigate();
 
-  console.log(user);
-
   useEffect(() => {
     if(!user) {
       navigate('/login');
