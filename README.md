@@ -136,12 +136,6 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | questionId  | integer | question id      |
 | userId      | integer | user id          |
 
-### Question_Answer
-| Column Name | Type    | Description |
-| ----------- | ------- | ----------- |
-| id_question | integer | question id |
-| id_answer   | integer | answer id   |
-
 ### User_Question
 | Column Name | Type    | Description |
 | ----------- | ------- | ----------- |
