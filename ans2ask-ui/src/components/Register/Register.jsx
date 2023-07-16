@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import "./Register.css";
 
+const url = `http://localhost:3001`;
+
 export default function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ export default function Register() {
         e.preventDefault();
     
         try {
-          const response = await fetch(`http://localhost:3001/users`, {
+          const response = await fetch(url + `/users`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
