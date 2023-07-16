@@ -50,14 +50,14 @@ export default function Ask({handleSetSearchQuery}) {
             const loggedInUser = data.user;
     
             console.log('The question was successfully posted');
-    
+                        
             // Reset form fields
             setTitle('');
             setbody('');
             setSubject("Select Subject");
     
             // Navigate to home
-            navigate('/home');
+            navigate(`/question/${data.id}`);
           } else {
             // Handle upload failure case
             alert('Upload failed');
