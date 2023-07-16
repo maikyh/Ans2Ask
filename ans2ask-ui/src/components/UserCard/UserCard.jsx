@@ -101,7 +101,7 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
               <div className="row">
                 <div className="col d-flex align-items-center">
                   <EditablePreview />
-                  <Input onChange={(e) => setAbout(e.target.value)} as={EditableInput} />  
+                  <Input onChange={(e) => setAbout(e.target.value)} as={EditableTextarea} />  
                 </div>
                 <div className="col-auto d-flex align-items-center">
                   <EditableControls />
