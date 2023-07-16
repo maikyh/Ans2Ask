@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContext } from '../../UserContext.js';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from 'react-router-dom';
 import {
   Editable,
   EditableInput,
@@ -17,20 +16,20 @@ import {
 import Swal from 'sweetalert2';
 import "./UserCard.css";
 
-import { EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
+import { EditIcon, CheckIcon } from '@chakra-ui/icons'
 
-export default function UserCard({ Id, Username, Title, Email, About, Coins }) {
-  const [username, setUsername] = useState(Username);
-  const [title, setTitle] = useState(Title);
-  const [about, setAbout] = useState(About);
-  const [coins, setCoins] = useState(Coins);
+const url = `http://localhost:3001`;
+
+export default function UserCard({ user }) {
+  const [username, setUsername] = useState(user.username);
+  const [title, setTitle] = useState(user.title);
+  const [about, setAbout] = useState(user.about);
+  const [coins, setCoins] = useState(user.coins);
   const { updateUser } = useContext(UserContext);
-
-  const navigate = useNavigate();
 
   const handleUpdateUsername = async (e) => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${Id}`, {
+      const response = await fetch(url + `/users` + `/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -45,24 +44,30 @@ export default function UserCard({ Id, Username, Title, Email, About, Coins }) {
 
         updateUser(UpdatedUser);
 
-        window.location.reload();
-
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
       } else {
         Swal.fire({
           icon: 'error',
-          title: 'Login Failed',
-          text: 'Invalid username or password. Please try again.',
+          title: 'Update of Username Failed',
+          text: 'Invalid username. Please try again.',
         });
       }
 
     } catch (error) {
       Swal.fire({
         icon: 'error',
-        title: 'Registration Failed: ' + error,
-        text: 'An error occurred while processing your registration. Please try again later.',
+        title: 'Update of Username Failed: ' + error,
+        text: 'Invalid username. Please try again.',
       });
     }
   }
+
+  const UpdateUsernameHelper = (e) => {
+    setUsername(e.target.value);
+    handleUpdateUsername();
+  };
 
   function EditableControls() {
     const {
@@ -94,14 +99,14 @@ export default function UserCard({ Id, Username, Title, Email, About, Coins }) {
           <div className="col d-flex align-items-center">
           <Editable
             textAlign='center'
-            defaultValue={username}
+            defaultValue={user.username}
             fontSize='calc(1.325rem + .9vw)'
             isPreviewFocusable={false}
           >
             <div className="row">
               <div className="col d-flex align-items-center">
                 <EditablePreview />
-                <Input onChange={(e) => setUsername(e.target.value)} style={{fontSize: 'calc(1.325rem + .9vw)'}} as={EditableInput} />  
+                <Input onKeyDown={(event) => event.key === 'Enter' && UpdateUsernameHelper(event)} onChange={(e) => setUsername(e.target.value)} style={{fontSize: 'calc(1.325rem + .9vw)'}} as={EditableInput} />  
               </div>
               <div className="col-auto d-flex align-items-center">
                 <EditableControls />
@@ -115,7 +120,7 @@ export default function UserCard({ Id, Username, Title, Email, About, Coins }) {
           <div className="col d-flex align-items-center">
           <Editable
             textAlign='center'
-            defaultValue={title}
+            defaultValue={user.title}
             fontSize='1.25rem'
             className='fw-bold'
             isPreviewFocusable={false}
@@ -133,8 +138,8 @@ export default function UserCard({ Id, Username, Title, Email, About, Coins }) {
           </div>
         </div>
 
-          <p className="mb-0">{Email}</p>
-          <p className="mb-1">{coins} coins</p>
+          <p className="mb-0">{user.email}</p>
+          <p className="mb-1">{user.coins} coins</p>
 
           <div className="row">
             <div className="col d-flex align-items-center">
