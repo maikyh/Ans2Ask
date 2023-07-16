@@ -110,13 +110,14 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | Column Name | Type    | Description                  |
 | ----------- | ------- | ---------------------------- |
 | id          | integer | primary key                  |
-| name        | text    | user name                    |
-| email       | text    | user email                   |
-| title       | text    | user title                   |
-| isRecruiter | bool    | user or recruiter            |
-| password    | text    | hashed password              |
-| token       | text    | password reset token         |
+| username    | string  | user name                    |
+| email       | string  | user email                   |
+| title       | string  | user title                   |
+| about       | text    | user about                   |
+| coins       | integer | user coins                   |
+| password    | string  | hashed password              |
 | createdAt   | date    | date the account was created |
+| updatedAt   | date    | date the account was updated |
 
 ### Questions
 | Column Name | Type    | Description      |
