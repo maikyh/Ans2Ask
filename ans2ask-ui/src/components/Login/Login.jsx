@@ -4,6 +4,8 @@ import { UserContext } from '../../UserContext.js';
 import Swal from 'sweetalert2';
 import "./Login.css";
 
+const url = `http://localhost:3001`;
+
 export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +17,7 @@ export default function Login() {
         e.preventDefault();
     
         try {
-          const response = await fetch(`http://localhost:3001/users/login`, {
+          const response = await fetch(url + `/users/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
