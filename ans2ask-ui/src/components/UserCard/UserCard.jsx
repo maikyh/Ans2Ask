@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UserContext } from '../../UserContext.js';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 import {
   Editable,
   EditableInput,
@@ -12,14 +14,55 @@ import {
   Flex,
   useEditableControls
 } from '@chakra-ui/react' 
+import Swal from 'sweetalert2';
 import "./UserCard.css";
 
 import { EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 
-export default function UserCard({ Username, Title, Email, About, Coins }) {
+export default function UserCard({ Id, Username, Title, Email, About, Coins }) {
   const [username, setUsername] = useState(Username);
   const [title, setTitle] = useState(Title);
   const [about, setAbout] = useState(About);
+  const [coins, setCoins] = useState(Coins);
+  const { updateUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const handleUpdateUsername = async (e) => {
+    try {
+      const response = await fetch(`http://localhost:3001/users/${Id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, title, about, coins }),
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        const UpdatedUser = data.user;
+
+        updateUser(UpdatedUser);
+
+        window.location.reload();
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: 'Invalid username or password. Please try again.',
+        });
+      }
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed: ' + error,
+        text: 'An error occurred while processing your registration. Please try again later.',
+      });
+    }
+  }
 
   function EditableControls() {
     const {
@@ -30,7 +73,9 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
 
     return isEditing ? (
       <ButtonGroup justifyContent='center' size='sm'>
-        <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
+        <div onClick={handleUpdateUsername}>
+          <IconButton icon={<CheckIcon />} {...getSubmitButtonProps()} />
+        </div>
       </ButtonGroup>
     ) : (
       <Flex justifyContent='center'>
@@ -89,7 +134,7 @@ export default function UserCard({ Username, Title, Email, About, Coins }) {
         </div>
 
           <p className="mb-0">{Email}</p>
-          <p className="mb-1">{Coins} coins</p>
+          <p className="mb-1">{coins} coins</p>
 
           <div className="row">
             <div className="col d-flex align-items-center">
