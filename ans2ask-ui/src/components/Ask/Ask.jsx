@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
 import Navbar from "../Navbar/Navbar";
+import Swal from 'sweetalert2';
 import "./Ask.css";
 
 const url = `http://localhost:3001`;
@@ -49,8 +50,6 @@ export default function Ask({handleSetSearchQuery}) {
             const data = await response.json();
             const loggedInUser = data.user;
     
-            console.log('The question was successfully posted');
-    
             // Reset form fields
             setTitle('');
             setbody('');
@@ -60,11 +59,19 @@ export default function Ask({handleSetSearchQuery}) {
             navigate('/home');
           } else {
             // Handle upload failure case
-            alert('Upload failed');
+            Swal.fire({
+                icon: 'error',
+                title: 'Upload Failed',
+                text: "Invalid Upload. Please try again."
+            });
           }
         } catch (error) {
           // Handle any network or API request errors
-          alert('Upload failed: ' + error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Upload Failed: ' + error,
+            text: "Invalid Upload. Please try again."
+        });
         }
     };
     
