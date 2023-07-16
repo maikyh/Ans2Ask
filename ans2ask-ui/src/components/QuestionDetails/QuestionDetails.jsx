@@ -81,7 +81,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
         try {
           // Make the question API request
-          const response = await fetch(`http://localhost:3001/answers`, {
+          const response = await fetch(url + `/answers`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
