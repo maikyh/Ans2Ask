@@ -118,7 +118,6 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | password    | string  | hashed password              |
 | createdAt   | date    | date the account was created |
 | updatedAt   | date    | date the account was updated |
-| userId      | integer | user id                      |
 
 ### Question
 | Column Name | Type    | Description      |
@@ -127,6 +126,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | title       | string  | question title   |
 | body        | text    | question body    |
 | subject     | enum    | question subject |
+| userId      | integer | user id          |
 
 ### Answer
 | Column Name | Type    | Description      |
