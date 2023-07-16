@@ -118,6 +118,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | password    | string  | hashed password              |
 | createdAt   | date    | date the account was created |
 | updatedAt   | date    | date the account was updated |
+| userId      | integer | user id                      |
 
 ### Questions
 | Column Name | Type    | Description      |
