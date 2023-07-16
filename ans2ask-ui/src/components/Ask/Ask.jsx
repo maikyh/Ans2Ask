@@ -31,7 +31,11 @@ export default function Ask({handleSetSearchQuery}) {
         e.preventDefault();
 
         if(subject === "Select Subject") {
-            alert("Select a Subject");
+            Swal.fire({
+                icon: 'warning',
+                title: 'No Subject Selected',
+                text: "Select a subject and try again."
+            });
             return;
         }
     
@@ -67,11 +71,11 @@ export default function Ask({handleSetSearchQuery}) {
           }
         } catch (error) {
           // Handle any network or API request errors
-          Swal.fire({
-            icon: 'error',
-            title: 'Upload Failed: ' + error,
-            text: "Invalid Upload. Please try again."
-        });
+            Swal.fire({
+                icon: 'error',
+                title: 'Upload Failed: ' + error,
+                text: "Invalid Upload. Please try again."
+            });
         }
     };
     
