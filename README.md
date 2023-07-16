@@ -106,7 +106,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | GET       | questions/answered                 | Gets the questions that the user has answered                        | 9, 16        |
 
 ## Data Models
-### Users
+### User
 | Column Name | Type    | Description                  |
 | ----------- | ------- | ---------------------------- |
 | id          | integer | primary key                  |
@@ -120,7 +120,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | updatedAt   | date    | date the account was updated |
 | userId      | integer | user id                      |
 
-### Questions
+### Question
 | Column Name | Type    | Description      |
 | ----------- | ------- | ---------------- |
 | id          | integer | primary key      |
@@ -128,7 +128,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | body        | text    | question body    |
 | subject     | enum    | question subject |
 
-### Answers
+### Answer
 | Column Name | Type    | Description      |
 | ----------- | ------- | ---------------- |
 | id          | integer | primary key      |
