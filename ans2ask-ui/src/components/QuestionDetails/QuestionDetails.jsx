@@ -103,11 +103,19 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             navigate(`/question/${id}`);
           } else {
             // Handle upload failure case
-            alert('Upload failed');
+            Swal.fire({
+                icon: 'error',
+                title: 'Upload Failed',
+                text: "Invalid Upload. Please try again."
+            });
           }
         } catch (error) {
           // Handle any network or API request errors
-          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Upload Failed: ' + error,
+            text: "Invalid Upload. Please try again."
+        });
         }
     };
 
