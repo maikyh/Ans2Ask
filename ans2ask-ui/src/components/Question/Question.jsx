@@ -9,7 +9,7 @@ const url = `http://localhost:3001`;
 
 const MAX_LENGTH = 370;
 
-export default function Question({id, username, subject, title, body}) {
+export default function Question({id, username, subject, title, body, coins}) {
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
@@ -73,6 +73,11 @@ export default function Question({id, username, subject, title, body}) {
                 No answers, be the first!
             </div>
           }
+        </div>
+        <div class="">
+          <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
+            {coins} coins !
+          </div>
         </div>
       </div>
     </div>

@@ -14,9 +14,14 @@ export default function Ask({handleSetSearchQuery}) {
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
     const [subject, setSubject] = useState("Select Subject");
+    const [questionCoins, setQuestionCoins] = useState(5);
 
     const handleSetSubject = (selectedSubject) => {
         setSubject(selectedSubject);
+    };
+
+    const handleSetCoins = (selectedCoins) => {
+        setQuestionCoins(selectedCoins);
     };
 
     const navigate = useNavigate();
@@ -38,15 +43,25 @@ export default function Ask({handleSetSearchQuery}) {
             });
             return;
         }
+
+        if(questionCoins > user.coins) {
+            Swal.fire({
+                icon: 'error',
+                title: "You don't have enough coins",
+                text: "Answer other questions to earn coins. Spread your knowledge!"
+            });
+            return;
+        }
     
         try {
           // Make the question API request
+          const coins = questionCoins;
           const response = await fetch(url + `/questions`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, body, subject }),
+            body: JSON.stringify({ title, body, subject, coins }),
             credentials: 'include'
           });
     
@@ -58,8 +73,45 @@ export default function Ask({handleSetSearchQuery}) {
             setTitle('');
             setbody('');
             setSubject("Select Subject");
-    
-            // Navigate to home
+
+            // Make the update of coins API request
+            try {
+                const username = user.username;
+                const title = user.title;
+                const about = user.about;
+                const coins = user.coins - questionCoins;
+
+                const response = await fetch(url + `/users` + `/${user.id}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ username, title, about, coins }),
+                  credentials: 'include'
+                });
+          
+                if (response.ok) {
+                  const data = await response.json();
+                  const UpdatedUser = data.user;
+          
+                  updateUser(UpdatedUser);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Upload Failed',
+                        text: "Invalid Upload. Please try again."
+                    });
+                }
+          
+              } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Failed: ' + error,
+                    text: "Invalid Upload. Please try again."
+                });
+              }
+              
+            // Navigate to question details
             navigate(`/question/${data.id}`);
           } else {
             // Handle upload failure case
@@ -114,29 +166,43 @@ export default function Ask({handleSetSearchQuery}) {
                                 required
                             ></textarea>
                         </div>
-                        <button className='btn btn-secondary'>
-                        <NavDropdown required title={subject}>
-                            <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Biology")}}>Biology</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Health")}}>Health</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Art")}}>Art</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Business")}}>Business</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Law")}}>Law</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Investment")}}>Investment</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("History")}}>History</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Videogames")}}>Videogames</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Chemistry")}}>Chemistry</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Physics")}}>Physics</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Animation")}}>Animation</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Geography")}}>Geography</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("SAT")}}>SAT</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Food")}}>Food</NavDropdown.Item>
-                                <NavDropdown.Item onClick={() => {handleSetSubject("Languages")}}>Languages</NavDropdown.Item>
-                            </div>
-                        </NavDropdown>
-                        </button>
+                        <div className='d-flex justify-content-between'>
+                            <button className='btn btn-secondary'>
+                                <NavDropdown required title={subject}>
+                                    <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Biology")}}>Biology</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Health")}}>Health</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Art")}}>Art</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Business")}}>Business</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Law")}}>Law</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Investment")}}>Investment</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("History")}}>History</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Videogames")}}>Videogames</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Chemistry")}}>Chemistry</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Physics")}}>Physics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Animation")}}>Animation</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Geography")}}>Geography</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("SAT")}}>SAT</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Food")}}>Food</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Languages")}}>Languages</NavDropdown.Item>
+                                    </div>
+                                </NavDropdown>
+                            </button>
+                            <button className='btn btn-secondary'>
+                                <NavDropdown required title={"Cost of Question: " + questionCoins}>
+                                    <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(5)}}>5</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(10)}}>10</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(15)}}>15</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(20)}}>20</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(25)}}>25</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(50)}}>50 (Urgent)</NavDropdown.Item>
+                                    </div>
+                                </NavDropdown>
+                            </button>
+                        </div>
                         <div className="text-center mt-4">
                             <button className='btn btn-dark w-100 d-block fw-bold mb-4'> Ask </button>
                         </div>

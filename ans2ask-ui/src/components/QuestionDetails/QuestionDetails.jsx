@@ -125,7 +125,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
             <div className="d-flex justify-content-center align-items-center">
                 <div className="custom-container-question-details bg-light px-4 pt-2">
-                    <div style={{border: '0.9px solid gray' }} className="question-card bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
+                    <div style={{border: '0.9px solid gray' }} className="question-card position-relative bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
                                 <FontAwesomeIcon icon={faUser} />
@@ -145,6 +145,23 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                         <div className="">
                             <p> {question.body} </p>
                         </div>
+                            {
+                                answersOfCurrentQuestion.length > 0 && 
+                                <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                                    {answersOfCurrentQuestion.length} answers
+                                </div>
+                            }
+                            {
+                                answersOfCurrentQuestion.length == 0 && 
+                                <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                                    No answers, be the first!
+                                </div>
+                            }
+                        <div class="">
+                            <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
+                                {question.coins} coins !
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,7 +170,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                 answersOfCurrentQuestion?.map((answer) => (
                     <div className="d-flex justify-content-center align-items-center">
                         <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
-                            <div style={{border: '0.5px solid gray' }} className="custom-container-question-details-answer mt-0 p-2 px-3">
+                            <div style={{border: '0.5px solid gray' }} className="custom-container-question-details-answer mt-0 p-2 px-3 position-relative">
                                 <div className="row">
                                     <div className="col-auto">
                                         <FontAwesomeIcon icon={faUser} />
@@ -165,6 +182,11 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                                 <div className="row border border-dark mb-1 mx-0"></div>
                                 <div className="">
                                     <p className="mb-1"> {answer.body} </p>
+                                </div>
+                                <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
+                                    <button className="btn btn-danger py-0 px-1">
+                                        Give Thanks
+                                    </button>
                                 </div>
                             </div>
                         </div>

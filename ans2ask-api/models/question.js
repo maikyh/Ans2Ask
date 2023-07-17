@@ -14,5 +14,9 @@ export const Question = sequelize.define('Question', {
     type: DataTypes.ENUM,
     values: ['All', 'Informatics', 'Mathematics', 'Biology', 'Health', 'Art', 'Business', 'Law', 'Investment', 'History', 'Videogames', 'Chemistry', 'Physics', 'Animation', 'Geography', 'SAT', 'Food', 'Languages'],
     allowNull: false
+  },
+  coins: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 });

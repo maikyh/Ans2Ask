@@ -57,7 +57,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       {selectedOption === Options.question && 
         content?.map((question) => (
           <div key={question.id}>
-            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} />
+            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
           </div>
         ))
       }
