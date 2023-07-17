@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
-export default function Navbar({handleSetSearchQuery, handleLogout}) {
+export default function Navbar({ handleSetSearchQuery, handleLogout }) {
     const { user, updateUser } = useContext(UserContext);
-    
+
     const navigate = useNavigate();
 
     const handleKeyPress = (event) => {
@@ -23,7 +23,7 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <a className="navbar-brand" href="/home">Ans2Ask</a>
@@ -36,16 +36,16 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
                             <FontAwesomeIcon icon={faBell} />
                         </div>
                         <NavDropdown style={{ marginLeft: "1.75rem" }} alignRight title={<FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
-                            <NavDropdown.Item> 
+                            <NavDropdown.Item>
                                 {
-                                    user && 
-                                    <Link style={{ textDecoration: 'none' }} to={`/user/${user.id}`}> View Profile </Link> 
+                                    user &&
+                                    <Link style={{ textDecoration: 'none' }} to={`/user/${user.id}`}> View Profile </Link>
                                 }
                                 {
-                                    !user && 
-                                    <Link style={{ textDecoration: 'none' }}> View Profilee </Link> 
+                                    !user &&
+                                    <Link style={{ textDecoration: 'none' }}> View Profilee </Link>
                                 }
-                                
+
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={handleLogout} style={{ color: "red" }}>
@@ -58,4 +58,4 @@ export default function Navbar({handleSetSearchQuery, handleLogout}) {
             </div>
         </nav>
     );
-  }
+}
