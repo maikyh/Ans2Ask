@@ -119,42 +119,43 @@ export default function Ask({handleSetSearchQuery}) {
                                 required
                             ></textarea>
                         </div>
-                        <button className='btn btn-secondary'>
-                            <NavDropdown required title={subject}>
-                                <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Biology")}}>Biology</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Health")}}>Health</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Art")}}>Art</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Business")}}>Business</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Law")}}>Law</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Investment")}}>Investment</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("History")}}>History</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Videogames")}}>Videogames</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Chemistry")}}>Chemistry</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Physics")}}>Physics</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Animation")}}>Animation</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Geography")}}>Geography</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("SAT")}}>SAT</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Food")}}>Food</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetSubject("Languages")}}>Languages</NavDropdown.Item>
-                                </div>
-                            </NavDropdown>
-                        </button>
-                        <button className='btn btn-secondary'>
-                            <NavDropdown required title={coins}>
-                                <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(5)}}>5</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(10)}}>10</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(15)}}>15</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(20)}}>20</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(25)}}>25</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(30)}}>30</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => {handleSetCoins(30)}}>50</NavDropdown.Item>
-                                </div>
-                            </NavDropdown>
-                        </button>
+                        <div className='d-flex justify-content-between'>
+                            <button className='btn btn-secondary'>
+                                <NavDropdown required title={subject}>
+                                    <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Biology")}}>Biology</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Health")}}>Health</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Art")}}>Art</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Business")}}>Business</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Law")}}>Law</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Investment")}}>Investment</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("History")}}>History</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Videogames")}}>Videogames</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Chemistry")}}>Chemistry</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Physics")}}>Physics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Animation")}}>Animation</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Geography")}}>Geography</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("SAT")}}>SAT</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Food")}}>Food</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetSubject("Languages")}}>Languages</NavDropdown.Item>
+                                    </div>
+                                </NavDropdown>
+                            </button>
+                            <button className='btn btn-secondary'>
+                                <NavDropdown required title={"Cost of Question: " + coins}>
+                                    <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(5)}}>5</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(10)}}>10</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(15)}}>15</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(20)}}>20</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(25)}}>25</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => {handleSetCoins(50)}}>50 (Urgent)</NavDropdown.Item>
+                                    </div>
+                                </NavDropdown>
+                            </button>
+                        </div>
                         <div className="text-center mt-4">
                             <button className='btn btn-dark w-100 d-block fw-bold mb-4'> Ask </button>
                         </div>
