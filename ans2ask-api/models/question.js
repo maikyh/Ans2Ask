@@ -16,8 +16,7 @@ export const Question = sequelize.define('Question', {
     allowNull: false
   },
   coins: {
-    type: DataTypes.ENUM,
-    values: [5, 10, 15, 20, 25, 30, 50],
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 });
