@@ -51,7 +51,7 @@ export default function Ask({handleSetSearchQuery}) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, body, subject }),
+            body: JSON.stringify({ title, body, subject, coins }),
             credentials: 'include'
           });
     
