@@ -14,14 +14,14 @@ export default function Ask({handleSetSearchQuery}) {
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
     const [subject, setSubject] = useState("Select Subject");
-    const [coins, setCoins] = useState(5);
+    const [questionCoins, setQuestionCoins] = useState(5);
 
     const handleSetSubject = (selectedSubject) => {
         setSubject(selectedSubject);
     };
 
     const handleSetCoins = (selectedCoins) => {
-        setCoins(selectedCoins);
+        setQuestionCoins(selectedCoins);
     };
 
     const navigate = useNavigate();
@@ -44,7 +44,7 @@ export default function Ask({handleSetSearchQuery}) {
             return;
         }
 
-        if(coins > user.coins) {
+        if(questionCoins > user.coins) {
             Swal.fire({
                 icon: 'error',
                 title: "You don't have enough coins",
@@ -55,6 +55,7 @@ export default function Ask({handleSetSearchQuery}) {
     
         try {
           // Make the question API request
+          const coins = questionCoins;
           const response = await fetch(url + `/questions`, {
             method: 'POST',
             headers: {
@@ -72,7 +73,44 @@ export default function Ask({handleSetSearchQuery}) {
             setTitle('');
             setbody('');
             setSubject("Select Subject");
-    
+
+            // Make the update of coins API request
+            try {
+                const username = user.username;
+                const title = user.title;
+                const about = user.about;
+                const coins = user.coins - questionCoins;
+
+                const response = await fetch(url + `/users` + `/${user.id}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ username, title, about, coins }),
+                  credentials: 'include'
+                });
+          
+                if (response.ok) {
+                  const data = await response.json();
+                  const UpdatedUser = data.user;
+          
+                  updateUser(UpdatedUser);
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Upload Failed',
+                        text: "Invalid Upload. Please try again."
+                    });
+                }
+          
+              } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Failed: ' + error,
+                    text: "Invalid Upload. Please try again."
+                });
+              }
+              
             // Navigate to question details
             navigate(`/question/${data.id}`);
           } else {
@@ -153,7 +191,7 @@ export default function Ask({handleSetSearchQuery}) {
                                 </NavDropdown>
                             </button>
                             <button className='btn btn-secondary'>
-                                <NavDropdown required title={"Cost of Question: " + coins}>
+                                <NavDropdown required title={"Cost of Question: " + questionCoins}>
                                     <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
                                         <NavDropdown.Item onClick={() => {handleSetCoins(5)}}>5</NavDropdown.Item>
                                         <NavDropdown.Item onClick={() => {handleSetCoins(10)}}>10</NavDropdown.Item>
