@@ -22,7 +22,7 @@
 ---
 
 ## Overview:
-Ans2Ask is about a Q&A network in which users will ask their questions (this will cost digital points), but to continue asking (as they will be running out of points), they will have to answer other’s question (this will allow users to earn digital points and at the same time improve their rating).
+Ans2Ask is about a Q&A network in which users will ask their questions (this will cost digital points), but to continue asking (as they will be running out of points), they will have to answer other’s question (this will allow users to earn digital points and at the same time keeping an interaction).
 
 - **Category**: Education.
 - **Story**: A Q&A network would have users sign up, ask their questions and respond to other’s questions.
@@ -106,45 +106,36 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | GET       | questions/answered                 | Gets the questions that the user has answered                        | 9, 16        |
 
 ## Data Models
-### Users
+### User
 | Column Name | Type    | Description                  |
 | ----------- | ------- | ---------------------------- |
 | id          | integer | primary key                  |
-| name        | text    | user name                    |
-| email       | text    | user email                   |
-| title       | text    | user title                   |
-| isRecruiter | bool    | user or recruiter            |
-| password    | text    | hashed password              |
-| token       | text    | password reset token         |
+| username    | string  | user name                    |
+| email       | string  | user email                   |
+| title       | string  | user title                   |
+| about       | text    | user about                   |
+| coins       | integer | user coins                   |
+| password    | string  | hashed password              |
 | createdAt   | date    | date the account was created |
+| updatedAt   | date    | date the account was updated |
 
-### Questions
+### Question
 | Column Name | Type    | Description      |
 | ----------- | ------- | ---------------- |
 | id          | integer | primary key      |
-| title       | text    | question title   |
-| text        | text    | question text    |
-| subject     | text    | question subject |
+| title       | string  | question title   |
+| body        | text    | question body    |
+| subject     | enum    | question subject |
+| userId      | integer | user id          |
 
-### Answers
+### Answer
 | Column Name | Type    | Description      |
 | ----------- | ------- | ---------------- |
 | id          | integer | primary key      |
-| id_user     | text    | user id          |
-| text        | text    | answer text      |
-| thanks      | bool    | answer thanked   |
-
-### Question_Answer
-| Column Name | Type    | Description |
-| ----------- | ------- | ----------- |
-| id_question | integer | question id |
-| id_answer   | integer | answer id   |
-
-### User_Question
-| Column Name | Type    | Description |
-| ----------- | ------- | ----------- |
-| id_user     | integer | user id     |
-| id_question | integer | question id |
+| body        | text    | answer body      |
+| thanks      | bool    | answer status    |
+| questionId  | integer | question id      |
+| userId      | integer | user id          |
 
 ## Wireframes:
 ### Register

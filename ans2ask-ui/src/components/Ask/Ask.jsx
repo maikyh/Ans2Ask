@@ -53,14 +53,14 @@ export default function Ask({handleSetSearchQuery}) {
           if (response.ok) {
             const data = await response.json();
             const loggedInUser = data.user;
-    
+   
             // Reset form fields
             setTitle('');
             setbody('');
             setSubject("Select Subject");
     
             // Navigate to home
-            navigate('/home');
+            navigate(`/question/${data.id}`);
           } else {
             // Handle upload failure case
             Swal.fire({
