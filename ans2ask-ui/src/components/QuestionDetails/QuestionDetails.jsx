@@ -123,7 +123,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
 
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center" style={{marginTop: "3rem"}}>
                 <div className="custom-container-question-details bg-light px-4 pt-2">
                     <div style={{border: '0.9px solid gray' }} className="question-card position-relative bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
@@ -194,7 +194,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                   ))
             }
 
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem"}}>
                 <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
                         <form onSubmit={handleSubmit}>
