@@ -43,6 +43,15 @@ export default function Ask({handleSetSearchQuery}) {
             });
             return;
         }
+
+        if(coins > user.coins) {
+            Swal.fire({
+                icon: 'error',
+                title: "You don't have enough coins",
+                text: "Answer other questions to earn coins. Spread your knowledge!"
+            });
+            return;
+        }
     
         try {
           // Make the question API request
