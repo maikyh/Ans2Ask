@@ -73,7 +73,7 @@ export default function Ask({handleSetSearchQuery}) {
             setbody('');
             setSubject("Select Subject");
     
-            // Navigate to home
+            // Navigate to question details
             navigate(`/question/${data.id}`);
           } else {
             // Handle upload failure case
