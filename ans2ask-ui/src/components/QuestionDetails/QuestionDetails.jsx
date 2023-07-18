@@ -127,7 +127,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
     let thankedAnswerExist = checkIfThankedAnswerExist();
 
-    const handleGiveThanks = async (answerId, answerBody) => {
+    const handleGiveThanks = async (answerId, answerBody, answerUser) => {
         try {
             const questionId = id;
             const body = answerBody;
@@ -144,8 +144,44 @@ export default function QuestionDetails({handleSetSearchQuery}) {
             });
       
             if (response.ok) {
-              const data = await response.json();
-              const loggedInUser = data.user;
+                const data = await response.json();
+                const loggedInUser = data.user;
+
+                // Make the update of coins API request
+                try {
+                    const username = answerUser.username;
+                    const title = answerUser.title;
+                    const about = answerUser.about;
+                    const coins = answerUser.coins + question.coins;
+
+                    const response = await fetch(url + `/users` + `/${answerUser.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, title, about, coins }),
+                    credentials: 'include'
+                    });
+            
+                    if (response.ok) {
+                    const data = await response.json();
+                    const UpdatedUser = data.user;
+            
+                    updateUser(UpdatedUser);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thanked Failed',
+                            text: "Please try again."
+                        });
+                    }
+                    } catch (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thanked Failed: ' + error,
+                            text: "Please try again."
+                        });
+                    }
       
               // Refresh the page
               setTimeout(() => {
@@ -155,16 +191,16 @@ export default function QuestionDetails({handleSetSearchQuery}) {
               // Handle upload failure case
               Swal.fire({
                   icon: 'error',
-                  title: 'Upload Failed',
-                  text: "Invalid Upload. Please try again."
+                  title: 'Thanked Failed',
+                  text: "Please try again."
               });
             }
           } catch (error) {
             // Handle any network or API request errors
             Swal.fire({
               icon: 'error',
-              title: 'Upload Failed: ' + error,
-              text: "Invalid Upload. Please try again."
+              title: 'Thanked Failed: ' + error,
+              text: "Please try again."
           });
           }
     }
@@ -238,7 +274,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                                 {
                                     thankedAnswerExist === false && question.userId === user.id &&
                                     <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                        <button onClick={() => handleGiveThanks(answer.id,answer.body)} className="btn btn-danger py-0 px-1">
+                                        <button onClick={() => handleGiveThanks(answer.id,answer.body,answer.user)} className="btn btn-danger py-0 px-1">
                                             Give Thanks
                                         </button>
                                     </div>
