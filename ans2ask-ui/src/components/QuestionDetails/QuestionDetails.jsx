@@ -119,6 +119,58 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         }
     };
 
+    const checkIfThankedAnswerExist = () => {
+        for(let i = 0; i<answersOfCurrentQuestion.length; i++) 
+            if(answersOfCurrentQuestion[i].thanks === true) return true;
+        return false;
+    }
+
+    let thankedAnswerExist = checkIfThankedAnswerExist();
+
+    const handleGiveThanks = async (answerId, answerBody) => {
+        try {
+            const questionId = id;
+            const body = answerBody;
+            const thanks = true;
+
+            // Make the question API request
+            const response = await fetch(url + `/answers` + `/${answerId}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ body, thanks, questionId }),
+              credentials: 'include'
+            });
+      
+            if (response.ok) {
+              const data = await response.json();
+              const loggedInUser = data.user;
+      
+              // Refresh the page
+              setTimeout(() => {
+                window.location.reload();
+              }, 100);
+            } else {
+              // Handle upload failure case
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Upload Failed',
+                  text: "Invalid Upload. Please try again."
+              });
+            }
+          } catch (error) {
+            // Handle any network or API request errors
+            Swal.fire({
+              icon: 'error',
+              title: 'Upload Failed: ' + error,
+              text: "Invalid Upload. Please try again."
+          });
+          }
+    }
+
+    console.log(answersOfCurrentQuestion);
+
     return (
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
@@ -183,11 +235,22 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                                 <div className="">
                                     <p className="mb-1"> {answer.body} </p>
                                 </div>
-                                <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                    <button className="btn btn-danger py-0 px-1">
-                                        Give Thanks
-                                    </button>
-                                </div>
+                                {
+                                    thankedAnswerExist === false && question.userId === user.id &&
+                                    <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
+                                        <button onClick={() => handleGiveThanks(answer.id,answer.body)} className="btn btn-danger py-0 px-1">
+                                            Give Thanks
+                                        </button>
+                                    </div>
+                                }
+                                {
+                                    answer.thanks === true &&
+                                    <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
+                                        <p className="text-white bg-danger py-0 px-1">
+                                            Thanked Answer
+                                        </p>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

@@ -21,7 +21,7 @@ router.post('/answers', async (req, res) => {
     try {
         // Check if user is logged in
         if (!req.session.user) {
-        return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized' });
         }
 
         // Retrieve the current user from the session
@@ -43,5 +43,26 @@ router.post('/answers', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+// Route to update an answer
+router.put('/answers/:id', async (req, res) => {
+    try {
+      // Find the answer by its ID
+      const answer = await Answer.findOne({ where: { id: req.params.id } });
+  
+      // Check if the answer exists
+      if (!answer) {
+        return res.status(404).json({ error: 'Answer not found' });
+      }
+  
+      // Update the answer
+      await answer.update(req.body);
+  
+      res.status(200).json(answer);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
 
 export default router;
