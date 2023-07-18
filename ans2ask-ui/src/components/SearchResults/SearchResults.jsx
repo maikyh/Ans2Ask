@@ -28,7 +28,7 @@ export default function SearchResults({searchQuery, handleSetSearchQuery}) {
   return (
     <div className="">
         <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
                 <h1 className="text-center mb-2 fw-bold">All Results</h1>
                 <div className="row border border-dark my-4"></div>

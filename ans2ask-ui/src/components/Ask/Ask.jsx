@@ -140,7 +140,7 @@ export default function Ask({handleSetSearchQuery}) {
         <div className="ask">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
   
-            <div className="d-flex justify-content-center align-items-center custom-margin-ask">
+            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>
                 <div className="custom-container-ask bg-light p-4 border rounded px-5">
                     <h1 className="text-center mb-4 fw-bold">Ask Your Question !</h1>
                     <form onSubmit={handleSubmit}>
