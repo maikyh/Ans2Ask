@@ -205,8 +205,6 @@ export default function QuestionDetails({handleSetSearchQuery}) {
           }
     }
 
-    console.log(answersOfCurrentQuestion);
-
     return (
         <div className="question-details">
             <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
