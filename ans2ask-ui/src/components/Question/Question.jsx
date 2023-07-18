@@ -76,7 +76,7 @@ export default function Question({id, username, subject, title, body, coins}) {
         </div>
         <div class="">
           <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-            {coins} coins !
+            {coins} coins
           </div>
         </div>
       </div>

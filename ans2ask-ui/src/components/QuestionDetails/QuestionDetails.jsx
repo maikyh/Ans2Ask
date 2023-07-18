@@ -245,7 +245,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                             }
                         <div class="">
                             <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                {question.coins} coins !
+                                {question.coins} coins
                             </div>
                         </div>
                     </div>
