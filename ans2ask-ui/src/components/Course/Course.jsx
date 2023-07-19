@@ -18,11 +18,16 @@ export default function QuestionGrid({video}) {
             </div>
             <div className="col-md-6">
                 <div className="card-body">
-                <h5 className="card-title">{video.title}</h5>
-                <p className="card-text">
-                    {video.views} | {video.date} | Duration: {video.duration}
-                </p>
-                <a href={video.channel.link} className="btn btn-primary">Visit Channel</a>
+                    <h5 className="card-title">{video.title}</h5>
+                    <p className="card-text">
+                        {video.views} | {video.date} | Duration: {video.duration} | {video.likes} likes
+                    </p>
+                    <div className="d-flex flex-column align-items-center" style={{marginTop: "30px"}}>
+                        <div style={{ maxWidth: '100px' }}>
+                            <img src={video.channel.thumbnail} className="card-img-top" alt={video.channel.name} />
+                        </div>
+                        <a href={video.channel.link} className="btn btn-primary mt-2">Visit Channel</a>
+                    </div>
                 </div>
             </div>
             </div>
