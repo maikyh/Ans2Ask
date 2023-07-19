@@ -1,7 +1,6 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import express from 'express';
-import { encode } from 'querystring';
 
 const router = express.Router();
 
