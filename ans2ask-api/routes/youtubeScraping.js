@@ -56,7 +56,7 @@ async function getDataFromYoutubeVideo(videoLink) {
   return dataFromVideoP;
 }
 
-// Route to get details from a Youtube video "https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DYCnA1IPxmNg"
+// Route to get details from a Youtube video
 router.get('/youtube/:query', async (req, res) => {
   try {
     const query = decodeURIComponent(req.params.query);
