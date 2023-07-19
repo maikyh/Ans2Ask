@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Question from "../Question/Question";
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
@@ -46,7 +46,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       setIsLoading(true);
       fetchCourses().then(() => setIsLoading(false));
     }
-  }, [selectedOption]);
+  }, [selectedOption, selectedSubject]);
   
   function getContent() {
     if(searchQuery.length !== noQuery){
