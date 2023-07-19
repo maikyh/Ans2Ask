@@ -4,6 +4,7 @@ import Question from "../Question/Question";
 import Course from "../Course/Course"
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
+import Swal from 'sweetalert2';
 import "./QuestionGrid.css";
 
 const url = `http://localhost:3001`;
@@ -80,7 +81,11 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         const videoDataArray = await Promise.all(fetchVideoDataPromises);
         setCourses(videoDataArray);
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        Swal.fire({
+          icon: 'error',
+          title: "Error fetching courses: " + error,
+          text: "Please try again!"
+        });
       } finally {
         setIsLoading(false);
       }
