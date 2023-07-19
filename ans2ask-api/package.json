@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "cheerio": "^1.0.0-rc.12",
     "connect-session-sequelize": "^7.1.7",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -19,6 +20,10 @@
     "morgan": "^1.10.0",
     "pg": "^8.11.1",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.32.1"
+    "puppeteer": "^20.8.3",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "sequelize": "^6.32.1",
+    "unirest": "^0.6.0"
   }
 }
