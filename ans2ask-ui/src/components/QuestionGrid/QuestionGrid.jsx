@@ -31,9 +31,19 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       const response = await fetch(url + '/google' + `/${selectedSubject}`);
       const data = await response.json();
 
-      const filteredYoutubeUrls = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
+      const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
 
-      setCourses(filteredYoutubeUrls);
+      const updatedCourses = [];
+
+      // Fetch data for each filtered course URL
+      for (const video of filteredYoutubeVideos) {
+        const responseVideo = await fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`);
+        const dataVideo = await responseVideo.json();
+
+        updatedCourses.push(dataVideo);
+      }
+      
+      setCourses(updatedCourses);
     };
 
     fetchCourses();
