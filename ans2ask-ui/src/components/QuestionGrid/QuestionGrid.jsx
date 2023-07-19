@@ -26,22 +26,20 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     fetchQuestions();
   }, []);
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const response = await fetch(url + '/google' + `/${selectedSubject}`);
-      const data = await response.json();
-  
-      const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
-  
-      const fetchVideoDataPromises = filteredYoutubeVideos.map(video => fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`));
-      const responses = await Promise.all(fetchVideoDataPromises);
-      const videoDataArray = await Promise.all(responses.map(response => response.json()));
-  
-      setCourses(videoDataArray);
-    };
-  
-    fetchCourses();
-  }, [selectedSubject]);
+  const fetchCourses = async () => {
+    const response = await fetch(url + '/google' + `/${selectedSubject}`);
+    const data = await response.json();
+
+    const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
+
+    const fetchVideoDataPromises = filteredYoutubeVideos.map(video => fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`));
+    const responses = await Promise.all(fetchVideoDataPromises);
+    const videoDataArray = await Promise.all(responses.map(response => response.json()));
+
+    setCourses(videoDataArray);
+  };
+
+  if(selectedOption === Options.course) fetchCourses();
   
   function getContent() {
     if(searchQuery.length !== noQuery){
