@@ -57,7 +57,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       });
       return currentContent; 
     }
-    if(selectedOption === Options.course) return courses.items;
+    if(selectedOption === Options.course) return courses;
     if(selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
     return questions;
   }
@@ -66,6 +66,8 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
   console.log(isLoading);
 
   let content = getContent();
+
+  console.log(content);
 
   return (
     <div className="QuestionGrid">
@@ -79,17 +81,17 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
 
       {isLoading === false && selectedOption === Options.course && (
         <div className="d-flex flex-column align-items-center">
-          {content?.map((course) => (
-            <div key={course.id.videoId} className="my-2">
-              <iframe
-                width="560"
-                height="315"
-                src={`https://www.youtube.com/embed/${course.id.videoId}`}
-                title="YouTube Video Player"
-                frameBorder="0"
-                allowFullScreen
-              />
+          {content?.map((video) => (
+            <div className="card" style={{ width: '18rem' }}>
+            <img src={video.channel.thumbnail} className="card-img-top" alt={video.channel.name} />
+            <div className="card-body">
+              <h5 className="card-title">{video.title}</h5>
+              <p className="card-text">
+                {video.views} | {video.date} | Duration: {video.duration}
+              </p>
+              <a href={video.channel.link} className="btn btn-primary">Visit Channel</a>
             </div>
+          </div>
           ))}
         </div>
       )}
