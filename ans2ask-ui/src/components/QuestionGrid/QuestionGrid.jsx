@@ -28,9 +28,12 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${selectedSubject}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`);
+      const response = await fetch(url + '/google' + `/${selectedSubject}`);
       const data = await response.json();
-      setCourses(data);
+
+      const filteredYoutubeUrls = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
+
+      setCourses(filteredYoutubeUrls);
     };
 
     fetchCourses();
@@ -49,6 +52,8 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     if(selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
     return questions;
   }
+  
+  console.log(courses);
 
   let content = getContent();
 
