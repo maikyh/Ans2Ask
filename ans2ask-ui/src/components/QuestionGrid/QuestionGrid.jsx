@@ -47,9 +47,19 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
           const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`);
           const videoData = await videoDataResponse.json();
-  
+          
+          let searchData;
           const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`);
-          const searchData = await searchResponse.json();
+          if(searchResponse.ok === true){
+            searchData = await searchResponse.json();
+          }
+          else{
+            let check = {
+              items: [{ id: { videoId: "LwCRRUa8yTU" } }]
+            };
+            searchData = check;
+          }
+          
   
           return {
             ...videoData,
