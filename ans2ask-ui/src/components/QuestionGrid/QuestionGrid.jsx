@@ -35,6 +35,16 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       return transformedString;
     }
 
+    function getVideoIdFromUrl(url) {
+      var regex = /[?&]v=([^&#]*)/;
+      var match = url.match(regex);
+      if (match && match[1]) {
+        return match[1];
+      } else {
+        return null; // Return null if the video ID is not found
+      }
+    }
+
     const fetchCourses = async () => {
       setIsLoading(true);
   
@@ -55,7 +65,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
           }
           else{
             let check = {
-              items: [{ id: { videoId: "LwCRRUa8yTU" } }]
+              items: [{ id: { videoId: getVideoIdFromUrl(video.links) } }]
             };
             searchData = check;
           }
