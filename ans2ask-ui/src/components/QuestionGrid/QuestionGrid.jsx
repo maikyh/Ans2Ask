@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Question from "../Question/Question";
+import Course from "../Course/Course"
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
 import "./QuestionGrid.css";
@@ -61,13 +62,8 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     if(selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
     return questions;
   }
-  
-  console.log(courses);
-  console.log(isLoading);
 
   let content = getContent();
-
-  console.log(content);
 
   return (
     <div className="QuestionGrid">
@@ -82,16 +78,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       {isLoading === false && selectedOption === Options.course && (
         <div className="d-flex flex-column align-items-center">
           {content?.map((video) => (
-            <div className="card" style={{ width: '18rem' }}>
-            <img src={video.channel.thumbnail} className="card-img-top" alt={video.channel.name} />
-            <div className="card-body">
-              <h5 className="card-title">{video.title}</h5>
-              <p className="card-text">
-                {video.views} | {video.date} | Duration: {video.duration}
-              </p>
-              <a href={video.channel.link} className="btn btn-primary">Visit Channel</a>
-            </div>
-          </div>
+            <Course video={video} />
           ))}
         </div>
       )}
