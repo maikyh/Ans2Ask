@@ -108,8 +108,6 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
 
   let content = getContent();
 
-  console.log(courses);
-
   return (
     <div className="QuestionGrid">
       {isLoading === false &&  selectedOption === Options.question && 
