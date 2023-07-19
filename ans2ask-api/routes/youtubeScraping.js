@@ -1,9 +1,10 @@
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import express from 'express';
+
+const router = express.Router();
 
 puppeteer.use(StealthPlugin());
-
-const videoLink = "https://www.youtube.com/watch?v=fou37kNbsqE"; // link to video page
 
 async function fillDataFromPage(page) {
     const dataFromPage = await page.evaluate(() => {
@@ -34,7 +35,7 @@ async function fillDataFromPage(page) {
     return dataFromPage;
   }
 
-async function getDataFromYoutubeVideo() {
+async function getDataFromYoutubeVideo(videoLink) {
   const browser = await puppeteer.launch({
     headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"],
@@ -56,4 +57,15 @@ async function getDataFromYoutubeVideo() {
   return dataFromVideoP;
 }
 
-getDataFromYoutubeVideo().then((result) => console.dir(result, { depth: null }));
+// Route to get details from a Youtube video "https://www.youtube.com/watch?v=fou37kNbsqE"
+router.get('/youtube/:query', async (req, res) => {
+    try {
+        const query = req.params.query;
+        const data = await getDataFromYoutubeVideo("https://www.youtube.com/watch?v=fou37kNbsqE");
+        res.json(data);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+export default router;
