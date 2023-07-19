@@ -31,11 +31,15 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
   }, []);
   
   useEffect(() => {
+    // Create an instance of AbortController
+    const abortController = new AbortController();
+    let didCancel = false;
+  
     function transformString(originalString) {
       var transformedString = originalString.replace(/ /g, '+');
       return transformedString;
     }
-
+  
     function getVideoIdFromUrl(url) {
       var regex = /[?&]v=([^&#]*)/;
       var match = url.match(regex);
@@ -45,32 +49,36 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         return null;
       }
     }
-
+  
     const fetchCourses = async () => {
       setIsLoading(true);
   
       try {
-        const response = await fetch(url + '/google' + `/${selectedSubject}`);
+        const response = await fetch(url + '/google' + `/${selectedSubject}`, {
+          signal: abortController.signal,
+        });
         const data = await response.json();
   
         const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
   
         const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
-          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`);
+          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`, {
+            signal: abortController.signal,
+          });
           const videoData = await videoDataResponse.json();
-          
+  
           let searchData;
-          const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`);
-          if(searchResponse.ok === true){
+          const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`, {
+            signal: abortController.signal,
+          });
+          if (searchResponse.ok === true) {
             searchData = await searchResponse.json();
-          }
-          else{
+          } else {
             let check = {
               items: [{ id: { videoId: getVideoIdFromUrl(video.links) } }]
             };
             searchData = check;
           }
-          
   
           return {
             ...videoData,
@@ -79,21 +87,29 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         });
   
         const videoDataArray = await Promise.all(fetchVideoDataPromises);
-        setCourses(videoDataArray);
+  
+        if (!didCancel) {
+          setCourses(videoDataArray);
+          setIsLoading(false);
+        }
       } catch (error) {
-        Swal.fire({
-          icon: 'error',
-          title: "Error fetching courses: " + error,
-          text: "Please try again!"
-        });
-      } finally {
-        setIsLoading(false);
+        if (!didCancel) {
+          setIsLoading(false);
+        }
       }
     };
   
     if (selectedOption === Options.course) {
       fetchCourses();
     }
+    else {
+      setIsLoading(false);
+    }
+  
+    return () => {
+      didCancel = true;
+      abortController.abort();
+    };
   }, [selectedOption, selectedSubject]);
   
   
