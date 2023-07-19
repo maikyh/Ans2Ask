@@ -30,24 +30,47 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
   }, []);
   
   useEffect(() => {
-    const fetchCourses = async () => {
-      const response = await fetch(url + '/google' + `/${selectedSubject}`);
-      const data = await response.json();
-  
-      const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
-  
-      const fetchVideoDataPromises = filteredYoutubeVideos.map(video => fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`));
-      const responses = await Promise.all(fetchVideoDataPromises);
-      const videoDataArray = await Promise.all(responses.map(response => response.json()));
-  
-      setCourses(videoDataArray);
-    };
+    function transformString(originalString) {
+      var transformedString = originalString.replace(/ /g, '+');
+      return transformedString;
+    }
 
-    if (selectedOption === Options.course) {
+    const fetchCourses = async () => {
       setIsLoading(true);
-      fetchCourses().then(() => setIsLoading(false));
+  
+      try {
+        const response = await fetch(url + '/google' + `/${selectedSubject}`);
+        const data = await response.json();
+  
+        const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
+  
+        const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
+          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`);
+          const videoData = await videoDataResponse.json();
+  
+          const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`);
+          const searchData = await searchResponse.json();
+  
+          return {
+            ...videoData,
+            videoDetails: searchData.items[0]
+          };
+        });
+  
+        const videoDataArray = await Promise.all(fetchVideoDataPromises);
+        setCourses(videoDataArray);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    if (selectedOption === Options.course) {
+      fetchCourses();
     }
   }, [selectedOption, selectedSubject]);
+  
   
   function getContent() {
     if(searchQuery.length !== noQuery){
@@ -64,6 +87,8 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
   }
 
   let content = getContent();
+
+  console.log(courses);
 
   return (
     <div className="QuestionGrid">
