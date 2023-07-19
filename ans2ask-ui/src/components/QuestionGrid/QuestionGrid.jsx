@@ -15,6 +15,7 @@ const noQuery = 0;
 export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -25,21 +26,26 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
 
     fetchQuestions();
   }, []);
+  
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const response = await fetch(url + '/google' + `/${selectedSubject}`);
+      const data = await response.json();
+  
+      const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
+  
+      const fetchVideoDataPromises = filteredYoutubeVideos.map(video => fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`));
+      const responses = await Promise.all(fetchVideoDataPromises);
+      const videoDataArray = await Promise.all(responses.map(response => response.json()));
+  
+      setCourses(videoDataArray);
+    };
 
-  const fetchCourses = async () => {
-    const response = await fetch(url + '/google' + `/${selectedSubject}`);
-    const data = await response.json();
-
-    const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
-
-    const fetchVideoDataPromises = filteredYoutubeVideos.map(video => fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`));
-    const responses = await Promise.all(fetchVideoDataPromises);
-    const videoDataArray = await Promise.all(responses.map(response => response.json()));
-
-    setCourses(videoDataArray);
-  };
-
-  if(selectedOption === Options.course) fetchCourses();
+    if (selectedOption === Options.course) {
+      setIsLoading(true);
+      fetchCourses().then(() => setIsLoading(false));
+    }
+  }, [selectedOption]);
   
   function getContent() {
     if(searchQuery.length !== noQuery){
@@ -56,12 +62,13 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
   }
   
   console.log(courses);
+  console.log(isLoading);
 
   let content = getContent();
 
   return (
     <div className="QuestionGrid">
-      {selectedOption === Options.question && 
+      {isLoading === false &&  selectedOption === Options.question && 
         content?.map((question) => (
           <div key={question.id}>
             <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
@@ -69,7 +76,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         ))
       }
 
-      {selectedOption === Options.course && (
+      {isLoading === false && selectedOption === Options.course && (
         <div className="d-flex flex-column align-items-center">
           {content?.map((course) => (
             <div key={course.id.videoId} className="my-2">
