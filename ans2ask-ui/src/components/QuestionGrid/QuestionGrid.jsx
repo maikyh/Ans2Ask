@@ -59,10 +59,10 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
         });
         const data = await response.json();
   
-        const filteredYoutubeVideos = data.filter(course => course.links.startsWith("https://www.youtube.com/watch?v="));
+        const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
   
         const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
-          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.links)}`, {
+          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
             signal: abortController.signal,
           });
           const videoData = await videoDataResponse.json();
@@ -75,7 +75,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
             searchData = await searchResponse.json();
           } else {
             let check = {
-              items: [{ id: { videoId: getVideoIdFromUrl(video.links) } }]
+              items: [{ id: { videoId: getVideoIdFromUrl(video.link) } }]
             };
             searchData = check;
           }

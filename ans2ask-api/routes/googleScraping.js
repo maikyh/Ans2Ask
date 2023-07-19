@@ -9,7 +9,7 @@ const getDataFromGoogleSearchResults = (query) => {
         .get(`https://www.google.com/search?q=${query}+youtube+courses&tbm=vid`)
         .headers({
             "User-Agent":
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36, Custom-Agent/1.0"
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36, Custom-Agent/1.0"
         })
         .then((response) => {
             let $ = cheerio.load(response.body);
@@ -29,7 +29,7 @@ const getDataFromGoogleSearchResults = (query) => {
             for (let i = 0; i < titles.length; i++) {
                 dataFromGoogleSearchResults[i] = {
                     title: titles[i],
-                    links: links[i],
+                    link: links[i],
                 };
             }
             return dataFromGoogleSearchResults;

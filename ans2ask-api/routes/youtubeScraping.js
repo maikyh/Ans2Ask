@@ -6,6 +6,8 @@ const router = express.Router();
 
 puppeteer.use(StealthPlugin());
 
+const timeOut = 60000;
+
 async function fillDataFromPage(page) {
   const dataFromPage = await page.evaluate(() => {
     return {
@@ -42,18 +44,16 @@ async function getDataFromYoutubeVideo(videoLink) {
 
   const page = await browser.newPage();
 
-  await page.setDefaultNavigationTimeout(60000);
+  await page.setDefaultNavigationTimeout(timeOut);
   await page.goto(videoLink);
 
   await page.waitForSelector("#contents");
 
-  await page.waitForTimeout(10000);
-
-  const dataFromVideoP = await fillDataFromPage(page);
+  const dataFromVideoPage = await fillDataFromPage(page);
 
   await browser.close();
 
-  return dataFromVideoP;
+  return dataFromVideoPage;
 }
 
 // Route to get details from a Youtube video
