@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import Question from "../Question/Question";
 import Options from "../../utils/OptionsQC.jsx"
+import { Spinner, Flex } from "@chakra-ui/react";
 import "./QuestionGrid.css";
 
 const url = `http://localhost:3001`;
@@ -92,6 +93,27 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
           ))}
         </div>
       )}
+
+      {
+        isLoading === true && 
+        <Flex
+          height="460px"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {isLoading && (
+            <Spinner
+              thickness="8px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+              w="24" h="24"
+            />
+          )}
+        </Flex>
+      }
+  
     </div>
   );
 }
