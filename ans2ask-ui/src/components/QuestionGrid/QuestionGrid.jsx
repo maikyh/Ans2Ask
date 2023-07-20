@@ -21,14 +21,24 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      const response = await fetch(url + '/questions');
-      const data = await response.json();
-      setQuestions(data);
-    };
-
-    fetchQuestions();
+    const cachedQuestions = localStorage.getItem('questions');
+    if(cachedQuestions.length == 0) {
+      setQuestions(JSON.parse(cachedQuestions));
+    }
+    else{
+      const fetchQuestions = async () => {
+        const response = await fetch(url + '/questions');
+        const data = await response.json();
+        setQuestions(data);
+      };
+  
+      fetchQuestions();
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('questions', JSON.stringify(questions));
+  }, [questions])
   
   useEffect(() => {
     // Create an instance of AbortController
