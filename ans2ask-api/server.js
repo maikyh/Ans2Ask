@@ -6,6 +6,8 @@ import { sequelize } from './database.js';
 import userRoutes from './routes/users.js';
 import questionRoutes from './routes/questions.js';
 import answerRoutes from './routes/answers.js';
+import googleScrapingRoutes from './routes/googleScraping.js'; 
+import youtubeScrapingRoutes from './routes/youtubeScraping.js'
 import SequelizeStoreInit from 'connect-session-sequelize';
 
 const app = express();
@@ -42,6 +44,8 @@ sessionStore.sync();
 app.use(userRoutes);
 app.use(questionRoutes);
 app.use(answerRoutes);
+app.use(googleScrapingRoutes);
+app.use(youtubeScrapingRoutes);
 
 sequelize.sync({ alter: true })
   .then(() => {
