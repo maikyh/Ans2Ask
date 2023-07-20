@@ -1,8 +1,9 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
-import Question from "../Question/Question";
+import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQA.jsx"
 import "./UserProfileGrid.css";
+
+const LazyQuestion = React.lazy(() => import('../Question/Question'));
 
 const url = `http://localhost:3001`;
 
@@ -51,7 +52,9 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
             { 
                 content?.map((question) => (
                 <div key={question.id}>
-                    <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <LazyQuestion id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                    </Suspense>
                 </div>
                 ))
             }
