@@ -10,7 +10,7 @@ import Options from "../../utils/OptionsQC.jsx";
 import Subjects from "../Subjects/Subjects";
 import "./Home.css";
 
-export default function Home({handleSetSearchQuery}) {
+const Home = ({handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
   const [selectedSubject, setSelectedSubject] = useState("All");
   const [selectedOption, setSelectedOption] = useState(Options.question);
@@ -50,3 +50,5 @@ export default function Home({handleSetSearchQuery}) {
     </div>
   );
 }
+
+export default Home;
