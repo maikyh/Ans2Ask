@@ -4,7 +4,6 @@ import Question from "../Question/Question";
 import Course from "../Course/Course"
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
-import Swal from 'sweetalert2';
 import "./QuestionGrid.css";
 
 const url = `http://localhost:3001`;
@@ -15,7 +14,7 @@ const allSubjects = "All";
 //Query on search
 const noQuery = 0;
 
-export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
+const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -170,3 +169,5 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     </div>
   );
 }
+
+export default QuestionGrid;
