@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
-import Navbar from "../Navbar/Navbar";
 import Swal from 'sweetalert2';
 import "./Ask.css";
+const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
 const url = `http://localhost:3001`;
 
@@ -138,7 +138,9 @@ const Ask = ({handleSetSearchQuery}) => {
 
     return (
         <div className="ask">
-            <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            </Suspense>
   
             <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>
                 <div className="custom-container-ask bg-light p-4 border rounded px-5">

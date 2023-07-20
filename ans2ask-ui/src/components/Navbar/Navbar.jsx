@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
-export default function Navbar({ handleSetSearchQuery, handleLogout }) {
+const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
     const { user, updateUser } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -59,3 +59,5 @@ export default function Navbar({ handleSetSearchQuery, handleLogout }) {
         </nav>
     );
 }
+
+export default Navbar;
