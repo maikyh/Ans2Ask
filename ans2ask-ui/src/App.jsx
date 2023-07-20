@@ -3,7 +3,6 @@ import { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
 import Home from "./components/Home/Home";
-import Login from "./components/Login/Login";
 import SearchResults from "./components/SearchResults/SearchResults";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,6 +11,7 @@ import UserProfile from "./components/UserProfile/UserProfile";
 import { ChakraProvider } from '@chakra-ui/react';
 const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));
 const LazyRegister = React.lazy(() => import('./components/Register/Register'));
+const LazyLogin = React.lazy(() => import('./components/Login/Login'));
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -50,7 +50,14 @@ export default function App() {
                     </Suspense>
                   }
                 />
-                <Route path="/login" element={<Login />} />
+                <Route 
+                  path="/login" 
+                  element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <LazyLogin />
+                    </Suspense>
+                  } 
+                />
                 <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
                 <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
                 <Route 

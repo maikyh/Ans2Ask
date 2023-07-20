@@ -6,7 +6,7 @@ import "./Login.css";
 
 const url = `http://localhost:3001`;
 
-export default function Login() {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { updateUser } = useContext(UserContext);
@@ -112,3 +112,4 @@ export default function Login() {
       </div>
     );
   }
+export default Login;
