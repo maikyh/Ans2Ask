@@ -22,7 +22,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
 
   useEffect(() => {
     const cachedQuestions = localStorage.getItem('questions');
-    if(cachedQuestions.length > 2) { // 2 == nothing in localStorage
+    if(cachedQuestions && cachedQuestions.length > 2) { // 2 == nothing in localStorage
       setQuestions(JSON.parse(cachedQuestions));
     }
     else{

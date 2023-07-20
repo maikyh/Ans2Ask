@@ -11,23 +11,48 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
 
+    //For Questions
     useEffect(() => {
-        const fetchQuestions = async () => {
+        const cachedQuestions = localStorage.getItem('questions');
+        if(cachedQuestions && cachedQuestions.length > 2) { // 2 == nothing in localStorage
+          setQuestions(JSON.parse(cachedQuestions));
+        }
+        else{
+          const fetchQuestions = async () => {
             const response = await fetch(url + '/questions');
             const data = await response.json();
             setQuestions(data);
-        };
-    
-        const fetchAnswers = async () => {
-            const response = await fetch(url + '/answers');
-            const data = await response.json();
-            setAnswers(data);
-        };
-
-        fetchAnswers();
-        fetchQuestions();
+          };
+      
+          fetchQuestions();
+        }
     }, []);
+    
+    useEffect(() => {
+        localStorage.setItem('questions', JSON.stringify(questions));
+    }, [questions])
 
+    //For Answers
+    useEffect(() => {
+        const cachedAnswers = localStorage.getItem('answers');
+        if(cachedAnswers && cachedAnswers.length > 2) { // 2 == nothing in localStorage
+          setAnswers(JSON.parse(cachedAnswers));
+        }
+        else{
+            const fetchAnswers = async () => {
+                const response = await fetch(url + '/answers');
+                const data = await response.json();
+                setAnswers(data);
+            };
+      
+            fetchAnswers();
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.setItem('answers', JSON.stringify(answers));
+    }, [answers])
+    
     function getContent() {
         if(selectedOption === Options.questions) return questions.filter(question => question.user.id === userId);
         
