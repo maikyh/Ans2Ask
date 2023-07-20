@@ -2,9 +2,10 @@ import React from "react";
 import { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { ChakraProvider } from '@chakra-ui/react';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
 const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));
 const LazyRegister = React.lazy(() => import('./components/Register/Register'));
 const LazyLogin = React.lazy(() => import('./components/Login/Login'));

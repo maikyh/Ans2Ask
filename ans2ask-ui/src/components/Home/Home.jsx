@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import Options from "../../utils/OptionsQC.jsx";
 import "./Home.css";
+
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 const LazyFooter = React.lazy(() => import('../Footer/Footer'));
-
 const LazySubjects = React.lazy(() => import('../Subjects/Subjects'));
 const LazyQuestionsOrCourses = React.lazy(() => import('../QuestionsOrCourses/QuestionsOrCourses'));
 const LazyQuestionGrid = React.lazy(() => import('../QuestionGrid/QuestionGrid'));

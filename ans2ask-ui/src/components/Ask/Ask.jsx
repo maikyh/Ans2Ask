@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState, useEffect, useContext, Suspense } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import "./Ask.css";
+
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
 const url = `http://localhost:3001`;
