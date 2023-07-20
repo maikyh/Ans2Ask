@@ -6,7 +6,7 @@ import "./UserProfileGrid.css";
 
 const url = `http://localhost:3001`;
 
-export default function UserProfileGrid({ selectedOption, userId }) {
+const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
 
@@ -58,3 +58,5 @@ export default function UserProfileGrid({ selectedOption, userId }) {
         </div>
     );
 }
+
+export default UserProfileGrid;
