@@ -1,7 +1,7 @@
 import React from "react";
 import "./Course.css";
 
-export default function QuestionGrid({video}) {
+export default function Course({video}) {
   return (
     <div className="Course">
         <div className="card mt-4" style={{ width: '900px' }}>
