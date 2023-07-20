@@ -1,14 +1,15 @@
 import React from "react";  
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer.jsx";
 import Swal from 'sweetalert2';
 import "./QuestionDetails.css";
+
+const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
+const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
 const url = `http://localhost:3001`;
 
@@ -207,7 +208,9 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
 
     return (
         <div className="question-details">
-            <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            </Suspense>
 
             <div className="d-flex justify-content-center align-items-center" style={{marginTop: "3rem"}}>
                 <div className="custom-container-question-details bg-light px-4 pt-2">
@@ -304,7 +307,9 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
                 </div>
             </div>
 
-            <Footer/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <LazyFooter/>
+            </Suspense>
         </div>
     );
 }
