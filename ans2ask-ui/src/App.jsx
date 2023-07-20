@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
-import SearchResults from "./components/SearchResults/SearchResults";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import QuestionDetails from "./components/QuestionDetails/QuestionDetails";
@@ -12,6 +11,7 @@ const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));
 const LazyRegister = React.lazy(() => import('./components/Register/Register'));
 const LazyLogin = React.lazy(() => import('./components/Login/Login'));
 const LazyHome = React.lazy(() => import('./components/Home/Home'));
+const LazySearchResults = React.lazy(() => import('./components/SearchResults/SearchResults'));
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -66,7 +66,14 @@ export default function App() {
                     </Suspense>
                   } 
                 />
-                <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route 
+                  path="/search" 
+                  element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <LazySearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } 
+                />
                 <Route 
                   path="/ask" 
                   element={

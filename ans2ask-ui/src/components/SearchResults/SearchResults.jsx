@@ -7,7 +7,7 @@ import QuestionGrid from "../QuestionGrid/QuestionGrid";
 import Footer from "../Footer/Footer";
 import "./SearchResults.css";
 
-export default function SearchResults({searchQuery, handleSetSearchQuery}) {
+const SearchResults = ({searchQuery, handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
   const [selectedSubject, setSelectedSubject] = useState("All");
   const [selectedOption, setSelectedOption] = useState(1);
@@ -39,3 +39,5 @@ export default function SearchResults({searchQuery, handleSetSearchQuery}) {
     </div>
   );
 }
+
+export default SearchResults;
