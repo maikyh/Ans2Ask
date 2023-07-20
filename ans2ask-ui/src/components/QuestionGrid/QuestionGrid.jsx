@@ -1,10 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import Question from "../Question/Question";
-import Course from "../Course/Course"
+import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
 import "./QuestionGrid.css";
+
+const LazyQuestion = React.lazy(() => import('../Question/Question'));
+const LazyCourse = React.lazy(() => import('../Course/Course'));
 
 const url = `http://localhost:3001`;
 
@@ -133,7 +134,9 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
       {isLoading === false &&  selectedOption === Options.question && 
         content?.map((question) => (
           <div key={question.id}>
-            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <LazyQuestion id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+            </Suspense>
           </div>
         ))
       }
@@ -141,7 +144,9 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
       {isLoading === false && selectedOption === Options.course && (
         <div className="d-flex flex-column align-items-center">
           {content?.map((video) => (
-            <Course video={video} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <LazyCourse video={video} />
+            </Suspense>
           ))}
         </div>
       )}
