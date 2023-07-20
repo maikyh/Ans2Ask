@@ -10,7 +10,7 @@ import UserCard from "../UserCard/UserCard";
 import Options from "../../utils/OptionsQA.jsx"
 import "./UserProfile.css";
 
-export default function UserProfile({handleSetSearchQuery}) {
+const UserProfile = ({handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
   const [selectedOption, setSelectedOption] = useState(Options.questions);
 
@@ -51,3 +51,5 @@ export default function UserProfile({handleSetSearchQuery}) {
     </div>
   );
 }
+
+export default UserProfile;
