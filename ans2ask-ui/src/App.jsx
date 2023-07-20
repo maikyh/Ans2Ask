@@ -1,17 +1,17 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
 import Home from "./components/Home/Home";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import SearchResults from "./components/SearchResults/SearchResults";
-import Ask from "./components/Ask/Ask";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import QuestionDetails from "./components/QuestionDetails/QuestionDetails";
 import UserProfile from "./components/UserProfile/UserProfile";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
+const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,7 +46,13 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
                 <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
-                <Route path="/ask" element={<Ask handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route 
+                  path="/ask" 
+                  element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <LazyAsk handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } />
                 <Route path="/question/:id" element={<QuestionDetails handleSetSearchQuery={handleSetSearchQuery} />} />
                 <Route path="/user/:id" element={<UserProfile handleSetSearchQuery={handleSetSearchQuery} />} />
               </Routes>

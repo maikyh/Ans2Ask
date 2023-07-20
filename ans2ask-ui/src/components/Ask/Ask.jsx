@@ -9,7 +9,7 @@ import "./Ask.css";
 
 const url = `http://localhost:3001`;
 
-export default function Ask({handleSetSearchQuery}) {
+const Ask = ({handleSetSearchQuery}) => {
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
@@ -220,3 +220,5 @@ export default function Ask({handleSetSearchQuery}) {
         </div>
     );
 }
+
+export default Ask;
