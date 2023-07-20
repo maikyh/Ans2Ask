@@ -19,7 +19,7 @@ import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 
 const url = `http://localhost:3001`;
 
-export default function UserCard({ user }) {
+const UserCard = ({ user }) => {
   const [username, setUsername] = useState(user.username);
   const [title, setTitle] = useState(user.title);
   const [about, setAbout] = useState(user.about);
@@ -262,3 +262,5 @@ export default function UserCard({ user }) {
     </div>
   );
 }
+
+export default UserCard;

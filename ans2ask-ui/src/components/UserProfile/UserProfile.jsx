@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
