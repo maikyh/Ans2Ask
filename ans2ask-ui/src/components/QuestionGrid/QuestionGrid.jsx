@@ -20,6 +20,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  //For Questions
   useEffect(() => {
     const cachedQuestions = localStorage.getItem('questions');
     if(cachedQuestions && cachedQuestions.length > 2) { // 2 == nothing in localStorage
@@ -40,88 +41,99 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
     localStorage.setItem('questions', JSON.stringify(questions));
   }, [questions])
   
+  //For Courses
   useEffect(() => {
-    // Create an instance of AbortController
-    const abortController = new AbortController();
-    let didCancel = false;
-  
-    function transformString(originalString) {
-      var transformedString = originalString.replace(/ /g, '+');
-      return transformedString;
-    }
-  
-    function getVideoIdFromUrl(url) {
-      var regex = /[?&]v=([^&#]*)/;
-      var match = url.match(regex);
-      if (match && match[1]) {
-        return match[1];
-      } else {
-        return null;
-      }
-    }
-  
-    const fetchCourses = async () => {
-      setIsLoading(true);
-  
-      try {
-        const response = await fetch(url + '/google' + `/${selectedSubject}`, {
-          signal: abortController.signal,
-        });
-        const data = await response.json();
-  
-        const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
-  
-        const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
-          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
-            signal: abortController.signal,
-          });
-          const videoData = await videoDataResponse.json();
-  
-          let searchData;
-          const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`, {
-            signal: abortController.signal,
-          });
-          if (searchResponse.ok === true) {
-            searchData = await searchResponse.json();
-          } else {
-            let check = {
-              items: [{ id: { videoId: getVideoIdFromUrl(video.link) } }]
-            };
-            searchData = check;
-          }
-  
-          return {
-            ...videoData,
-            videoDetails: searchData.items[0]
-          };
-        });
-  
-        const videoDataArray = await Promise.all(fetchVideoDataPromises);
-  
-        if (!didCancel) {
-          setCourses(videoDataArray);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        if (!didCancel) {
-          setIsLoading(false);
-        }
-      }
-    };
-  
-    if (selectedOption === Options.course) {
-      fetchCourses();
-    }
-    else {
+    const cachedCourses = localStorage.getItem(`courses/${selectedSubject}`)
+    if(cachedCourses && cachedCourses.length > 2){
+      setCourses(JSON.parse(cachedCourses));
       setIsLoading(false);
     }
-  
-    return () => {
-      didCancel = true;
-      abortController.abort();
-    };
+    else {
+      // Create an instance of AbortController
+      const abortController = new AbortController();
+      let didCancel = false;
+    
+      function transformString(originalString) {
+        var transformedString = originalString.replace(/ /g, '+');
+        return transformedString;
+      }
+    
+      function getVideoIdFromUrl(url) {
+        var regex = /[?&]v=([^&#]*)/;
+        var match = url.match(regex);
+        if (match && match[1]) {
+          return match[1];
+        } else {
+          return null;
+        }
+      }
+    
+      const fetchCourses = async () => {
+        setIsLoading(true);
+    
+        try {
+          const response = await fetch(url + '/google' + `/${selectedSubject}`, {
+            signal: abortController.signal,
+          });
+          const data = await response.json();
+    
+          const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
+    
+          const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
+            const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
+              signal: abortController.signal,
+            });
+            const videoData = await videoDataResponse.json();
+    
+            let searchData;
+            const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`, {
+              signal: abortController.signal,
+            });
+            if (searchResponse.ok === true) {
+              searchData = await searchResponse.json();
+            } else {
+              let check = {
+                items: [{ id: { videoId: getVideoIdFromUrl(video.link) } }]
+              };
+              searchData = check;
+            }
+    
+            return {
+              ...videoData,
+              videoDetails: searchData.items[0]
+            };
+          });
+    
+          const videoDataArray = await Promise.all(fetchVideoDataPromises);
+    
+          if (!didCancel) {
+            setCourses(videoDataArray);
+            setIsLoading(false);
+          }
+        } catch (error) {
+          if (!didCancel) {
+            setIsLoading(false);
+          }
+        }
+      };
+    
+      if (selectedOption === Options.course) {
+        fetchCourses();
+      }
+      else {
+        setIsLoading(false);
+      }
+    
+      return () => {
+        didCancel = true;
+        abortController.abort();
+      };
+    }
   }, [selectedOption, selectedSubject]);
-  
+
+  useEffect(() => {
+    localStorage.setItem(`courses/${selectedSubject}`, JSON.stringify(courses));
+  }, [courses])
   
   function getContent() {
     if(searchQuery.length !== noQuery){
