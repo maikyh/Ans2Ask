@@ -12,7 +12,7 @@ import "./QuestionDetails.css";
 
 const url = `http://localhost:3001`;
 
-export default function QuestionDetails({handleSetSearchQuery}) {
+const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
@@ -308,3 +308,5 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         </div>
     );
 }
+
+export default QuestionDetails;
