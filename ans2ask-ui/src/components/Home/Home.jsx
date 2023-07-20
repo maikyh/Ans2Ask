@@ -1,14 +1,14 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
 import QuestionGrid from "../QuestionGrid/QuestionGrid";
 import QuestionsOrCourses from "../QuestionsOrCourses/QuestionsOrCourses";
 import Options from "../../utils/OptionsQC.jsx";
 import Subjects from "../Subjects/Subjects";
 import "./Home.css";
+const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
+const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
 const Home = ({handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
@@ -38,7 +38,9 @@ const Home = ({handleSetSearchQuery}) => {
 
   return (
     <div className="home">
-        <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+        <Suspense fallback={<div>Loading...</div>}>
+            <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+        </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
                 <Subjects selectedSubject={selectedSubject} handleSetSelectedSubject={handleSetSelectedSubject} />
@@ -46,7 +48,9 @@ const Home = ({handleSetSearchQuery}) => {
                 <QuestionGrid searchQuery={""} selectedOption={selectedOption} selectedSubject={selectedSubject}/>
             </div>
         </div>
-        <Footer/>
+        <Suspense fallback={<div>Loading...</div>}>
+          <LazyFooter/>
+        </Suspense>
     </div>
   );
 }
