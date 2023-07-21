@@ -29,6 +29,10 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
         localStorage.removeItem('answers');
     };
 
+    const removeQuestionFromLocalStorage = (id) => {
+        localStorage.removeItem('questions' + '/' + id);
+    };
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -60,16 +64,29 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
         return () => clearTimeout(timer);
     }, [answers])
 
+    //For Question
     useEffect(() => {
-        const fetchQuestion = async () => {
-            const response = await fetch(url + `/questions/${id}`);
-            const data = await response.json();
-            setQuestion(data);
-            setFinishStatus(true);
-        };
-
-        fetchQuestion();
+        const cachedQuestion = localStorage.getItem(`questions/${id}`);
+        if(cachedQuestion && cachedQuestion.length > 2) { // 2 == nothing in localStorage
+          setQuestion(JSON.parse(cachedQuestion));
+        }
+        else{
+            const fetchQuestion = async () => {
+                const response = await fetch(url + `/questions/${id}`);
+                const data = await response.json();
+                setQuestion(data);
+                setFinishStatus(true);
+            };
+    
+            fetchQuestion();
+        }
     }, []);
+
+    useEffect(() => {
+        localStorage.setItem(`questions/${id}`, JSON.stringify(question));
+        const timer = setTimeout(() => removeQuestionFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [question])
 
     useEffect(() => {
         const fetchUser = async () => {
