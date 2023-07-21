@@ -38,7 +38,7 @@ const UserProfile = ({handleSetSearchQuery}) => {
             <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-home bg-light px-4 pt-4 pb-2">
+            <div className="custom-container-UserProfile bg-light px-4 pt-4 pb-2">
                 <Suspense fallback={<div>Loading...</div>}>
                   <LazyUserCard user={user} />
                 </Suspense>
