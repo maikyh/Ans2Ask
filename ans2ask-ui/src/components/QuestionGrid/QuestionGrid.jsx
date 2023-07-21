@@ -9,6 +9,8 @@ const LazyCourse = React.lazy(() => import('../Course/Course'));
 
 const url = `http://localhost:3001`;
 
+const MAX_TIME = 3600000;
+
 //Subjects
 const allSubjects = "All";
 
@@ -47,7 +49,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
 
   useEffect(() => {
     localStorage.setItem('questions', JSON.stringify(questions));
-    const timer = setTimeout(() => removeQuestionsFromLocalStorage(), 3600000);
+    const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
     return () => clearTimeout(timer);
   }, [questions])
   
@@ -143,7 +145,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
 
   useEffect(() => {
     localStorage.setItem(`courses/${selectedSubject}`, JSON.stringify(courses));
-    const timer = setTimeout(() => removeCoursesFromLocalStorage(selectedSubject), 3600000);
+    const timer = setTimeout(() => removeCoursesFromLocalStorage(selectedSubject), MAX_TIME);
     return () => clearTimeout(timer);
   }, [courses])
   

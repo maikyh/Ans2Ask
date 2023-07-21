@@ -7,9 +7,19 @@ const LazyQuestion = React.lazy(() => import('../Question/Question'));
 
 const url = `http://localhost:3001`;
 
+const MAX_TIME = 3600000;
+
 const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
+
+    const removeQuestionsFromLocalStorage = () => {
+        localStorage.removeItem('questions');
+    };
+
+    const removeAnswersFromLocalStorage = () => {
+        localStorage.removeItem('answers');
+    };
 
     //For Questions
     useEffect(() => {
@@ -30,6 +40,8 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     
     useEffect(() => {
         localStorage.setItem('questions', JSON.stringify(questions));
+        const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
     }, [questions])
 
     //For Answers
@@ -51,6 +63,8 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     
     useEffect(() => {
         localStorage.setItem('answers', JSON.stringify(answers));
+        const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
     }, [answers])
     
     function getContent() {
