@@ -13,6 +13,8 @@ const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
 const url = `http://localhost:3001`;
 
+const MAX_TIME = 3600000;
+
 const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
@@ -23,6 +25,10 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     const { user, updateUser } = useContext(UserContext);
     const { id } = useParams();
 
+    const removeAnswersFromLocalStorage = () => {
+        localStorage.removeItem('answers');
+    };
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,6 +36,29 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
             navigate('/login');
         }
     }, [user]);
+
+    //For Answers
+    useEffect(() => {
+        const cachedAnswers = localStorage.getItem('answers');
+        if(cachedAnswers && cachedAnswers.length > 2) { // 2 == nothing in localStorage
+          setAnswers(JSON.parse(cachedAnswers));
+        }
+        else{
+            const fetchAnswers = async () => {
+                const response = await fetch(url + '/answers');
+                const data = await response.json();
+                setAnswers(data);
+            };
+      
+            fetchAnswers();
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.setItem('answers', JSON.stringify(answers));
+        const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [answers])
 
     useEffect(() => {
         const fetchQuestion = async () => {
@@ -39,14 +68,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
             setFinishStatus(true);
         };
 
-        const fetchAnswers = async () => {
-            const response = await fetch(url + `/answers`);
-            const data = await response.json();
-            setAnswers(data);
-        };
-
         fetchQuestion();
-        fetchAnswers();
     }, []);
 
     useEffect(() => {
