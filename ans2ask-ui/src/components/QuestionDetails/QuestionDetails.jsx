@@ -138,6 +138,16 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
             return;
         }
 
+        if(body.length <= 10) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: "Your answer can't be less than 10 characters"
+            });
+            return;
+        }
+
         try {
           // Make the question API request
           const response = await fetch(url + `/answers`, {
