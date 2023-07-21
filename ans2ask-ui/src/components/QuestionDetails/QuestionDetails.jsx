@@ -33,6 +33,10 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
         localStorage.removeItem('questions' + '/' + id);
     };
 
+    const removeUserFromQuestionFromLocalStorage = (id) => {
+        localStorage.removeItem('users' + '/' + id);
+    };
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -84,20 +88,33 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
 
     useEffect(() => {
         localStorage.setItem(`questions/${id}`, JSON.stringify(question));
-        const timer = setTimeout(() => removeQuestionFromLocalStorage(), MAX_TIME);
+        const timer = setTimeout(() => removeQuestionFromLocalStorage(id), MAX_TIME);
         return () => clearTimeout(timer);
     }, [question])
 
+    //For User
     useEffect(() => {
-        const fetchUser = async () => {
-            const response = await fetch(url + `/users/${question.userId}`);
-            const data = await response.json();
-            setUserFromQuestion(data);
-            setFinishStatus(false);
-        };
-
-        fetchUser();
+        const cachedUser = localStorage.getItem(`users/${question.userId}`);
+        if(cachedUser && cachedUser.length > 66) { // 66 == nothing in localStorage
+            setUserFromQuestion(JSON.parse(cachedUser));
+        }
+        else{
+            const fetchUser = async () => {
+                const response = await fetch(url + `/users/${question.userId}`);
+                const data = await response.json();
+                setUserFromQuestion(data);
+                setFinishStatus(false);
+            };
+    
+            fetchUser();
+        }
     }, [FinishStatus]);
+
+    useEffect(() => {
+        localStorage.setItem(`users/${question.userId}`, JSON.stringify(userFromQuestion));
+        const timer = setTimeout(() => removeUserFromQuestionFromLocalStorage(question.userId), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [userFromQuestion])
 
     const handleLogout = () => {
         updateUser(null);
