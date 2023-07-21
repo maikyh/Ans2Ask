@@ -73,6 +73,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
         const cachedQuestion = localStorage.getItem(`questions/${id}`);
         if(cachedQuestion && cachedQuestion.length > 2) { // 2 == nothing in localStorage
           setQuestion(JSON.parse(cachedQuestion));
+          setFinishStatus(true);
         }
         else{
             const fetchQuestion = async () => {
@@ -97,8 +98,9 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
         const cachedUser = localStorage.getItem(`users/${question.userId}`);
         if(cachedUser && cachedUser.length > 66) { // 66 == nothing in localStorage
             setUserFromQuestion(JSON.parse(cachedUser));
+            setFinishStatus(false);
         }
-        else{
+        else if(FinishStatus === true){
             const fetchUser = async () => {
                 const response = await fetch(url + `/users/${question.userId}`);
                 const data = await response.json();
