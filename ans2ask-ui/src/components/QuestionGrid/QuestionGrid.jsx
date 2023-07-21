@@ -20,6 +20,10 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const removeCoursesFromLocalStorage = (subject) => {
+    localStorage.removeItem('courses' + '/' + subject);
+  };
+
   //For Questions
   useEffect(() => {
     const cachedQuestions = localStorage.getItem('questions');
@@ -133,6 +137,8 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
 
   useEffect(() => {
     localStorage.setItem(`courses/${selectedSubject}`, JSON.stringify(courses));
+    const timer = setTimeout(() => removeCoursesFromLocalStorage(selectedSubject), 3600000);
+    return () => clearTimeout(timer);
   }, [courses])
   
   function getContent() {
