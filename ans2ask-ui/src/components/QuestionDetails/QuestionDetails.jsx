@@ -1,5 +1,5 @@
 import React from "react";  
-import { useState, useEffect, useContext, Suspense } from "react";
+import { useState, useEffect, useContext, Suspense, useMemo } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
@@ -194,7 +194,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
         return false;
     }
 
-    let thankedAnswerExist = checkIfThankedAnswerExist();
+    let thankedAnswerExist = useMemo(() => checkIfThankedAnswerExist(answersOfCurrentQuestion), [answersOfCurrentQuestion]);
 
     const handleGiveThanks = async (answerId, answerBody, answerUser) => {
         try {
