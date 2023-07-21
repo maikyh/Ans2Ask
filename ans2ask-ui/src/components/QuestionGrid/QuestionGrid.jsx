@@ -9,7 +9,7 @@ const LazyCourse = React.lazy(() => import('../Course/Course'));
 
 const url = `http://localhost:3001`;
 
-const MAX_TIME = 3600000;
+const MAX_TIME = 3600000; //1 hour
 
 //Subjects
 const allSubjects = "All";
