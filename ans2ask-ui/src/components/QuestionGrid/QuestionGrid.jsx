@@ -10,7 +10,7 @@ const LazyCourse = React.lazy(() => import('../Course/Course'));
 
 const url = `http://localhost:3001`;
 
-const MAX_TIME = 3600000; //1 hour
+const MAX_TIME = 600000; //1 hour
 
 //Subjects
 const allSubjects = "All";
@@ -34,7 +34,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   //For Questions
   useEffect(() => {
     const cachedQuestions = localStorage.getItem('questions');
-    if(cachedQuestions && cachedQuestions.length > 2) { // 2 == nothing in localStorage
+    if(cachedQuestions && cachedQuestions.length > 100) { // 2 == nothing in localStorage
       setQuestions(JSON.parse(cachedQuestions));
     }
     else{
@@ -83,23 +83,23 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
     
       const fetchCourses = async () => {
         setIsLoading(true);
-    
+      
         try {
           const response = await fetch(url + '/google' + `/${selectedSubject}`, {
             signal: abortController.signal,
           });
           const data = await response.json();
-    
+      
           const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
-    
+      
           const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
             const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
               signal: abortController.signal,
             });
             const videoData = await videoDataResponse.json();
-    
+      
             let searchData;
-            const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`, {
+            const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=YOUR_YOUTUBE_API_KEY`, {
               signal: abortController.signal,
             });
             if (searchResponse.ok === true) {
@@ -110,17 +110,22 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
               };
               searchData = check;
             }
-    
+      
             return {
               ...videoData,
               videoDetails: searchData.items[0]
             };
           });
-    
-          const videoDataArray = await Promise.all(fetchVideoDataPromises);
-    
+      
+          const fetchedCourses = [];
+      
+          for (const fetchVideoDataPromise of fetchVideoDataPromises) {
+            const course = await fetchVideoDataPromise;
+            fetchedCourses.push(course);
+            setCourses(fetchedCourses);
+          }
+          
           if (!didCancel) {
-            setCourses(videoDataArray);
             setIsLoading(false);
           }
         } catch (error) {
@@ -145,6 +150,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   }, [selectedOption, selectedSubject]);
 
   useEffect(() => {
+    localStorage.removeItem(`courses/${selectedSubject}`);
     localStorage.setItem(`courses/${selectedSubject}`, JSON.stringify(courses));
     const timer = setTimeout(() => removeCoursesFromLocalStorage(selectedSubject), MAX_TIME);
     return () => clearTimeout(timer);
