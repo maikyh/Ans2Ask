@@ -49,6 +49,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   }, []);
 
   useEffect(() => {
+    localStorage.removeItem('questions');
     localStorage.setItem('questions', JSON.stringify(questions));
     const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
     return () => clearTimeout(timer);
