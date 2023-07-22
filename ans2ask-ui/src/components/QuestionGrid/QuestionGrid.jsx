@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
 import "./QuestionGrid.css";
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
 const LazyCourse = React.lazy(() => import('../Course/Course'));
@@ -170,7 +171,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
       {isLoading === false &&  selectedOption === Options.question && 
         content?.map((question) => (
           <div key={question.id}>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<PersonalizedFallback />}>
               <LazyQuestion id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
             </Suspense>
           </div>
@@ -180,7 +181,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
       {isLoading === false && selectedOption === Options.course && (
         <div className="d-flex flex-column align-items-center">
           {content?.map((video) => (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<PersonalizedFallback />}>
               <LazyCourse video={video} />
             </Suspense>
           ))}

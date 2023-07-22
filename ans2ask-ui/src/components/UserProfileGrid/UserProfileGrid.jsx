@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQA.jsx"
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import "./UserProfileGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
@@ -91,7 +92,7 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
             { 
                 content?.map((question) => (
                 <div key={question.id}>
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                         <LazyQuestion id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
                     </Suspense>
                 </div>

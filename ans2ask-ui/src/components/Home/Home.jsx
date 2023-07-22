@@ -3,6 +3,7 @@ import { useState, useEffect, useContext, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import Options from "../../utils/OptionsQC.jsx";
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import "./Home.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -39,23 +40,23 @@ const Home = ({handleSetSearchQuery}) => {
 
   return (
     <div className="home">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<PersonalizedFallback />}>
             <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<PersonalizedFallback />}>
                   <LazySubjects selectedSubject={selectedSubject} handleSetSelectedSubject={handleSetSelectedSubject} />
                 </Suspense>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<PersonalizedFallback />}>
                   <LazyQuestionsOrCourses selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
                 </Suspense>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<PersonalizedFallback />}>
                   <LazyQuestionGrid searchQuery={""} selectedOption={selectedOption} selectedSubject={selectedSubject}/>
                 </Suspense>
             </div>
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<PersonalizedFallback />}>
           <LazyFooter/>
         </Suspense>
     </div>

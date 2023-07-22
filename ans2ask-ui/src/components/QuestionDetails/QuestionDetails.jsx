@@ -6,6 +6,7 @@ import { UserContext } from "../../UserContext.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import "./QuestionDetails.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -276,7 +277,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
 
     return (
         <div className="question-details">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<PersonalizedFallback />}>
                 <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
 
@@ -375,7 +376,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
                 </div>
             </div>
 
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<PersonalizedFallback />}>
                 <LazyFooter/>
             </Suspense>
         </div>

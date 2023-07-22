@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
 import { ChakraProvider } from '@chakra-ui/react';
+import PersonalizedFallback from "./components/PersonalizedFallback/PersonalizedFallback";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -46,7 +47,7 @@ export default function App() {
                 <Route 
                   path="/register" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazyRegister />
                     </Suspense>
                   }
@@ -54,7 +55,7 @@ export default function App() {
                 <Route 
                   path="/login" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazyLogin />
                     </Suspense>
                   } 
@@ -62,7 +63,7 @@ export default function App() {
                 <Route 
                   path="/home" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazyHome handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
@@ -70,7 +71,7 @@ export default function App() {
                 <Route 
                   path="/search" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazySearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
@@ -78,14 +79,14 @@ export default function App() {
                 <Route 
                   path="/ask" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazyAsk handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } />
                 <Route 
                   path="/question/:id" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazyQuestionDetails handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
@@ -93,7 +94,7 @@ export default function App() {
                 <Route 
                   path="/user/:id" 
                   element={
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<PersonalizedFallback />}>
                       <LazyUserProfile handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
