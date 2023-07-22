@@ -43,7 +43,7 @@ const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
                                 }
                                 {
                                     !user &&
-                                    <Link style={{ textDecoration: 'none' }}> View Profilee </Link>
+                                    <Link style={{ textDecoration: 'none' }}> View Profile </Link>
                                 }
 
                             </NavDropdown.Item>
