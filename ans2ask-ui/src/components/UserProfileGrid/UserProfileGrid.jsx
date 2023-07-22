@@ -8,7 +8,7 @@ const LazyQuestion = React.lazy(() => import('../Question/Question'));
 
 const url = `http://localhost:3001`;
 
-const MAX_TIME = 3600000;
+const MAX_TIME = 600000; //10 minutes
 
 const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);

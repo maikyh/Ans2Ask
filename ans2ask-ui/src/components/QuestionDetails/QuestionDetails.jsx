@@ -14,7 +14,7 @@ const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
 const url = `http://localhost:3001`;
 
-const MAX_TIME = 3600000;
+const MAX_TIME = 600000; //10 minutes
 
 const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
