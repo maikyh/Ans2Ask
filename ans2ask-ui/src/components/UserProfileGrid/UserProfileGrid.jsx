@@ -10,6 +10,8 @@ const url = `http://localhost:3001`;
 
 const MAX_TIME = 600000; //10 minutes
 
+const nothingInLocalStorage = 100; // 2 == nothing in localStorage
+
 const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
@@ -25,7 +27,7 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     //For Questions
     useEffect(() => {
         const cachedQuestions = localStorage.getItem('questions');
-        if(cachedQuestions && cachedQuestions.length > 2) { // 2 == nothing in localStorage
+        if(cachedQuestions && cachedQuestions.length > nothingInLocalStorage) { 
           setQuestions(JSON.parse(cachedQuestions));
         }
         else{
@@ -48,7 +50,7 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     //For Answers
     useEffect(() => {
         const cachedAnswers = localStorage.getItem('answers');
-        if(cachedAnswers && cachedAnswers.length > 2) { // 2 == nothing in localStorage
+        if(cachedAnswers && cachedAnswers.length > 100) { // 2 == nothing in localStorage
           setAnswers(JSON.parse(cachedAnswers));
         }
         else{

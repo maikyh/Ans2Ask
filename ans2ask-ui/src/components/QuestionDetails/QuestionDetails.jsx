@@ -16,6 +16,8 @@ const url = `http://localhost:3001`;
 
 const MAX_TIME = 600000; //10 minutes
 
+const nothingInLocalStorage = 100; //  (<= 100) nothing in localStorage
+
 const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
@@ -49,7 +51,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     //For Answers
     useEffect(() => {
         const cachedAnswers = localStorage.getItem('answers');
-        if(cachedAnswers && cachedAnswers.length > 2) { // 2 == nothing in localStorage
+        if(cachedAnswers && cachedAnswers.length > nothingInLocalStorage) {
           setAnswers(JSON.parse(cachedAnswers));
         }
         else{
@@ -72,7 +74,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     //For Question
     useEffect(() => {
         const cachedQuestion = localStorage.getItem(`questions/${id}`);
-        if(cachedQuestion && cachedQuestion.length > 2) { // 2 == nothing in localStorage
+        if(cachedQuestion && cachedQuestion.length > nothingInLocalStorage) {
           setQuestion(JSON.parse(cachedQuestion));
           setFinishStatus(true);
         }
@@ -97,7 +99,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     //For User
     useEffect(() => {
         const cachedUser = localStorage.getItem(`users/${question.userId}`);
-        if(cachedUser && cachedUser.length > 66) { // 66 == nothing in localStorage
+        if(cachedUser && cachedUser.length > nothingInLocalStorage) {
             setUserFromQuestion(JSON.parse(cachedUser));
             setFinishStatus(false);
         }

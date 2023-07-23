@@ -12,6 +12,8 @@ const url = `http://localhost:3001`;
 
 const MAX_TIME = 600000; //10 minutes
 
+const nothingInLocalStorage = 100; //  (<= 100) nothing in localStorage
+
 //Subjects
 const allSubjects = "All";
 
@@ -34,7 +36,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   //For Questions
   useEffect(() => {
     const cachedQuestions = localStorage.getItem('questions');
-    if(cachedQuestions && cachedQuestions.length > 100) { // 2 == nothing in localStorage
+    if(cachedQuestions && cachedQuestions.length > nothingInLocalStorage) {
       setQuestions(JSON.parse(cachedQuestions));
     }
     else{
@@ -58,7 +60,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   //For Courses
   useEffect(() => {
     const cachedCourses = localStorage.getItem(`courses/${selectedSubject}`)
-    if(cachedCourses && cachedCourses.length > 2){
+    if(cachedCourses && cachedCourses.length > nothingInLocalStorage){
       setCourses(JSON.parse(cachedCourses));
       setIsLoading(false);
     }
