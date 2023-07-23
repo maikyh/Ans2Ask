@@ -13,6 +13,7 @@ import "./QuestionDetails.css";
 const url = `http://localhost:3001`;
 
 export default function QuestionDetails({handleSetSearchQuery}) {
+    const [images, setImages] = useState([]);
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
@@ -21,6 +22,18 @@ export default function QuestionDetails({handleSetSearchQuery}) {
     const [thanks, setThanks] = useState(false);
     const { user, updateUser } = useContext(UserContext);
     const { id } = useParams();
+
+    useEffect(() => {
+        const fetchImages = async () => {
+          const response = await fetch(url + '/images');
+          const data = await response.json();
+          setImages(data.resources);
+        };
+    
+        fetchImages();
+      }, []);
+
+    const image = images.filter(image => image.public_id === userFromQuestion.email);
 
     const navigate = useNavigate();
 
@@ -214,7 +227,11 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                     <div style={{border: '0.9px solid gray' }} className="question-card position-relative bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
-                                <FontAwesomeIcon icon={faUser} />
+                                <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
+                                    {image && image[0] && image[0].url && 
+                                        <img className='preview-image' src={image[0].url} alt="lol" />
+                                    }
+                                </div>
                             </div>
                             <div className="col-auto">
                                 <h6 className="mt-1"> {userFromQuestion.username} </h6>
