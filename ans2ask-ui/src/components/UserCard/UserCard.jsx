@@ -16,7 +16,7 @@ import {
 import Swal from 'sweetalert2';
 import "./UserCard.css";
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
-import UploadImage from '../UploadImage/UploadImage.jsx';
+import Uploadimage from '../UploadImage/Uploadimage.jsx';
 
 const url = `http://localhost:3001`;
 
