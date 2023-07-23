@@ -57,7 +57,6 @@ export default function Navbar({ handleSetSearchQuery, handleLogout }) {
                                         {image && image.url &&
                                             <img  className='preview-image' src={image.url} alt="profilePicture" />
                                         }
-                                            
                                     </div>
                                 </div>
                             }
