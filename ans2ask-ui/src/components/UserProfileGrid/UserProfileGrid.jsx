@@ -7,8 +7,19 @@ import "./UserProfileGrid.css";
 const url = `http://localhost:3001`;
 
 export default function UserProfileGrid({ selectedOption, userId }) {
+    const [images, setImages] = useState([]);
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+          const response = await fetch(url + '/images');
+          const data = await response.json();
+          setImages(data.resources);
+        };
+    
+        fetchImages();
+      }, []);
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -51,7 +62,7 @@ export default function UserProfileGrid({ selectedOption, userId }) {
             { 
                 content?.map((question) => (
                 <div key={question.id}>
-                    <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                    <Question images={images} id={question.id} username={question.user.username} email={question.user.email} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
                 </div>
                 ))
             }
