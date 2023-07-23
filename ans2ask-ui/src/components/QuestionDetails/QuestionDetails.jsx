@@ -222,7 +222,13 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                             <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
 
                             <div className="col-auto">
-                                <h6 className="mt-1"> {question.subject} </h6>
+                                <h6 className="mt-1" style={{ fontStyle: "italic" }}> {userFromQuestion.title} </h6>
+                            </div>
+
+                            <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
+
+                            <div className="col-auto">
+                                <h6 className="mt-1 underline-text"> {question.subject} </h6>
                             </div>
                         </div>
                         <div>
