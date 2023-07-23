@@ -26,7 +26,12 @@ export default function UserCard({ user }) {
   const [title, setTitle] = useState(user.title);
   const [about, setAbout] = useState(user.about);
   const [coins, setCoins] = useState(user.coins);
+  const [isUpdating,setIsUpdating] = useState(false);
   const { updateUser } = useContext(UserContext);
+
+  const handleSetIsUpdating = () => {
+    setIsUpdating(!isUpdating);
+  }
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -189,6 +194,8 @@ export default function UserCard({ user }) {
 
   return (
     <div className="UserCard card row justify-content-center align-items-center">
+      {
+        !isUpdating && 
       <div className="card-body d-flex align-items-center">
         <div className='preview-container' style={{ margin: "10px", marginRight: "30px", width: "200px", height: "200px" }}>
           {image && image[0] && image[0].url &&
@@ -278,7 +285,7 @@ export default function UserCard({ user }) {
 
           <div className='row'>
             <div className="mt-3">
-              <button className='btn btn-primary p-1 px-2'> Update Photo </button>
+              <button onClick={() => {handleSetIsUpdating()}} className='btn btn-primary p-1 px-2'> Update Photo </button>
             </div>
           </div>
 
@@ -290,7 +297,13 @@ export default function UserCard({ user }) {
           }
         </div>
       </div>
-
+      }
+      {
+        isUpdating && 
+        <div>
+          <Uploadimage handleSetIsUpdating={handleSetIsUpdating}/>
+        </div>
+      }
     </div>
   );
 }

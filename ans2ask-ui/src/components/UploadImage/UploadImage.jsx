@@ -5,7 +5,7 @@ import './Uploadimage.css';
 
 const url = 'http://localhost:3001';
 
-const UploadImage = () => {
+const UploadImage = ({handleSetIsUpdating}) => {
     const { user } = useContext(UserContext);
 
     const [image, setImage] = useState("");
@@ -41,13 +41,22 @@ const UploadImage = () => {
                 body: JSON.stringify({ data: img }),
                 headers: { 'Content-type': 'application/json' },
             });
+
+            setTimeout(() => {
+                handleSetIsUpdating();
+                window.location.reload();
+            }, 0);
         }
+    }
+
+    const handleGoBack = async (e) => {
+        handleSetIsUpdating();
     }
 
     return (
         <div className="container">
             <div className="row justify-content-center align-items-center">
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <ReactAvatarEditor
                         ref={editorRef}
                         scale={parseFloat(scale)}
@@ -62,8 +71,8 @@ const UploadImage = () => {
                         className="editor-canvas"
                     />
                 </div>
-                <div className="col-md-6">
-                    <label>
+                <div className="col-md-4">
+                    <label className='mb-2'>
                         <input
                             name="upload-img-input"
                             type="file"
@@ -71,7 +80,7 @@ const UploadImage = () => {
                         />
                     </label>
                     <br />
-                    <div className="text-center">
+                    <div className="text-center mb-1">
                         <input
                             name="scale"
                             type="range"
@@ -83,8 +92,13 @@ const UploadImage = () => {
                         />
                     </div>
                     <div className="text-center">
-                        <button className="btn btn-primary" onClick={handleSubmit}>
-                            SUBMIT
+                        <button className="btn btn-primary p-1 px-2" onClick={handleSubmit}>
+                            Submit
+                        </button>
+                    </div>
+                    <div className="text-center mt-2">
+                        <button className="btn btn-danger p-1 px-2" onClick={handleGoBack}>
+                            Go Back
                         </button>
                     </div>
                 </div>
