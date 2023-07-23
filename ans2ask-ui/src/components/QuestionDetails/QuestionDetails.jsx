@@ -66,6 +66,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     }, []);
     
     useEffect(() => {
+        localStorage.removeItem('answers');
         localStorage.setItem('answers', JSON.stringify(answers));
         const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
         return () => clearTimeout(timer);
@@ -91,6 +92,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     }, []);
 
     useEffect(() => {
+        localStorage.removeItem(`questions/${id}`);
         localStorage.setItem(`questions/${id}`, JSON.stringify(question));
         const timer = setTimeout(() => removeQuestionFromLocalStorage(id), MAX_TIME);
         return () => clearTimeout(timer);
@@ -116,6 +118,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     }, [FinishStatus]);
 
     useEffect(() => {
+        localStorage.removeItem(`users/${question.userId}`);
         localStorage.setItem(`users/${question.userId}`, JSON.stringify(userFromQuestion));
         const timer = setTimeout(() => removeUserFromQuestionFromLocalStorage(question.userId), MAX_TIME);
         return () => clearTimeout(timer);
