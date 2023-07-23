@@ -256,7 +256,6 @@ export default function UserCard({ user }) {
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
-                textAlign='center'
                 defaultValue={about}
                 isPreviewFocusable={false}
               >
@@ -274,6 +273,12 @@ export default function UserCard({ user }) {
                   </div>
                 </div>
               </Editable>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className="mt-3">
+              <button className='btn btn-primary p-1 px-2'> Update Photo </button>
             </div>
           </div>
 
