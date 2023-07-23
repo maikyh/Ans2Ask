@@ -16,6 +16,7 @@ const allSubjects = "All";
 const noQuery = 0;
 
 export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
+  const [images, setImages] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,16 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     };
 
     fetchQuestions();
+  }, []);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const response = await fetch(url + '/images');
+      const data = await response.json();
+      setImages(data.resources);
+    };
+
+    fetchImages();
   }, []);
   
   useEffect(() => {
@@ -134,7 +145,7 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       {isLoading === false &&  selectedOption === Options.question && 
         content?.map((question) => (
           <div key={question.id}>
-            <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+            <Question images={images} id={question.id} username={question.user.username} email={question.user.email} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
           </div>
         ))
       }
