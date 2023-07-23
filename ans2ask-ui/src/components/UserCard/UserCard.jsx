@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContext } from '../../UserContext.js';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -16,15 +16,30 @@ import {
 import Swal from 'sweetalert2';
 import "./UserCard.css";
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
+import UploadImage from '../UploadImage/UploadImage.jsx';
 
 const url = `http://localhost:3001`;
 
 export default function UserCard({ user }) {
+  const [images, setImages] = useState([]);
   const [username, setUsername] = useState(user.username);
   const [title, setTitle] = useState(user.title);
   const [about, setAbout] = useState(user.about);
   const [coins, setCoins] = useState(user.coins);
   const { updateUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const response = await fetch(url + '/images');
+      const data = await response.json();
+      setImages(data.resources);
+    };
+
+    fetchImages();
+  }, []);
+
+  const image = images?.filter(image => image.public_id === user.email);
+  const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
 
   const handleUpdateUsername = async () => {
     try {
@@ -173,10 +188,14 @@ export default function UserCard({ user }) {
   }
 
   return (
-    <div className="UserCard card">
+    <div className="UserCard card row justify-content-center align-items-center">
       <div className="card-body d-flex align-items-center">
-        <FontAwesomeIcon className="fa-10x user-icon m-5" icon={faUser} />
-        <div>
+        <div className='preview-container' style={{ margin: "10px", marginRight: "30px", width: "200px", height: "200px" }}>
+          {image && image[0] && image[0].url &&
+            <img className='preview-image' src={image[0].url} alt="lol" />
+          }
+        </div>
+        <div className='mx-2'>
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
@@ -257,8 +276,16 @@ export default function UserCard({ user }) {
               </Editable>
             </div>
           </div>
+
+        </div>
+        <div style={{ borderLeft: '2px solid gray', height: '270px', marginLeft: "40px" }}></div>
+        <div className='row justify-content-center align-items-center' style={{ margin: "10px", marginLeft: "45px", marginRight: "10px", width: "400px", height: "250px" }}>
+          {metaImage && metaImage[0] && metaImage[0].url &&
+            <img className='' src={metaImage[0].url} alt="lol" />
+          }
         </div>
       </div>
+
     </div>
   );
 }
