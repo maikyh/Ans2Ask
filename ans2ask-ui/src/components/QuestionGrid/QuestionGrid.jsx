@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
-import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY } from "../../utils/Constants.jsx";
 import "./QuestionGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
@@ -91,7 +91,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
             const videoData = await videoDataResponse.json();
       
             let searchData;
-            const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=YOUR_YOUTUBE_API_KEY`, {
+            const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=${API_KEY}`, {
               signal: abortController.signal,
             });
             if (searchResponse.ok === true) {
