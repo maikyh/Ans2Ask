@@ -10,7 +10,7 @@ const url = `http://localhost:3001`;
 
 const MAX_TIME = 600000; //10 minutes
 
-const nothingInLocalStorage = 100; // 2 == nothing in localStorage
+const nothingInLocalStorage = 100; //  (<= 100) nothing in localStorage
 
 const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
@@ -42,6 +42,7 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     }, []);
     
     useEffect(() => {
+        localStorage.removeItem('questions');
         localStorage.setItem('questions', JSON.stringify(questions));
         const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
         return () => clearTimeout(timer);
@@ -50,7 +51,7 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     //For Answers
     useEffect(() => {
         const cachedAnswers = localStorage.getItem('answers');
-        if(cachedAnswers && cachedAnswers.length > 100) { // 2 == nothing in localStorage
+        if(cachedAnswers && cachedAnswers.length > nothingInLocalStorage) {
           setAnswers(JSON.parse(cachedAnswers));
         }
         else{
@@ -65,6 +66,7 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     }, []);
     
     useEffect(() => {
+        localStorage.removeItem('answers');
         localStorage.setItem('answers', JSON.stringify(answers));
         const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
         return () => clearTimeout(timer);
