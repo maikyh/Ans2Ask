@@ -21,6 +21,15 @@ router.post('/upload/:user', async (req, res) => {
     } catch (err) {
         return res.status(500).json({ msg: err.message });
     }
-  });
+});
+
+router.get('/images', async (req, res) => {
+    try {
+      const images = await cloudinary.api.resources({ type: 'upload', max_results: 30 });
+      res.json(images);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching images from Cloudinary' });
+    }
+});
 
 export default router;
