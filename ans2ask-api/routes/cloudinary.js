@@ -32,4 +32,14 @@ router.get('/images', async (req, res) => {
     }
 });
 
+router.get('/images/:public_id', async (req, res) => {
+    try {
+      const { public_id } = req.params;
+      const image = await cloudinary.api.resource(public_id);
+      res.json(image);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching image from Cloudinary' });
+    }
+});  
+
 export default router;
