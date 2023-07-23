@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import { url } from "../../utils/Constants.jsx";
 import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
-
-const url = `http://localhost:3001`;
 
 const Ask = ({handleSetSearchQuery}) => {
     const { user, updateUser } = useContext(UserContext);

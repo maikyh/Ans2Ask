@@ -2,15 +2,10 @@ import React from "react";
 import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQA.jsx"
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import "./UserProfileGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
-
-const url = `http://localhost:3001`;
-
-const MAX_TIME = 600000; //10 minutes
-
-const nothingInLocalStorage = 100; //  (<= 100) nothing in localStorage
 
 const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);

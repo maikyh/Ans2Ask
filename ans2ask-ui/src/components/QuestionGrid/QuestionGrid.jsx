@@ -2,23 +2,12 @@ import React from "react";
 import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
+import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import "./QuestionGrid.css";
-import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
 const LazyCourse = React.lazy(() => import('../Course/Course'));
-
-const url = `http://localhost:3001`;
-
-const MAX_TIME = 600000; //10 minutes
-
-const nothingInLocalStorage = 100; //  (<= 100) nothing in localStorage
-
-//Subjects
-const allSubjects = "All";
-
-//Query on search
-const noQuery = 0;
 
 const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   const [questions, setQuestions] = useState([]);

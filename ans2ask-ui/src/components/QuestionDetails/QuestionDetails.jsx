@@ -7,16 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import "./QuestionDetails.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 const LazyFooter = React.lazy(() => import('../Footer/Footer'));
-
-const url = `http://localhost:3001`;
-
-const MAX_TIME = 600000; //10 minutes
-
-const nothingInLocalStorage = 100; //  (<= 100) nothing in localStorage
 
 const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);

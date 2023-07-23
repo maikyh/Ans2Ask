@@ -2,9 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import Swal from 'sweetalert2';
+import { url } from "../../utils/Constants.jsx";
 import "./Login.css";
-
-const url = `http://localhost:3001`;
 
 const Login = () => {
   const [username, setUsername] = useState('');
