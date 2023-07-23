@@ -9,8 +9,10 @@ const url = `http://localhost:3001`;
 
 const MAX_LENGTH = 370;
 
-export default function Question({id, username, subject, title, body, coins}) {
+export default function Question({images, id, username, email, subject, title, body, coins}) {
   const [answers, setAnswers] = useState([]);
+
+  const image = images.filter(image => image.public_id === email);
 
   useEffect(() => {
     const fetchAnswers = async () => {
@@ -40,7 +42,11 @@ export default function Question({id, username, subject, title, body, coins}) {
       <div style={{border: '0.9px solid gray' }} className="question-card bg-white mt-4 p-3">
         <div className="row">
           <div className="col-auto">
-            <FontAwesomeIcon icon={faUser} />
+            <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
+              {image && image[0] && image[0].url && 
+                <img className='preview-image' src={image[0].url} alt="lol" />
+              }
+            </div>
           </div>
 
           <div className="col-auto">
