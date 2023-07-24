@@ -272,7 +272,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
             {
                 answersOfCurrentQuestion?.map((answer) => (
-                    <Answer answer={answer} handleGiveThanks={handleGiveThanks} user={user} question={question} thankedAnswerExist={thankedAnswerExist}/>
+                    <Answer images={images} answer={answer} handleGiveThanks={handleGiveThanks} user={user} question={question} thankedAnswerExist={thankedAnswerExist}/>
                   ))
             }
 

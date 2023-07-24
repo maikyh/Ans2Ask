@@ -44,7 +44,7 @@ export default function Question({images, id, username, email, subject, title, b
           <div className="col-auto">
             <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
               {image && image[0] && image[0].url && 
-                <img className='preview-image' src={image[0].url} alt="lol" />
+                <img className='preview-image' src={image[0].url} alt="profilePicture" />
               }
             </div>
           </div>
