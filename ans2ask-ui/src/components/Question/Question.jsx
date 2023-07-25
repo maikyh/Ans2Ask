@@ -8,7 +8,7 @@ import "./Question.css";
 
 const MAX_LENGTH = 370;
 
-const Question = ({id, username, subject, title, body, coins}) => {
+const Question = ({id, username, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
@@ -49,7 +49,13 @@ const Question = ({id, username, subject, title, body, coins}) => {
           <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
 
           <div className="col-auto">
-            <h6 className="mt-1"> {subject} </h6>
+            <h6 className="mt-1" style={{ fontStyle: "italic" }}> {userTitle} </h6>
+          </div>
+
+          <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
+
+          <div className="col-auto">
+            <h6 className="mt-1 underline-text"> {subject} </h6>
           </div>
           <div>
 
