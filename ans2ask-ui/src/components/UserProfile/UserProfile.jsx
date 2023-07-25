@@ -1,16 +1,18 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
-import QuestionsOrAnswers from "../QuestionsOrAnswers/QuestionsOrAnswers";
-import UserProfileGrid from "../UserProfileGrid/UserProfileGrid";
-import UserCard from "../UserCard/UserCard";
 import Options from "../../utils/OptionsQA.jsx"
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import "./UserProfile.css";
 
-export default function UserProfile({handleSetSearchQuery}) {
+const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
+const LazyFooter = React.lazy(() => import('../Footer/Footer'));
+const LazyUserCard = React.lazy(() => import('../UserCard/UserCard'));
+const LazyQuestionsOrAnswers = React.lazy(() => import('../QuestionsOrAnswers/QuestionsOrAnswers'));
+const LazyUserProfileGrid = React.lazy(() => import('../UserProfileGrid/UserProfileGrid'));
+
+const UserProfile = ({handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
   const [selectedOption, setSelectedOption] = useState(Options.questions);
 
@@ -33,21 +35,33 @@ export default function UserProfile({handleSetSearchQuery}) {
 
   return (
     <div className="UserProfile">
-        <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+        <Suspense fallback={<PersonalizedFallback />}>
+            <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+        </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-home bg-light px-4 pt-4 pb-2">
-                <UserCard user={user} ></UserCard>
+            <div className="custom-container-UserProfile bg-light px-4 pt-4 pb-2">
+                <Suspense fallback={<PersonalizedFallback />}>
+                  <LazyUserCard user={user} />
+                </Suspense>
 
                 <div className="row border border-dark my-4"></div>
 
-                <QuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
+                <Suspense fallback={<PersonalizedFallback />}>
+                  <LazyQuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
+                </Suspense>
 
                 <div className="row border border-dark my-4"></div>
 
-                <UserProfileGrid selectedOption={selectedOption} userId={user.id}></UserProfileGrid>
+                <Suspense fallback={<PersonalizedFallback />}>
+                  <LazyUserProfileGrid selectedOption={selectedOption} userId={user.id}/>
+                </Suspense>
             </div>
         </div>
-        <Footer/>
+        <Suspense fallback={<PersonalizedFallback />}>
+          <LazyFooter/>
+        </Suspense>
     </div>
   );
 }
+
+export default UserProfile;

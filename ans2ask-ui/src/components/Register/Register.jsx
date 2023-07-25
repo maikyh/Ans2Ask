@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import { url } from "../../utils/Constants.jsx";
 import "./Register.css";
 
-const url = `http://localhost:3001`;
-
-export default function Register() {
+const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -126,3 +125,5 @@ export default function Register() {
       </div>
     );
   }
+
+export default Register;

@@ -4,7 +4,7 @@ import { faBrain, faSquareRootAlt, faCode, faMicroscope, faHeartbeat, faPalette,
 import { faGamepad, faScroll, faFlask, faBolt, faFilm, faGlobeAmericas, faBook, faUtensils, faLanguage } from "@fortawesome/free-solid-svg-icons";
 import "./Subjects.css";
 
-export default function Subjects({selectedSubject, handleSetSelectedSubject}) {
+const Subjects = ({selectedSubject, handleSetSelectedSubject}) => {
   const subjects1 = [
     {
       title: "All",
@@ -87,25 +87,37 @@ export default function Subjects({selectedSubject, handleSetSelectedSubject}) {
     <div className="subjects">
       <div className="row justify-content-center mt-2 mb-2">
         {subjects1.map((subject) => (
-          <div style={{ cursor: 'pointer' }} className="col-auto d-flex flex-column align-items-center" onClick={() => handleSetSelectedSubject(subject.title)}>
+          <div
+            key={subject.title}
+            style={{ cursor: 'pointer' }}
+            className="col-auto d-flex flex-column align-items-center subject-container" 
+            onClick={() => handleSetSelectedSubject(subject.title)}
+          >
             {subject.icon}
             <p className="text-center">{subject.title}</p>
           </div>
         ))}
       </div>
-
+  
       <div className="row justify-content-center">
         {subjects2.map((subject) => (
-          <div style={{ cursor: 'pointer' }} className="col-auto d-flex flex-column align-items-center" onClick={() => handleSetSelectedSubject(subject.title)}>
+          <div
+            key={subject.title}
+            style={{ cursor: 'pointer' }}
+            className="col-auto d-flex flex-column align-items-center subject-container"
+            onClick={() => handleSetSelectedSubject(subject.title)}
+          >
             {subject.icon}
             <p className="text-center">{subject.title}</p>
           </div>
         ))}
       </div>
-
+  
       <div className="row border border-dark my-4"></div>
       
       <h1 className="text-center mb-2 fw-bold">{selectedSubject}</h1>
     </div>
   );
 }
+
+export default Subjects;

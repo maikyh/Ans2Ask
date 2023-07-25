@@ -1,0 +1,51 @@
+.QuestionsOrCourses button {
+    position: relative;
+}
+
+.QuestionsOrCourses button[data-tooltip="MOST RECENT QUESTIONS"]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: blue;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.QuestionsOrCourses button[data-tooltip="MOST RECENT QUESTIONS"]:hover::before {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.QuestionsOrCourses button[data-tooltip="BEST YOUTUBE COURSES (Google/Youtube Scraping)"]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: red;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.QuestionsOrCourses button[data-tooltip="BEST YOUTUBE COURSES (Google/Youtube Scraping)"]:hover::before {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+}
