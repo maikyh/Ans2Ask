@@ -15,6 +15,17 @@ const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
+    const [ image, setImage ] = useState(null);
+  
+    useEffect(() => {
+        const fetchImage = async () => {
+          const response = await fetch(url + '/images' + `/${user.email}`);
+          const data = await response.json();
+          setImage(data);
+        };
+    
+        fetchImage();
+    }, []);
 
     const removeQuestionsFromLocalStorage = () => {
         localStorage.removeItem('questions');
@@ -119,7 +130,21 @@ const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
                         <div style={{ marginLeft: "1.75rem" }}>
                             <FontAwesomeIcon icon={faBell} />
                         </div>
-                        <NavDropdown style={{ marginLeft: "1.75rem" }} alignRight title={<FontAwesomeIcon icon={faUser} />} id="basic-nav-dropdown">
+                        <NavDropdown
+                            style={{ marginLeft: "1.55rem" }}
+                            alignRight
+                            title={
+                                <div>
+                                    <div className='preview-container' style={{position: 'absolute', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: "30px", height: "30px" }}>
+                                        {image && image.url &&
+                                            <img  className='preview-image' src={image.url} alt="profilePicture" />
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            id="basic-nav-dropdown"
+                        >
+
                             <NavDropdown.Item>
                                 {user ? (
                                     <Link style={{ textDecoration: 'none' }} to={`/user/${user.id}`}> View Profile </Link>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContext } from '../../UserContext.js';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -16,14 +16,36 @@ import {
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
+import Uploadimage from '../UploadImage/Uploadimage.jsx';
 import "./UserCard.css";
-
+  
+const url = `http://localhost:3001`;
+  
 const UserCard = ({ user }) => {
+  const [images, setImages] = useState([]);
   const [username, setUsername] = useState(user.username);
   const [title, setTitle] = useState(user.title);
   const [about, setAbout] = useState(user.about);
   const [coins, setCoins] = useState(user.coins);
+  const [isUpdating,setIsUpdating] = useState(false);
   const { updateUser } = useContext(UserContext);
+
+  const handleSetIsUpdating = () => {
+    setIsUpdating(!isUpdating);
+  }
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const response = await fetch(url + '/images');
+      const data = await response.json();
+      setImages(data.resources);
+    };
+
+    fetchImages();
+  }, []);
+
+  const image = images?.filter(image => image.public_id === user.email);
+  const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
 
   const handleUpdateUsername = async () => {
     try {
@@ -172,10 +194,16 @@ const UserCard = ({ user }) => {
   }
 
   return (
-    <div className="UserCard card">
+    <div className="UserCard card row justify-content-center align-items-center">
+      {
+        !isUpdating && 
       <div className="card-body d-flex align-items-center">
-        <FontAwesomeIcon className="fa-10x user-icon m-5" icon={faUser} />
-        <div>
+        <div className='preview-container' style={{ margin: "10px", marginRight: "30px", width: "200px", height: "200px" }}>
+          {image && image[0] && image[0].url &&
+            <img className='preview-image' src={image[0].url} alt="lol" />
+          }
+        </div>
+        <div className='mx-2'>
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
@@ -236,7 +264,6 @@ const UserCard = ({ user }) => {
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
-                textAlign='center'
                 defaultValue={about}
                 isPreviewFocusable={false}
               >
@@ -256,8 +283,28 @@ const UserCard = ({ user }) => {
               </Editable>
             </div>
           </div>
+
+          <div className='row'>
+            <div className="mt-3">
+              <button onClick={() => {handleSetIsUpdating()}} className='btn btn-primary p-1 px-2'> Update Photo </button>
+            </div>
+          </div>
+
+        </div>
+        <div style={{ borderLeft: '2px solid gray', height: '270px', marginLeft: "40px" }}></div>
+        <div className='row justify-content-center align-items-center' style={{ margin: "10px", marginLeft: "45px", marginRight: "10px", width: "400px", height: "250px" }}>
+          {metaImage && metaImage[0] && metaImage[0].url &&
+            <img className='' src={metaImage[0].url} alt="lol" />
+          }
         </div>
       </div>
+      }
+      {
+        isUpdating && 
+        <div>
+          <Uploadimage handleSetIsUpdating={handleSetIsUpdating}/>
+        </div>
+      }
     </div>
   );
 }

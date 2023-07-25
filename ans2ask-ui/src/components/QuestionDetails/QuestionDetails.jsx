@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
@@ -16,6 +17,7 @@ const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [images, setImages] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
     const [FinishStatus, setFinishStatus] = useState(false);
     const [body, setBody] = useState("");
@@ -23,6 +25,18 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     const { user, updateUser } = useContext(UserContext);
     const { id } = useParams();
 
+    useEffect(() => {
+        const fetchImages = async () => {
+          const response = await fetch(url + '/images');
+          const data = await response.json();
+          setImages(data.resources);
+        };
+    
+        fetchImages();
+      }, []);
+
+    const image = images.filter(image => image.public_id === userFromQuestion.email);
+  
     const removeAnswersFromLocalStorage = () => {
         localStorage.removeItem('answers');
     };
@@ -286,7 +300,11 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
                     <div style={{border: '0.9px solid gray' }} className="question-card position-relative bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
-                                <FontAwesomeIcon icon={faUser} />
+                                <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
+                                    {image && image[0] && image[0].url && 
+                                        <img className='preview-image' src={image[0].url} alt="lol" />
+                                    }
+                                </div>
                             </div>
                             <div className="col-auto">
                                 <h6 className="mt-1"> {userFromQuestion.username} </h6>
@@ -332,40 +350,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
 
             {
                 answersOfCurrentQuestion?.map((answer) => (
-                    <div className="d-flex justify-content-center align-items-center">
-                        <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
-                            <div style={{border: '0.5px solid gray' }} className="custom-container-question-details-answer mt-0 p-2 px-3 position-relative">
-                                <div className="row">
-                                    <div className="col-auto">
-                                        <FontAwesomeIcon icon={faUser} />
-                                    </div>
-                                    <div className="col-auto">
-                                        <h6 className="mt-1"> {answer.user.username} </h6>
-                                    </div>
-                                </div>
-                                <div className="row border border-dark mb-1 mx-0"></div>
-                                <div className="">
-                                    <p className="mb-1"> {answer.body} </p>
-                                </div>
-                                {
-                                    thankedAnswerExist === false && question.userId === user.id &&
-                                    <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                        <button onClick={() => handleGiveThanks(answer.id,answer.body,answer.user)} className="btn btn-danger py-0 px-1">
-                                            Give Thanks
-                                        </button>
-                                    </div>
-                                }
-                                {
-                                    answer.thanks === true &&
-                                    <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                        <p className="text-white bg-danger py-0 px-1">
-                                            Thanked Answer
-                                        </p>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <Answer images={images} answer={answer} handleGiveThanks={handleGiveThanks} user={user} question={question} thankedAnswerExist={thankedAnswerExist}/>
                   ))
             }
 
