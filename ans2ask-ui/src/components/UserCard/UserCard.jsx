@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContext } from '../../UserContext.js';
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { url } from "../../utils/Constants.jsx";
 import {
   Editable,
   EditableInput,
@@ -14,13 +15,13 @@ import {
   useEditableControls
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
-import "./UserCard.css";
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/Uploadimage.jsx';
-
+import "./UserCard.css";
+  
 const url = `http://localhost:3001`;
-
-export default function UserCard({ user }) {
+  
+const UserCard = ({ user }) => {
   const [images, setImages] = useState([]);
   const [username, setUsername] = useState(user.username);
   const [title, setTitle] = useState(user.title);
@@ -307,3 +308,5 @@ export default function UserCard({ user }) {
     </div>
   );
 }
+
+export default UserCard;

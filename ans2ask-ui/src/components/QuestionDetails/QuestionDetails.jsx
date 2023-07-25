@@ -1,22 +1,23 @@
 import React from "react";  
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Suspense, useMemo } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer.jsx";
 import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import "./QuestionDetails.css";
 
-const url = `http://localhost:3001`;
+const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
+const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
-export default function QuestionDetails({handleSetSearchQuery}) {
-    const [images, setImages] = useState([]);
+const QuestionDetails = ({handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [images, setImages] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
     const [FinishStatus, setFinishStatus] = useState(false);
     const [body, setBody] = useState("");
@@ -35,6 +36,18 @@ export default function QuestionDetails({handleSetSearchQuery}) {
       }, []);
 
     const image = images.filter(image => image.public_id === userFromQuestion.email);
+  
+    const removeAnswersFromLocalStorage = () => {
+        localStorage.removeItem('answers');
+    };
+
+    const removeQuestionFromLocalStorage = (id) => {
+        localStorage.removeItem('questions' + '/' + id);
+    };
+
+    const removeUserFromQuestionFromLocalStorage = (id) => {
+        localStorage.removeItem('users' + '/' + id);
+    };
 
     const navigate = useNavigate();
 
@@ -44,34 +57,81 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         }
     }, [user]);
 
+    //For Answers
     useEffect(() => {
-        const fetchQuestion = async () => {
-            const response = await fetch(url + `/questions/${id}`);
-            const data = await response.json();
-            setQuestion(data);
-            setFinishStatus(true);
-        };
+        const cachedAnswers = localStorage.getItem('answers');
+        if(cachedAnswers && cachedAnswers.length > nothingInLocalStorage) {
+          setAnswers(JSON.parse(cachedAnswers));
+        }
+        else{
+            const fetchAnswers = async () => {
+                const response = await fetch(url + '/answers');
+                const data = await response.json();
+                setAnswers(data);
+            };
+      
+            fetchAnswers();
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.removeItem('answers');
+        localStorage.setItem('answers', JSON.stringify(answers));
+        const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [answers])
 
-        const fetchAnswers = async () => {
-            const response = await fetch(url + `/answers`);
-            const data = await response.json();
-            setAnswers(data);
-        };
-
-        fetchQuestion();
-        fetchAnswers();
+    //For Question
+    useEffect(() => {
+        const cachedQuestion = localStorage.getItem(`questions/${id}`);
+        if(cachedQuestion && cachedQuestion.length > nothingInLocalStorage) {
+          setQuestion(JSON.parse(cachedQuestion));
+          setFinishStatus(true);
+        }
+        else{
+            const fetchQuestion = async () => {
+                const response = await fetch(url + `/questions/${id}`);
+                const data = await response.json();
+                setQuestion(data);
+                setFinishStatus(true);
+            };
+    
+            fetchQuestion();
+        }
     }, []);
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const response = await fetch(url + `/users/${question.userId}`);
-            const data = await response.json();
-            setUserFromQuestion(data);
-            setFinishStatus(false);
-        };
+        localStorage.removeItem(`questions/${id}`);
+        localStorage.setItem(`questions/${id}`, JSON.stringify(question));
+        const timer = setTimeout(() => removeQuestionFromLocalStorage(id), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [question])
 
-        fetchUser();
+    //For User
+    useEffect(() => {
+        const cachedUser = localStorage.getItem(`users/${question.userId}`);
+        if(cachedUser && cachedUser.length > nothingInLocalStorage) {
+            setUserFromQuestion(JSON.parse(cachedUser));
+            setFinishStatus(false);
+        }
+        else if(FinishStatus === true){
+            const fetchUser = async () => {
+                const response = await fetch(url + `/users/${question.userId}`);
+                const data = await response.json();
+                setUserFromQuestion(data);
+                setFinishStatus(false);
+            };
+    
+            fetchUser();
+        }
     }, [FinishStatus]);
+
+    useEffect(() => {
+        localStorage.removeItem(`users/${question.userId}`);
+        localStorage.setItem(`users/${question.userId}`, JSON.stringify(userFromQuestion));
+        const timer = setTimeout(() => removeUserFromQuestionFromLocalStorage(question.userId), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [userFromQuestion])
 
     const handleLogout = () => {
         updateUser(null);
@@ -89,6 +149,16 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                 icon: 'error',
                 title: 'Submission Failed',
                 text: "You can't answer your own questions"
+            });
+            return;
+        }
+
+        if(body.length <= 10) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: "Your answer can't be less than 10 characters"
             });
             return;
         }
@@ -139,7 +209,7 @@ export default function QuestionDetails({handleSetSearchQuery}) {
         return false;
     }
 
-    let thankedAnswerExist = checkIfThankedAnswerExist();
+    let thankedAnswerExist = useMemo(() => checkIfThankedAnswerExist(answersOfCurrentQuestion), [answersOfCurrentQuestion]);
 
     const handleGiveThanks = async (answerId, answerBody, answerUser) => {
         try {
@@ -221,7 +291,9 @@ export default function QuestionDetails({handleSetSearchQuery}) {
 
     return (
         <div className="question-details">
-            <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            <Suspense fallback={<PersonalizedFallback />}>
+                <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            </Suspense>
 
             <div className="d-flex justify-content-center align-items-center" style={{marginTop: "3rem"}}>
                 <div className="custom-container-question-details bg-light px-4 pt-2">
@@ -240,7 +312,13 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                             <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
 
                             <div className="col-auto">
-                                <h6 className="mt-1"> {question.subject} </h6>
+                                <h6 className="mt-1" style={{ fontStyle: "italic" }}> {userFromQuestion.title} </h6>
+                            </div>
+
+                            <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
+
+                            <div className="col-auto">
+                                <h6 className="mt-1 underline-text"> {question.subject} </h6>
                             </div>
                         </div>
                         <div>
@@ -289,7 +367,11 @@ export default function QuestionDetails({handleSetSearchQuery}) {
                 </div>
             </div>
 
-            <Footer/>
+            <Suspense fallback={<PersonalizedFallback />}>
+                <LazyFooter/>
+            </Suspense>
         </div>
     );
 }
+
+export default QuestionDetails;
