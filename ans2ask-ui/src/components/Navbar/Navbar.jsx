@@ -80,7 +80,6 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
     }, []);
 
     const sentence = removeStopWords(inputValue);
-    console.log(sentence);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">

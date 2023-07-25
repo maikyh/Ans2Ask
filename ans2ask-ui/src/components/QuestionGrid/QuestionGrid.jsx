@@ -4,12 +4,13 @@ import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
 import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY } from "../../utils/Constants.jsx";
+import Swal from 'sweetalert2';
 import "./QuestionGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
 const LazyCourse = React.lazy(() => import('../Course/Course'));
 
-const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) => {
+const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) => {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,16 +26,16 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
   //For Questions
   useEffect(() => {
     const cachedQuestions = localStorage.getItem('questions');
-    if(cachedQuestions && cachedQuestions.length > nothingInLocalStorage) {
+    if (cachedQuestions && cachedQuestions.length > nothingInLocalStorage) {
       setQuestions(JSON.parse(cachedQuestions));
     }
-    else{
+    else {
       const fetchQuestions = async () => {
         const response = await fetch(url + '/questions');
         const data = await response.json();
         setQuestions(data);
       };
-  
+
       fetchQuestions();
     }
   }, []);
@@ -45,11 +46,11 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
     const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
     return () => clearTimeout(timer);
   }, [questions])
-  
+
   //For Courses
   useEffect(() => {
     const cachedCourses = localStorage.getItem(`courses/${selectedSubject}`)
-    if(cachedCourses && cachedCourses.length > nothingInLocalStorage){
+    if (cachedCourses && cachedCourses.length > nothingInLocalStorage) {
       setCourses(JSON.parse(cachedCourses));
       setIsLoading(false);
     }
@@ -57,12 +58,12 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
       // Create an instance of AbortController
       const abortController = new AbortController();
       let didCancel = false;
-    
+
       function transformString(originalString) {
         var transformedString = originalString.replace(/ /g, '+');
         return transformedString;
       }
-    
+
       function getVideoIdFromUrl(url) {
         var regex = /[?&]v=([^&#]*)/;
         var match = url.match(regex);
@@ -72,24 +73,24 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
           return null;
         }
       }
-    
+
       const fetchCourses = async () => {
         setIsLoading(true);
-      
+
         try {
           const response = await fetch(url + '/google' + `/${selectedSubject}`, {
             signal: abortController.signal,
           });
           const data = await response.json();
-      
+
           const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
-      
+
           const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
             const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
               signal: abortController.signal,
             });
             const videoData = await videoDataResponse.json();
-      
+
             let searchData;
             const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=${API_KEY}`, {
               signal: abortController.signal,
@@ -102,13 +103,13 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
               };
               searchData = check;
             }
-      
+
             return {
               ...videoData,
               videoDetails: searchData.items.length > 0 ? searchData.items[0] : null,
             };
           });
-      
+
           const videoDataArray = await Promise.all(fetchVideoDataPromises);
 
           if (!didCancel) {
@@ -121,14 +122,14 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
           }
         }
       };
-    
+
       if (selectedOption === Options.course) {
         fetchCourses();
       }
       else {
         setIsLoading(false);
       }
-    
+
       return () => {
         didCancel = true;
         abortController.abort();
@@ -142,28 +143,49 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
     const timer = setTimeout(() => removeCoursesFromLocalStorage(selectedSubject), MAX_TIME);
     return () => clearTimeout(timer);
   }, [courses])
-  
+
   function getContent() {
-    if(searchQuery.length !== noQuery){
+    if (searchQuery.length !== noQuery) {
       let currentContent = questions.filter(question => {
         const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
         const textMatches = question.body.toLowerCase().includes(searchQuery.toLowerCase());
         return titleMatches || textMatches;
       });
-      return currentContent; 
+      return currentContent;
     }
-    if(selectedOption === Options.course) return courses;
-    if(selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
+    if (selectedOption === Options.course) return courses;
+    if (selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
     return questions;
   }
 
   let content = getContent();
 
+  const handleOnClick = async (questionId) => {
+    console.log("here");
+    try {
+      // Make the question API request
+        const response = await fetch(url + `/questions` + `/${questionId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      });
+    } catch (error) {
+      // Handle any network or API request errors
+      Swal.fire({
+        icon: 'error',
+        title: 'User Interaction Failed: ' + error,
+        text: "Invalid OnClick. Please try again."
+      });
+    }
+  };
+
   return (
     <div className="QuestionGrid">
-      {isLoading === false &&  selectedOption === Options.question && 
+      {isLoading === false && selectedOption === Options.question &&
         content?.map((question) => (
-          <div key={question.id}>
+          <div onClick={() => handleOnClick(question.id)} key={question.id}>
             <Suspense fallback={<PersonalizedFallback />}>
               <LazyQuestion images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
             </Suspense>
@@ -182,7 +204,7 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
       )}
 
       {
-        isLoading === true && 
+        isLoading === true &&
         <Flex
           height="460px"
           alignItems="center"
@@ -200,7 +222,7 @@ const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) =>
           )}
         </Flex>
       }
-  
+
     </div>
   );
 }

@@ -71,7 +71,7 @@ router.put('/questions/:id', async (req, res) => {
       return res.status(404).json({ message: 'Question not found' });
     }
 
-    existingQuestion.clicks = existingQuestion.clicks = 1;
+    existingQuestion.clicks = existingQuestion.clicks + 1;
 
     await existingQuestion.save();
 
