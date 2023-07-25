@@ -1,117 +1,152 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import Question from "../Question/Question";
-import Course from "../Course/Course"
+import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
-import Swal from 'sweetalert2';
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
+import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY } from "../../utils/Constants.jsx";
 import "./QuestionGrid.css";
 
-const url = `http://localhost:3001`;
+const LazyQuestion = React.lazy(() => import('../Question/Question'));
+const LazyCourse = React.lazy(() => import('../Course/Course'));
 
-//Subjects
-const allSubjects = "All";
-
-//Query on search
-const noQuery = 0;
-
-export default function QuestionGrid({searchQuery, selectedOption, selectedSubject}) {
+const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      const response = await fetch(url + '/questions');
-      const data = await response.json();
-      setQuestions(data);
-    };
+  const removeCoursesFromLocalStorage = (subject) => {
+    localStorage.removeItem('courses' + '/' + subject);
+  };
 
-    fetchQuestions();
-  }, []);
-  
+  const removeQuestionsFromLocalStorage = () => {
+    localStorage.removeItem('questions');
+  };
+
+  //For Questions
   useEffect(() => {
-    // Create an instance of AbortController
-    const abortController = new AbortController();
-    let didCancel = false;
-  
-    function transformString(originalString) {
-      var transformedString = originalString.replace(/ /g, '+');
-      return transformedString;
+    const cachedQuestions = localStorage.getItem('questions');
+    if(cachedQuestions && cachedQuestions.length > nothingInLocalStorage) {
+      setQuestions(JSON.parse(cachedQuestions));
     }
-  
-    function getVideoIdFromUrl(url) {
-      var regex = /[?&]v=([^&#]*)/;
-      var match = url.match(regex);
-      if (match && match[1]) {
-        return match[1];
-      } else {
-        return null;
-      }
-    }
-  
-    const fetchCourses = async () => {
-      setIsLoading(true);
-  
-      try {
-        const response = await fetch(url + '/google' + `/${selectedSubject}`, {
-          signal: abortController.signal,
-        });
+    else{
+      const fetchQuestions = async () => {
+        const response = await fetch(url + '/questions');
         const data = await response.json();
+        setQuestions(data);
+      };
   
-        const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
-  
-        const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
-          const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
-            signal: abortController.signal,
-          });
-          const videoData = await videoDataResponse.json();
-  
-          let searchData;
-          const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI`, {
-            signal: abortController.signal,
-          });
-          if (searchResponse.ok === true) {
-            searchData = await searchResponse.json();
-          } else {
-            let check = {
-              items: [{ id: { videoId: getVideoIdFromUrl(video.link) } }]
-            };
-            searchData = check;
-          }
-  
-          return {
-            ...videoData,
-            videoDetails: searchData.items[0]
-          };
-        });
-  
-        const videoDataArray = await Promise.all(fetchVideoDataPromises);
-  
-        if (!didCancel) {
-          setCourses(videoDataArray);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        if (!didCancel) {
-          setIsLoading(false);
-        }
-      }
-    };
-  
-    if (selectedOption === Options.course) {
-      fetchCourses();
+      fetchQuestions();
     }
-    else {
+  }, []);
+
+  useEffect(() => {
+    localStorage.removeItem('questions');
+    localStorage.setItem('questions', JSON.stringify(questions));
+    const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
+    return () => clearTimeout(timer);
+  }, [questions])
+  
+  //For Courses
+  useEffect(() => {
+    const cachedCourses = localStorage.getItem(`courses/${selectedSubject}`)
+    if(cachedCourses && cachedCourses.length > nothingInLocalStorage){
+      setCourses(JSON.parse(cachedCourses));
       setIsLoading(false);
     }
-  
-    return () => {
-      didCancel = true;
-      abortController.abort();
-    };
+    else {
+      // Create an instance of AbortController
+      const abortController = new AbortController();
+      let didCancel = false;
+    
+      function transformString(originalString) {
+        var transformedString = originalString.replace(/ /g, '+');
+        return transformedString;
+      }
+    
+      function getVideoIdFromUrl(url) {
+        var regex = /[?&]v=([^&#]*)/;
+        var match = url.match(regex);
+        if (match && match[1]) {
+          return match[1];
+        } else {
+          return null;
+        }
+      }
+    
+      const fetchCourses = async () => {
+        setIsLoading(true);
+      
+        try {
+          const response = await fetch(url + '/google' + `/${selectedSubject}`, {
+            signal: abortController.signal,
+          });
+          const data = await response.json();
+      
+          const filteredYoutubeVideos = data.filter(video => video.link.startsWith("https://www.youtube.com/watch?v="));
+      
+          const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
+            const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
+              signal: abortController.signal,
+            });
+            const videoData = await videoDataResponse.json();
+      
+            let searchData;
+            const searchResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${transformString(video.title)}+Courses&type=video&key=${API_KEY}`, {
+              signal: abortController.signal,
+            });
+            if (searchResponse.ok === true) {
+              searchData = await searchResponse.json();
+            } else {
+              let check = {
+                items: [{ id: { videoId: getVideoIdFromUrl(video.link) } }]
+              };
+              searchData = check;
+            }
+      
+            return {
+              ...videoData,
+              videoDetails: searchData.items[0]
+            };
+          });
+      
+          const fetchedCourses = [];
+      
+          for (const fetchVideoDataPromise of fetchVideoDataPromises) {
+            const course = await fetchVideoDataPromise;
+            fetchedCourses.push(course);
+            setCourses(fetchedCourses);
+          }
+          
+          if (!didCancel) {
+            setIsLoading(false);
+          }
+        } catch (error) {
+          if (!didCancel) {
+            setIsLoading(false);
+          }
+        }
+      };
+    
+      if (selectedOption === Options.course) {
+        fetchCourses();
+      }
+      else {
+        setIsLoading(false);
+      }
+    
+      return () => {
+        didCancel = true;
+        abortController.abort();
+      };
+    }
   }, [selectedOption, selectedSubject]);
-  
+
+  useEffect(() => {
+    localStorage.removeItem(`courses/${selectedSubject}`);
+    localStorage.setItem(`courses/${selectedSubject}`, JSON.stringify(courses));
+    const timer = setTimeout(() => removeCoursesFromLocalStorage(selectedSubject), MAX_TIME);
+    return () => clearTimeout(timer);
+  }, [courses])
   
   function getContent() {
     if(searchQuery.length !== noQuery){
@@ -134,7 +169,9 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       {isLoading === false &&  selectedOption === Options.question && 
         content?.map((question) => (
           <div key={question.id}>
-            <Question id={question.id} username={question.user.username} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+            <Suspense fallback={<PersonalizedFallback />}>
+              <LazyQuestion id={question.id} username={question.user.username} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+            </Suspense>
           </div>
         ))
       }
@@ -142,7 +179,9 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
       {isLoading === false && selectedOption === Options.course && (
         <div className="d-flex flex-column align-items-center">
           {content?.map((video) => (
-            <Course video={video} />
+            <Suspense fallback={<PersonalizedFallback />}>
+              <LazyCourse video={video} />
+            </Suspense>
           ))}
         </div>
       )}
@@ -170,3 +209,5 @@ export default function QuestionGrid({searchQuery, selectedOption, selectedSubje
     </div>
   );
 }
+
+export default QuestionGrid;

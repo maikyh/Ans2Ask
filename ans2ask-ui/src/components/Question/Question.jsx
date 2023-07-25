@@ -1,15 +1,14 @@
 import React from "react";  
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { url } from "../../utils/Constants.jsx";
 import "./Question.css";
-
-const url = `http://localhost:3001`;
 
 const MAX_LENGTH = 370;
 
-export default function Question({id, username, userTitle, subject, title, body, coins}) {
+const Question = ({id, username, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
@@ -89,3 +88,5 @@ export default function Question({id, username, userTitle, subject, title, body,
     </div>
   );
 }
+
+export default Question;

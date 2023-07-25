@@ -1,15 +1,15 @@
 import React from 'react';
-import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext, Suspense } from "react";
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
-import Navbar from "../Navbar/Navbar";
 import Swal from 'sweetalert2';
+import { url } from "../../utils/Constants.jsx";
 import "./Ask.css";
 
-const url = `http://localhost:3001`;
+const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
-export default function Ask({handleSetSearchQuery}) {
+const Ask = ({handleSetSearchQuery}) => {
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
@@ -138,7 +138,9 @@ export default function Ask({handleSetSearchQuery}) {
 
     return (
         <div className="ask">
-            <Navbar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            <Suspense fallback={<div>Loading...</div>}>
+                <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            </Suspense>
   
             <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>
                 <div className="custom-container-ask bg-light p-4 border rounded px-5">
@@ -220,3 +222,5 @@ export default function Ask({handleSetSearchQuery}) {
         </div>
     );
 }
+
+export default Ask;

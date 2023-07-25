@@ -1,7 +1,7 @@
 import React from "react";
 import "./Course.css";
 
-export default function Course({video}) {
+const Course = ({video}) => {
   return (
     <div className="Course">
         <div className="card mt-4" style={{ width: '900px' }}>
@@ -26,7 +26,7 @@ export default function Course({video}) {
                         <div style={{ maxWidth: '100px' }}>
                             <img src={video.channel.thumbnail} className="card-img-top" alt={video.channel.name} />
                         </div>
-                        <a href={video.channel.link} className="btn btn-primary mt-2">Visit Channel</a>
+                        <a href={video.channel.link} className="btn btn-info mt-2">Visit Channel</a>
                     </div>
                 </div>
             </div>
@@ -36,3 +36,5 @@ export default function Course({video}) {
 
   );
 }
+
+export default Course;

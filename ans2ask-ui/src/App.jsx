@@ -1,17 +1,19 @@
 import React from "react";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
-import Home from "./components/Home/Home";
-import Register from "./components/Register/Register";
-import Login from "./components/Login/Login";
-import SearchResults from "./components/SearchResults/SearchResults";
-import Ask from "./components/Ask/Ask";
-import "./App.css";
+import { ChakraProvider } from '@chakra-ui/react';
+import PersonalizedFallback from "./components/PersonalizedFallback/PersonalizedFallback";
 import "bootstrap/dist/css/bootstrap.min.css";
-import QuestionDetails from "./components/QuestionDetails/QuestionDetails";
-import UserProfile from "./components/UserProfile/UserProfile";
-import { ChakraProvider } from '@chakra-ui/react'
+import "./App.css";
+
+const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));
+const LazyRegister = React.lazy(() => import('./components/Register/Register'));
+const LazyLogin = React.lazy(() => import('./components/Login/Login'));
+const LazyHome = React.lazy(() => import('./components/Home/Home'));
+const LazySearchResults = React.lazy(() => import('./components/SearchResults/SearchResults'));
+const LazyQuestionDetails = React.lazy(() => import('./components/QuestionDetails/QuestionDetails'));
+const LazyUserProfile = React.lazy(() => import('./components/UserProfile/UserProfile'));
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,13 +44,61 @@ export default function App() {
           <BrowserRouter>
             <main>
               <Routes>
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/home" element={<Home handleSetSearchQuery={handleSetSearchQuery} />} />
-                <Route path="/search" element={<SearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />} />
-                <Route path="/ask" element={<Ask handleSetSearchQuery={handleSetSearchQuery} />} />
-                <Route path="/question/:id" element={<QuestionDetails handleSetSearchQuery={handleSetSearchQuery} />} />
-                <Route path="/user/:id" element={<UserProfile handleSetSearchQuery={handleSetSearchQuery} />} />
+                <Route 
+                  path="/register" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazyRegister />
+                    </Suspense>
+                  }
+                />
+                <Route 
+                  path="/login" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazyLogin />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/home" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazyHome handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/search" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazySearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/ask" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazyAsk handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } />
+                <Route 
+                  path="/question/:id" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazyQuestionDetails handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } 
+                />
+                <Route 
+                  path="/user/:id" 
+                  element={
+                    <Suspense fallback={<PersonalizedFallback />}>
+                      <LazyUserProfile handleSetSearchQuery={handleSetSearchQuery} />
+                    </Suspense>
+                  } 
+                />
               </Routes>
             </main>
           </BrowserRouter>

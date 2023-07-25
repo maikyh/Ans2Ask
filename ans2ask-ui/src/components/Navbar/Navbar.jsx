@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../UserContext.js";
 import { useNavigate } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
-export default function Navbar({ handleSetSearchQuery, handleLogout }) {
+const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
     const { user, updateUser } = useContext(UserContext);
 
     const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function Navbar({ handleSetSearchQuery, handleLogout }) {
                                 }
                                 {
                                     !user &&
-                                    <Link style={{ textDecoration: 'none' }}> View Profilee </Link>
+                                    <Link style={{ textDecoration: 'none' }}> View Profile </Link>
                                 }
 
                             </NavDropdown.Item>
@@ -59,3 +59,5 @@ export default function Navbar({ handleSetSearchQuery, handleLogout }) {
         </nav>
     );
 }
+
+export default Navbar;
