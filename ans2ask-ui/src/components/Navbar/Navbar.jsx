@@ -5,14 +5,46 @@ import { NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
 const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
     const { user, updateUser } = useContext(UserContext);
+    const [questions, setQuestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
+
+    const removeQuestionsFromLocalStorage = () => {
+        localStorage.removeItem('questions');
+    };
+
+    //For Questions
+    useEffect(() => {
+        const cachedQuestions = localStorage.getItem('questions');
+        if (cachedQuestions && cachedQuestions.length > nothingInLocalStorage) {
+            setQuestions(JSON.parse(cachedQuestions));
+        }
+        else {
+            const fetchQuestions = async () => {
+                const response = await fetch(url + '/questions');
+                const data = await response.json();
+                setQuestions(data);
+            };
+
+            fetchQuestions();
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.removeItem('questions');
+        localStorage.setItem('questions', JSON.stringify(questions));
+        const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [questions])
+
+    const questionsPool = questions.map(question => question.body);
 
     const navigate = useNavigate();
 
@@ -46,20 +78,6 @@ const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
             document.removeEventListener('click', handleOutsideClick);
         };
     }, []);
-
-    //This will be replaced later with the questions using caching with localStorage
-    const questionsPool = [
-        "Question1",
-        "Question2",
-        "Question3",
-        "Question4",
-        "Question5",
-        "Question6",
-        "Question7",
-        "Question8",
-        "Question9",
-        "Question,Question4,Question4,Question4,Question4"
-    ];
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
