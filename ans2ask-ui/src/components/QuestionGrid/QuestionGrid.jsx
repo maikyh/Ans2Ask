@@ -160,13 +160,18 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
                       currentRating = currentRating + mapOfWordsOfCurrentQuestion[word] * 3;
                   }
               }
-              rating[question.id] = currentRating; 
+              rating[question.id] = currentRating + question.clicks; 
           }
           return rating;
       }
 
       const ratedQuestions = getRatedQuestions();
-      console.log(ratedQuestions);
+      const questionsSorted = [...questions];
+      questionsSorted.sort(function(a,b){
+        return ratedQuestions[a.id] < ratedQuestions[b.id] ? 1 : -1;
+      });
+
+      return questionsSorted;
     }
     if (selectedOption === Options.course) return courses;
     if (selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
