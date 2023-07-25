@@ -120,15 +120,10 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
             };
           });
       
-          const fetchedCourses = [];
-      
-          for (const fetchVideoDataPromise of fetchVideoDataPromises) {
-            const course = await fetchVideoDataPromise;
-            fetchedCourses.push(course);
-            setCourses(fetchedCourses);
-          }
-          
+          const videoDataArray = await Promise.all(fetchVideoDataPromises);
+
           if (!didCancel) {
+            setCourses(videoDataArray);
             setIsLoading(false);
           }
         } catch (error) {
