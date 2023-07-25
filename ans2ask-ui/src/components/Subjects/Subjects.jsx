@@ -4,7 +4,7 @@ import { faBrain, faSquareRootAlt, faCode, faMicroscope, faHeartbeat, faPalette,
 import { faGamepad, faScroll, faFlask, faBolt, faFilm, faGlobeAmericas, faBook, faUtensils, faLanguage } from "@fortawesome/free-solid-svg-icons";
 import "./Subjects.css";
 
-export default function Subjects({selectedSubject, handleSetSelectedSubject}) {
+const Subjects = ({selectedSubject, handleSetSelectedSubject}) => {
   const subjects1 = [
     {
       title: "All",
@@ -109,3 +109,5 @@ export default function Subjects({selectedSubject, handleSetSelectedSubject}) {
     </div>
   );
 }
+
+export default Subjects;

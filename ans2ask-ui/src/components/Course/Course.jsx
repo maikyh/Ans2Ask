@@ -1,7 +1,7 @@
 import React from "react";
 import "./Course.css";
 
-export default function Course({video}) {
+const Course = ({video}) => {
   return (
     <div className="Course">
         <div className="card mt-4" style={{ width: '900px' }}>
@@ -36,3 +36,5 @@ export default function Course({video}) {
 
   );
 }
+
+export default Course;

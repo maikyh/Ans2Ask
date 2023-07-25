@@ -1,32 +1,72 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
-import Question from "../Question/Question";
+import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQA.jsx"
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import "./UserProfileGrid.css";
 
-const url = `http://localhost:3001`;
+const LazyQuestion = React.lazy(() => import('../Question/Question'));
 
-export default function UserProfileGrid({ selectedOption, userId }) {
+const UserProfileGrid = ({ selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
 
+    const removeQuestionsFromLocalStorage = () => {
+        localStorage.removeItem('questions');
+    };
+
+    const removeAnswersFromLocalStorage = () => {
+        localStorage.removeItem('answers');
+    };
+
+    //For Questions
     useEffect(() => {
-        const fetchQuestions = async () => {
+        const cachedQuestions = localStorage.getItem('questions');
+        if(cachedQuestions && cachedQuestions.length > nothingInLocalStorage) { 
+          setQuestions(JSON.parse(cachedQuestions));
+        }
+        else{
+          const fetchQuestions = async () => {
             const response = await fetch(url + '/questions');
             const data = await response.json();
             setQuestions(data);
-        };
-    
-        const fetchAnswers = async () => {
-            const response = await fetch(url + '/answers');
-            const data = await response.json();
-            setAnswers(data);
-        };
-
-        fetchAnswers();
-        fetchQuestions();
+          };
+      
+          fetchQuestions();
+        }
     }, []);
+    
+    useEffect(() => {
+        localStorage.removeItem('questions');
+        localStorage.setItem('questions', JSON.stringify(questions));
+        const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [questions])
 
+    //For Answers
+    useEffect(() => {
+        const cachedAnswers = localStorage.getItem('answers');
+        if(cachedAnswers && cachedAnswers.length > nothingInLocalStorage) {
+          setAnswers(JSON.parse(cachedAnswers));
+        }
+        else{
+            const fetchAnswers = async () => {
+                const response = await fetch(url + '/answers');
+                const data = await response.json();
+                setAnswers(data);
+            };
+      
+            fetchAnswers();
+        }
+    }, []);
+    
+    useEffect(() => {
+        localStorage.removeItem('answers');
+        localStorage.setItem('answers', JSON.stringify(answers));
+        const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [answers])
+    
     function getContent() {
         if(selectedOption === Options.questions) return questions.filter(question => question.user.id === userId);
         
@@ -51,10 +91,14 @@ export default function UserProfileGrid({ selectedOption, userId }) {
             { 
                 content?.map((question) => (
                 <div key={question.id}>
-                    <Question id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                    <Suspense fallback={<PersonalizedFallback />}>
+                        <LazyQuestion id={question.id} username={question.user.username} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                    </Suspense>
                 </div>
                 ))
             }
         </div>
     );
 }
+
+export default UserProfileGrid;
