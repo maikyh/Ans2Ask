@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from 'react';
 import ReactAvatarEditor from "react-avatar-editor";
 import { UserContext } from '../../UserContext.js';
-import './Uploadimage.css';
+import './UploadImage.css';
 
 const url = 'http://localhost:3001';
 

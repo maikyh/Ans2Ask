@@ -116,7 +116,7 @@ const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
       
             return {
               ...videoData,
-              videoDetails: searchData.items[0]
+              videoDetails: searchData.items.length > 0 ? searchData.items[0] : null,
             };
           });
       

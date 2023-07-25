@@ -20,14 +20,15 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
         localStorage.removeItem('answers');
     };
   
-    const fetchImages = async () => {
+    useEffect(() => {
+        const fetchImages = async () => {
           const response = await fetch(url + '/images');
           const data = await response.json();
           setImages(data.resources);
         };
     
         fetchImages();
-     }, []);
+      }, []);
 
     //For Questions
     useEffect(() => {

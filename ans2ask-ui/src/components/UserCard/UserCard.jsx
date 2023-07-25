@@ -16,10 +16,8 @@ import {
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
-import Uploadimage from '../UploadImage/Uploadimage.jsx';
+import Uploadimage from '../UploadImage/UploadImage.jsx';
 import "./UserCard.css";
-  
-const url = `http://localhost:3001`;
   
 const UserCard = ({ user }) => {
   const [images, setImages] = useState([]);
