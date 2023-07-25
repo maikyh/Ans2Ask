@@ -56,12 +56,13 @@ const Ask = ({images, handleSetSearchQuery}) => {
         try {
           // Make the question API request
           const coins = questionCoins;
+          const clicks = 0;
           const response = await fetch(url + `/questions`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, body, subject, coins }),
+            body: JSON.stringify({ title, body, subject, coins, clicks }),
             credentials: 'include'
           });
     

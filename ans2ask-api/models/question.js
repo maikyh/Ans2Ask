@@ -18,5 +18,9 @@ export const Question = sequelize.define('Question', {
   coins: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  clicks: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 });
