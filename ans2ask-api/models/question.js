@@ -22,5 +22,9 @@ export const Question = sequelize.define('Question', {
   clicks: {
     type: DataTypes.INTEGER,
     allowNull: false
-  }
+  },
+  mapOfWords: {
+    type: DataTypes.JSON,
+    allowNull: false,
+  },
 });

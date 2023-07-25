@@ -5,6 +5,7 @@ import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
+import { removeStopWords } from "../../utils/StopWords.jsx";
 import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -56,13 +57,29 @@ const Ask = ({images, handleSetSearchQuery}) => {
         try {
           // Make the question API request
           const coins = questionCoins;
+          
           const clicks = 0;
+          
+          const mapOfWords = {};
+
+          const titleWithoutStopWords = removeStopWords(title).split(' ');
+          for(const word of titleWithoutStopWords){
+            if(!mapOfWords[word]) mapOfWords[word] = 1;
+            else mapOfWords[word]++;
+          }
+
+          const bodyWithoutStopWords = removeStopWords(body).split(' ');
+          for(const word of bodyWithoutStopWords){
+            if(!mapOfWords[word]) mapOfWords[word] = 1;
+            else mapOfWords[word]++;
+          }
+
           const response = await fetch(url + `/questions`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, body, subject, coins, clicks }),
+            body: JSON.stringify({ title, body, subject, coins, clicks, mapOfWords }),
             credentials: 'include'
           });
     
