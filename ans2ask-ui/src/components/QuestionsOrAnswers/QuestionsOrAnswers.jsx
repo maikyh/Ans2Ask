@@ -1,6 +1,6 @@
 import React from "react";
 import Options from "../../utils/OptionsQA.jsx"
-import Status from "../../utils/Status.jsx"
+import Status from "../../utils/StatusQA.jsx"
 import "./QuestionsOrAnswers.css";
 
 const QuestionsOrAnswers = ({selectedOption, handleSetSelectedOption}) => {
