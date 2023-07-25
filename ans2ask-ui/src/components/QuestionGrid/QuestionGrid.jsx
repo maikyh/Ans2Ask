@@ -161,7 +161,6 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
   let content = getContent();
 
   const handleOnClick = async (questionId) => {
-    console.log("here");
     try {
       // Make the question API request
         const response = await fetch(url + `/questions` + `/${questionId}`, {
