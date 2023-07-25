@@ -12,7 +12,7 @@ const LazyUserCard = React.lazy(() => import('../UserCard/UserCard'));
 const LazyQuestionsOrAnswers = React.lazy(() => import('../QuestionsOrAnswers/QuestionsOrAnswers'));
 const LazyUserProfileGrid = React.lazy(() => import('../UserProfileGrid/UserProfileGrid'));
 
-const UserProfile = ({handleSetSearchQuery}) => {
+const UserProfile = ({images, handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
   const [selectedOption, setSelectedOption] = useState(Options.questions);
 
@@ -36,12 +36,12 @@ const UserProfile = ({handleSetSearchQuery}) => {
   return (
     <div className="UserProfile">
         <Suspense fallback={<PersonalizedFallback />}>
-            <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
             <div className="custom-container-UserProfile bg-light px-4 pt-4 pb-2">
                 <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyUserCard user={user} />
+                  <LazyUserCard images={images} user={user} />
                 </Suspense>
 
                 <div className="row border border-dark my-4"></div>
@@ -53,7 +53,7 @@ const UserProfile = ({handleSetSearchQuery}) => {
                 <div className="row border border-dark my-4"></div>
 
                 <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyUserProfileGrid selectedOption={selectedOption} userId={user.id}/>
+                  <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user.id}/>
                 </Suspense>
             </div>
         </div>

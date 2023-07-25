@@ -9,25 +9,14 @@ import "./QuestionGrid.css";
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
 const LazyCourse = React.lazy(() => import('../Course/Course'));
 
-const QuestionGrid = ({searchQuery, selectedOption, selectedSubject}) => {
+const QuestionGrid = ({images, searchQuery, selectedOption, selectedSubject}) => {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [images, setImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const removeCoursesFromLocalStorage = (subject) => {
     localStorage.removeItem('courses' + '/' + subject);
   };
-  
-  useEffect(() => {
-    const fetchImages = async () => {
-      const response = await fetch(url + '/images');
-      const data = await response.json();
-      setImages(data.resources);
-    };
-
-    fetchImages();
-  }, []);
 
   const removeQuestionsFromLocalStorage = () => {
     localStorage.removeItem('questions');

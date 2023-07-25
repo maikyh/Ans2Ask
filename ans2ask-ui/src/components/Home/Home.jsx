@@ -12,7 +12,7 @@ const LazySubjects = React.lazy(() => import('../Subjects/Subjects'));
 const LazyQuestionsOrCourses = React.lazy(() => import('../QuestionsOrCourses/QuestionsOrCourses'));
 const LazyQuestionGrid = React.lazy(() => import('../QuestionGrid/QuestionGrid'));
 
-const Home = ({handleSetSearchQuery}) => {
+const Home = ({images, handleSetSearchQuery}) => {
   const { user, updateUser } = useContext(UserContext);
   const [selectedSubject, setSelectedSubject] = useState("All");
   const [selectedOption, setSelectedOption] = useState(Options.question);
@@ -41,7 +41,7 @@ const Home = ({handleSetSearchQuery}) => {
   return (
     <div className="home">
         <Suspense fallback={<PersonalizedFallback />}>
-            <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+            <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
             <div className="custom-container-home bg-light px-4 pt-4 pb-2">
@@ -52,7 +52,7 @@ const Home = ({handleSetSearchQuery}) => {
                   <LazyQuestionsOrCourses selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
                 </Suspense>
                 <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyQuestionGrid searchQuery={""} selectedOption={selectedOption} selectedSubject={selectedSubject}/>
+                  <LazyQuestionGrid images={images} searchQuery={""} selectedOption={selectedOption} selectedSubject={selectedSubject}/>
                 </Suspense>
             </div>
         </div>

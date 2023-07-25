@@ -9,23 +9,14 @@ import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx"
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
-const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
+const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
     const { user, updateUser } = useContext(UserContext);
     const [questions, setQuestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
-    const [ image, setImage ] = useState(null);
-  
-    useEffect(() => {
-        const fetchImage = async () => {
-          const response = await fetch(url + '/images' + `/${user.email}`);
-          const data = await response.json();
-          setImage(data);
-        };
-    
-        fetchImage();
-    }, []);
+      
+    const image = images?.filter(image => image.public_id === user.email);
 
     const removeQuestionsFromLocalStorage = () => {
         localStorage.removeItem('questions');
@@ -136,8 +127,8 @@ const Navbar = ({ handleSetSearchQuery, handleLogout }) => {
                             title={
                                 <div>
                                     <div className='preview-container' style={{position: 'absolute', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: "30px", height: "30px" }}>
-                                        {image && image.url &&
-                                            <img  className='preview-image' src={image.url} alt="profilePicture" />
+                                        {image && image[0] && image[0].url &&
+                                            <img  className='preview-image' src={image[0].url} alt="profilePicture" />
                                         }
                                     </div>
                                 </div>

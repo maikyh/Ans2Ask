@@ -7,10 +7,9 @@ import "./UserProfileGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
 
-const UserProfileGrid = ({ selectedOption, userId }) => {
+const UserProfileGrid = ({images, selectedOption, userId }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
-    const [images, setImages] = useState([]);
 
     const removeQuestionsFromLocalStorage = () => {
         localStorage.removeItem('questions');
@@ -19,16 +18,6 @@ const UserProfileGrid = ({ selectedOption, userId }) => {
     const removeAnswersFromLocalStorage = () => {
         localStorage.removeItem('answers');
     };
-  
-    useEffect(() => {
-        const fetchImages = async () => {
-          const response = await fetch(url + '/images');
-          const data = await response.json();
-          setImages(data.resources);
-        };
-    
-        fetchImages();
-      }, []);
 
     //For Questions
     useEffect(() => {

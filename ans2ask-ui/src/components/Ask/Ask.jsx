@@ -9,7 +9,7 @@ import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
-const Ask = ({handleSetSearchQuery}) => {
+const Ask = ({images, handleSetSearchQuery}) => {
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
@@ -139,7 +139,7 @@ const Ask = ({handleSetSearchQuery}) => {
     return (
         <div className="ask">
             <Suspense fallback={<div>Loading...</div>}>
-                <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+                <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
   
             <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>

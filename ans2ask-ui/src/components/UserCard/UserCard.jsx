@@ -19,8 +19,7 @@ import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import "./UserCard.css";
   
-const UserCard = ({ user }) => {
-  const [images, setImages] = useState([]);
+const UserCard = ({ user, images }) => {
   const [username, setUsername] = useState(user.username);
   const [title, setTitle] = useState(user.title);
   const [about, setAbout] = useState(user.about);
@@ -31,16 +30,6 @@ const UserCard = ({ user }) => {
   const handleSetIsUpdating = () => {
     setIsUpdating(!isUpdating);
   }
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      const response = await fetch(url + '/images');
-      const data = await response.json();
-      setImages(data.resources);
-    };
-
-    fetchImages();
-  }, []);
 
   const image = images?.filter(image => image.public_id === user.email);
   const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");

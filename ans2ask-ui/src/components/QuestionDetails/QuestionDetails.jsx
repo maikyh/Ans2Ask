@@ -14,26 +14,15 @@ import "./QuestionDetails.css";
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
-const QuestionDetails = ({handleSetSearchQuery}) => {
+const QuestionDetails = ({images, handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
-    const [images, setImages] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
     const [FinishStatus, setFinishStatus] = useState(false);
     const [body, setBody] = useState("");
     const [thanks, setThanks] = useState(false);
     const { user, updateUser } = useContext(UserContext);
     const { id } = useParams();
-
-    useEffect(() => {
-        const fetchImages = async () => {
-          const response = await fetch(url + '/images');
-          const data = await response.json();
-          setImages(data.resources);
-        };
-    
-        fetchImages();
-      }, []);
 
     const image = images.filter(image => image.public_id === userFromQuestion.email);
   
@@ -292,7 +281,7 @@ const QuestionDetails = ({handleSetSearchQuery}) => {
     return (
         <div className="question-details">
             <Suspense fallback={<PersonalizedFallback />}>
-                <LazyNavBar handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+                <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
 
             <div className="d-flex justify-content-center align-items-center" style={{marginTop: "3rem"}}>

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UserContext } from './UserContext';
 import { ChakraProvider } from '@chakra-ui/react';
 import PersonalizedFallback from "./components/PersonalizedFallback/PersonalizedFallback";
+import { url, MAX_TIME, nothingInLocalStorage } from "./utils/Constants.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -17,6 +18,7 @@ const LazyUserProfile = React.lazy(() => import('./components/UserProfile/UserPr
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [images, setImages] = useState([]);
 
   const [user, setUser] = useState(() => {
     // Retrieve the user data from storage or set it to null if not found
@@ -36,6 +38,33 @@ export default function App() {
   const handleSetSearchQuery = (query) => {
     setSearchQuery(query);
   };
+
+  const removeImagesFromLocalStorage = () => {
+    localStorage.removeItem('images');
+  };
+
+  useEffect(() => {
+    const cachedImages = localStorage.getItem('images');
+    if(cachedImages && cachedImages.length > nothingInLocalStorage) {
+      setImages(JSON.parse(cachedImages));
+    }
+    else {
+      const fetchImages = async () => {
+        const response = await fetch(url + '/images');
+        const data = await response.json();
+        setImages(data.resources);
+      };
+
+      fetchImages();
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.removeItem('images');
+    localStorage.setItem('images', JSON.stringify(images));
+    const timer = setTimeout(() => removeImagesFromLocalStorage(), MAX_TIME);
+    return () => clearTimeout(timer);
+  }, [images])
 
   return (
     <div className="app">
@@ -64,7 +93,7 @@ export default function App() {
                   path="/home" 
                   element={
                     <Suspense fallback={<PersonalizedFallback />}>
-                      <LazyHome handleSetSearchQuery={handleSetSearchQuery} />
+                      <LazyHome images={images} handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
                 />
@@ -72,7 +101,7 @@ export default function App() {
                   path="/search" 
                   element={
                     <Suspense fallback={<PersonalizedFallback />}>
-                      <LazySearchResults searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
+                      <LazySearchResults images={images} searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
                 />
@@ -80,14 +109,14 @@ export default function App() {
                   path="/ask" 
                   element={
                     <Suspense fallback={<PersonalizedFallback />}>
-                      <LazyAsk handleSetSearchQuery={handleSetSearchQuery} />
+                      <LazyAsk images={images} handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } />
                 <Route 
                   path="/question/:id" 
                   element={
                     <Suspense fallback={<PersonalizedFallback />}>
-                      <LazyQuestionDetails handleSetSearchQuery={handleSetSearchQuery} />
+                      <LazyQuestionDetails images={images} handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
                 />
@@ -95,7 +124,7 @@ export default function App() {
                   path="/user/:id" 
                   element={
                     <Suspense fallback={<PersonalizedFallback />}>
-                      <LazyUserProfile handleSetSearchQuery={handleSetSearchQuery} />
+                      <LazyUserProfile images={images} handleSetSearchQuery={handleSetSearchQuery} />
                     </Suspense>
                   } 
                 />
