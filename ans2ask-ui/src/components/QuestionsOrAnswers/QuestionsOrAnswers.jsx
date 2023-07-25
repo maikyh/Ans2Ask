@@ -3,7 +3,7 @@ import Options from "../../utils/OptionsQA.jsx"
 import Status from "../../utils/StatusQA.jsx"
 import "./QuestionsOrAnswers.css";
 
-export default function QuestionsOrAnswers({selectedOption, handleSetSelectedOption}) {
+const QuestionsOrAnswers = ({selectedOption, handleSetSelectedOption}) => {
   return (
     <div className="QuestionsOrCourses">
         <div className="d-flex">
@@ -13,3 +13,5 @@ export default function QuestionsOrAnswers({selectedOption, handleSetSelectedOpt
     </div>
   );
 }
+
+export default QuestionsOrAnswers;
