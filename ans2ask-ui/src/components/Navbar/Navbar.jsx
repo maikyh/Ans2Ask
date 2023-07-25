@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
-import { removeStopWords } from "../../utils/StopWords.jsx";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
@@ -78,8 +77,6 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         document.addEventListener('click', handleOutsideClick);
         return () => {document.removeEventListener('click', handleOutsideClick);};
     }, []);
-
-    const sentence = removeStopWords(inputValue);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">

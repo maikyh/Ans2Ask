@@ -4,6 +4,7 @@ import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
 import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY } from "../../utils/Constants.jsx";
+import { removeStopWords } from "../../utils/StopWords.jsx";
 import Swal from 'sweetalert2';
 import "./QuestionGrid.css";
 
@@ -146,12 +147,26 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
 
   function getContent() {
     if (searchQuery.length !== noQuery) {
-      let currentContent = questions.filter(question => {
-        const titleMatches = question.title.toLowerCase().includes(searchQuery.toLowerCase());
-        const textMatches = question.body.toLowerCase().includes(searchQuery.toLowerCase());
-        return titleMatches || textMatches;
-      });
-      return currentContent;
+      const sentence = removeStopWords(searchQuery);
+
+      function getRatedQuestions () {
+          const rating = {};
+          for(const question of questions){
+              const mapOfWordsOfCurrentQuestion = question.mapOfWords;
+              let currentRating = 0;
+              const currentSetence = removeStopWords(sentence).split(' ');
+              for(const word of currentSetence){
+                  if(mapOfWordsOfCurrentQuestion[word]){
+                      currentRating = currentRating + mapOfWordsOfCurrentQuestion[word] * 3;
+                  }
+              }
+              rating[question.id] = currentRating; 
+          }
+          return rating;
+      }
+
+      const ratedQuestions = getRatedQuestions();
+      console.log(ratedQuestions);
     }
     if (selectedOption === Options.course) return courses;
     if (selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
