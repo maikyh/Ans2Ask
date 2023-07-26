@@ -206,7 +206,7 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
         content?.map((question) => (
           <div onClick={() => handleOnClick(question.id)} key={question.id}>
             <Suspense fallback={<PersonalizedFallback />}>
-              <LazyQuestion images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+              <LazyQuestion sentence={removeStopWords(searchQuery)} images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
             </Suspense>
           </div>
         ))

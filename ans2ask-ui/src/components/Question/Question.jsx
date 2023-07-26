@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { url } from "../../utils/Constants.jsx";
+import Highlighter from "react-highlight-words";
 import "./Question.css";
 
 const MAX_LENGTH = 370;
 
-const Question = ({images, id, username, email, userTitle, subject, title, body, coins}) => {
+const Question = ({sentence, images, id, username, email, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
 
   const image = images.filter(image => image.public_id === email);
@@ -71,7 +72,12 @@ const Question = ({images, id, username, email, userTitle, subject, title, body,
           <span className="fw-bold">{title}</span>
         </div>
         <div className="">
-          <p> {truncateText(body)} </p>
+          <Highlighter
+            highlightClassName="YourHighlightClass"
+            searchWords={sentence.split(' ')}
+            autoEscape={true}
+            textToHighlight={truncateText(body)}
+          />
           {
             answersOfCurrentQuestion.length > 0 && 
             <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
