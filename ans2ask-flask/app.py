@@ -29,7 +29,7 @@ def stem_tokens(tokens):
 def normalize(text):
     return stem_tokens(nltk.word_tokenize(text.lower().translate(remove_punctuation_map)))
 
-vectorizer = TfidfVectorizer()
+vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words='english')
 
 def cosine_sim(text1, text2):
     tfidf = vectorizer.fit_transform([text1, text2])
