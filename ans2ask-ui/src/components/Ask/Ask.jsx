@@ -16,8 +16,8 @@ const Ask = ({images, handleSetSearchQuery}) => {
 
     const handleAdd = () => {
         const data = {
-            'sent_1': 'Dravid is a cricket player and a opening batsman',
-            'sent_2': 'Leo is a cricket player too He is a batsman,baller and keeper'
+            'sent_1': 'Dravid is cricket player and a opening batsman',
+            'sent_2': 'Dravid is a cricket player and a opening batsman'
         };
     
         axios.post('http://127.0.0.1:5000/check_similarity', data)
