@@ -6,11 +6,31 @@ import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { removeStopWords } from "../../utils/StopWords.jsx";
+import axios from 'axios';
 import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
 const Ask = ({images, handleSetSearchQuery}) => {
+    const [result, setResult] = useState('');
+
+    const handleAdd = () => {
+        const data = {
+            'sent_1': 'Dravid is a cricket player and a opening batsman',
+            'sent_2': 'Leo is a cricket player too He is a batsman,baller and keeper'
+        };
+    
+        axios.post('http://127.0.0.1:5000/check_similarity', data)
+          .then((response) => {
+            setResult(response.data.result);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+    };
+
+    console.log(result);
+
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
@@ -159,6 +179,8 @@ const Ask = ({images, handleSetSearchQuery}) => {
             <Suspense fallback={<div>Loading...</div>}>
                 <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
+
+            
   
             <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>
                 <div className="custom-container-ask bg-light p-4 border rounded px-5">
@@ -229,6 +251,11 @@ const Ask = ({images, handleSetSearchQuery}) => {
                     </form>
                 </div>
             </div>
+
+            <div>
+      <button onClick={handleAdd}>Add Numbers</button>
+      <p>Result: {result}</p>
+    </div>
   
             <footer className="bg-light py-4">
                 <div className="container text-center">
