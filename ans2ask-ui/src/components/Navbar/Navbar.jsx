@@ -9,12 +9,19 @@ import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx"
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
+const MAX_LENGTH = 120;
+
 const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
     const { user, updateUser } = useContext(UserContext);
     const [questions, setQuestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
+
+    function truncateText(body) {
+        if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
+        return body;
+    }
       
     const image = images?.filter(image => image.public_id === user.email);
 
@@ -46,7 +53,7 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         return () => clearTimeout(timer);
     }, [questions])
 
-    const questionsPool = questions.map(question => question.body);
+    const questionsPool = questions.map(question => truncateText(question.body));
 
     const navigate = useNavigate();
 
