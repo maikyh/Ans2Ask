@@ -7,7 +7,7 @@ import { url } from "../../utils/Constants.jsx";
 import Highlighter from "react-highlight-words";
 import "./Question.css";
 
-const MAX_LENGTH = 370;
+const MAX_LENGTH = 369;
 
 const Question = ({sentence, images, id, username, email, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
@@ -72,12 +72,14 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
           <span className="fw-bold">{title}</span>
         </div>
         <div className="">
-          <Highlighter
-            highlightClassName="YourHighlightClass"
-            searchWords={sentence.split(' ')}
-            autoEscape={true}
-            textToHighlight={truncateText(body)}
-          />
+          <div style={{marginBottom:"10px"}}>
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={sentence ? sentence.split(' ') : []}
+              autoEscape={true}
+              textToHighlight={truncateText(body)}
+            />
+          </div>
           {
             answersOfCurrentQuestion.length > 0 && 
             <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
