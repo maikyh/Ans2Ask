@@ -1,12 +1,8 @@
 import React from 'react';
 import "./Answer.css";
 
-const url = `http://localhost:3001`;
-
 export default function Answer({images, answer,handleGiveThanks,user,question,thankedAnswerExist}) {
-
     const image = images.filter(image => image.public_id === answer.user.email);
-    console.log(image);
 
     return (
         <div className="d-flex justify-content-center align-items-center">
