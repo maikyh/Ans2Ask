@@ -21,28 +21,28 @@ app = Flask(__name__)
 CORS(app)
 
 stemmer = nltk.stem.porter.PorterStemmer()
-remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
+removePunctuationMap = dict((ord(char), None) for char in string.punctuation)
 
-def stem_tokens(tokens):
+def stemTokens(tokens):
     return [stemmer.stem(item) for item in tokens]
 
 def normalize(text):
-    return stem_tokens(nltk.word_tokenize(text.lower().translate(remove_punctuation_map)))
+    return stemTokens(nltk.word_tokenize(text.lower().translate(removePunctuationMap)))
 
 vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words='english')
 
-def cosine_sim(text1, text2):
+def cosineSim(text1, text2):
     tfidf = vectorizer.fit_transform([text1, text2])
     return ((tfidf * tfidf.T).A)[0, 1]
 
-@app.route('/check_similarity', methods=['POST'])
-def check_similarity():
+@app.route('/checkCosineSimilarity', methods=['POST'])
+def checkCosineSimilarity():
     data = request.json
 
-    sent_1 = data['sent_1']
-    sent_2 = data['sent_2']
+    sentence1 = data['sentence1']
+    sentence2 = data['sentence2']
 
-    return jsonify({'result': cosine_sim(sent_1, sent_2)})
+    return jsonify({'result': cosineSim(sentence1, sentence2)})
 
 if __name__ == '__main__':
     app.run()

@@ -6,6 +6,7 @@ import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.j
 import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY } from "../../utils/Constants.jsx";
 import { removeStopWords } from "../../utils/StopWords.jsx";
 import Swal from 'sweetalert2';
+import axios from 'axios';
 import "./QuestionGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
@@ -14,6 +15,7 @@ const LazyCourse = React.lazy(() => import('../Course/Course'));
 const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) => {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
+  const [cosineSim, setCosineSim] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const removeCoursesFromLocalStorage = (subject) => {
@@ -152,20 +154,36 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
       function getRatedQuestions () {
           const rating = {};
           for(const question of questions){
-              const mapOfWordsOfCurrentQuestion = question.mapOfWords;
-              let currentRating = 0;
-              const currentSetence = removeStopWords(sentence).split(' ');
-              for(const word of currentSetence){
-                  if(mapOfWordsOfCurrentQuestion[word]){
-                      currentRating = currentRating + mapOfWordsOfCurrentQuestion[word] * 3;
-                  }
-              }
-              rating[question.id] = currentRating + question.clicks; 
+            const mapOfWordsOfCurrentQuestion = question.mapOfWords;
+            let currentRating = 0;
+            const currentSetence = removeStopWords(sentence).split(' ');
+            for(const word of currentSetence){
+                if(mapOfWordsOfCurrentQuestion[word]){
+                    currentRating = currentRating + mapOfWordsOfCurrentQuestion[word];
+                }
+            }
+
+            const data = {
+              'sentence1': searchQuery,
+              'sentence2': question.body
+            };
+
+            axios.post('http://127.0.0.1:5000/checkCosineSimilarity', data)
+              .then((response) => {
+                setCosineSim(response.data.result);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+            rating[question.id] = currentRating * 3 + question.clicks + cosineSim * 2;
           }
           return rating;
       }
 
       const ratedQuestions = getRatedQuestions();
+      console.log(ratedQuestions);
+
       const questionsSorted = [...questions];
       questionsSorted.sort(function(a,b){
         return ratedQuestions[a.id] < ratedQuestions[b.id] ? 1 : -1;

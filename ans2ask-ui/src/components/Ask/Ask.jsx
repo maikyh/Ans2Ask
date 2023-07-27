@@ -6,31 +6,11 @@ import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { removeStopWords } from "../../utils/StopWords.jsx";
-import axios from 'axios';
 import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
 const Ask = ({images, handleSetSearchQuery}) => {
-    const [result, setResult] = useState('');
-
-    const handleAdd = () => {
-        const data = {
-            'sent_1': 'Dravid is cricket player and a opening batsman',
-            'sent_2': 'Dravid is a cricket player and a opening batsman'
-        };
-    
-        axios.post('http://127.0.0.1:5000/check_similarity', data)
-          .then((response) => {
-            setResult(response.data.result);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-    };
-
-    console.log(result);
-
     const { user, updateUser } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
@@ -253,8 +233,6 @@ const Ask = ({images, handleSetSearchQuery}) => {
             </div>
 
             <div>
-      <button onClick={handleAdd}>Add Numbers</button>
-      <p>Result: {result}</p>
     </div>
   
             <footer className="bg-light py-4">
