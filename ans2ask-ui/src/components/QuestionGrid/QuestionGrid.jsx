@@ -182,7 +182,6 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
       }
 
       const ratedQuestions = getRatedQuestions();
-      console.log(ratedQuestions);
 
       const questionsSorted = [...questions];
       questionsSorted.sort(function(a,b){

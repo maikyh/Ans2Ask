@@ -3,10 +3,8 @@ from flask_cors import CORS
 
 import nltk
 import string
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-import nltk
 import ssl
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 try:
     _create_unverified_https_context = ssl._create_unverified_context
