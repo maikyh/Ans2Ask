@@ -15,7 +15,6 @@ const LazyCourse = React.lazy(() => import('../Course/Course'));
 const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) => {
   const [questions, setQuestions] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [cosineSim, setCosineSim] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [content, setContent] = useState([]);
 
