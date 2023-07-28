@@ -17,6 +17,7 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
   const [courses, setCourses] = useState([]);
   const [cosineSim, setCosineSim] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [content, setContent] = useState([]);
 
   const removeCoursesFromLocalStorage = (subject) => {
     localStorage.removeItem('courses' + '/' + subject);
@@ -147,55 +148,61 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
     return () => clearTimeout(timer);
   }, [courses])
 
-  function getContent() {
-    if (searchQuery.length !== noQuery) {
-      const sentence = removeStopWords(searchQuery);
-
-      function getRatedQuestions () {
-          const rating = {};
-          for(const question of questions){
-            const mapOfWordsOfCurrentQuestion = question.mapOfWords;
-            let currentRating = 0;
-            const currentSetence = removeStopWords(sentence).split(' ');
-            for(const word of currentSetence){
-                if(mapOfWordsOfCurrentQuestion[word]){
-                    currentRating = currentRating + mapOfWordsOfCurrentQuestion[word];
-                }
+  useEffect(() => {
+    const getContent = async () => {
+      if (searchQuery.length !== noQuery) {
+        const sentence = removeStopWords(searchQuery);
+  
+        async function getRatedQuestions () {
+            const rating = {};
+            for(const question of questions){
+              const mapOfWordsOfCurrentQuestion = question.mapOfWords;
+              let currentRating = 0;
+              const currentSetence = removeStopWords(sentence).split(' ');
+              for(const word of currentSetence){
+                  if(mapOfWordsOfCurrentQuestion[word]){
+                      currentRating = currentRating + mapOfWordsOfCurrentQuestion[word];
+                  }
+              }
+  
+              const data = {
+                'sentence1': searchQuery,
+                'sentence2': question.body
+              };
+      
+              try {
+                const response = await axios.post('http://127.0.0.1:5000/checkCosineSimilarity', data);
+                const cosineSim = response.data.result;
+                rating[question.id] = currentRating * 3 + question.clicks + cosineSim * 2;
+              } catch (error) {
+                rating[question.id] = currentRating * 3 + question.clicks;
+              }
             }
-
-            const data = {
-              'sentence1': searchQuery,
-              'sentence2': question.body
-            };
-
-            axios.post('http://127.0.0.1:5000/checkCosineSimilarity', data)
-              .then((response) => {
-                setCosineSim(response.data.result);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
-
-            rating[question.id] = currentRating * 3 + question.clicks + cosineSim * 2;
-          }
-          return rating;
+            return rating;
+        }
+  
+        const ratedQuestions = await getRatedQuestions();
+  
+        const questionsSorted = [...questions];
+        questionsSorted.sort(function(a,b){
+          return ratedQuestions[a.id] < ratedQuestions[b.id] ? 1 : -1;
+        });
+        setContent(questionsSorted);
       }
-
-      const ratedQuestions = getRatedQuestions();
-
-      const questionsSorted = [...questions];
-      questionsSorted.sort(function(a,b){
-        return ratedQuestions[a.id] < ratedQuestions[b.id] ? 1 : -1;
-      });
-
-      return questionsSorted;
+      else if (selectedOption === Options.course) setContent(courses);
+      else if (selectedSubject !== allSubjects) setContent(questions.filter(question => question.subject === selectedSubject));
+      else setContent(questions);;
     }
-    if (selectedOption === Options.course) return courses;
-    if (selectedSubject !== allSubjects) return questions.filter(question => question.subject === selectedSubject);
-    return questions;
-  }
 
-  let content = getContent();
+    getContent();
+  },[selectedOption,selectedSubject,questions,searchQuery])
+
+  useEffect(() => {
+    localStorage.removeItem('questions');
+    localStorage.setItem('questions', JSON.stringify(questions));
+    const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
+    return () => clearTimeout(timer);
+  }, [questions])
 
   const handleOnClick = async (questionId) => {
     try {
