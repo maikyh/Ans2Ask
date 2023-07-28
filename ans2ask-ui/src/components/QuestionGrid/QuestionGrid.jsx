@@ -173,11 +173,16 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
               try {
                 const response = await axios.post('http://127.0.0.1:5000/checkCosineSimilarity', data);
                 const cosineSim = response.data.result;
-                rating[question.id] = currentRating * 3 + question.clicks + cosineSim * 2;
+                rating[question.id] = currentRating * 3 + question.clicks + cosineSim * 2000;
               } catch (error) {
                 rating[question.id] = currentRating * 3 + question.clicks;
               }
+              const cachedUserInteraction = localStorage.getItem(`/questions` + `/${question.id}`);
+              if(cachedUserInteraction){
+                rating[question.id] = rating[question.id] + cachedUserInteraction;
+              }
             }
+
             return rating;
         }
   
@@ -205,6 +210,16 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
   }, [questions])
 
   const handleOnClick = async (questionId) => {
+    if(searchQuery.length !== noQuery){
+      const cachedUserInteraction = localStorage.getItem(`/questions` + `/${questionId}`);
+      if(cachedUserInteraction){
+        localStorage.setItem(`/questions` + `/${questionId}`, JSON.stringify(parseInt(cachedUserInteraction) + 3));
+      }
+      else {
+        localStorage.setItem(`/questions` + `/${questionId}`, JSON.stringify(3));
+      }
+    }
+
     try {
       // Make the question API request
         const response = await fetch(url + `/questions` + `/${questionId}`, {
