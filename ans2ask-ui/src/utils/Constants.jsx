@@ -16,4 +16,9 @@ const noQuery = 0;
 // (<= 100) nothing in localStorage
 const nothingInLocalStorage = 100; 
 
-export { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY };
+//Vals for search query
+const percentNumberOfSameWords = 30;
+const percentCosineSim = 60;
+const percentQuestionClicks = 10;
+
+export { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY, percentNumberOfSameWords, percentCosineSim, percentQuestionClicks };
