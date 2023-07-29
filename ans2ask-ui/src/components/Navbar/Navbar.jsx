@@ -12,7 +12,7 @@ import "./Navbar.css";
 const MAX_LENGTH = 120;
 
 const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
-    const { user, updateUser } = useContext(UserContext);
+    const { user, updateUser, darkMode, updateDarkMode } = useContext(UserContext);
     const [questions, setQuestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
@@ -85,11 +85,17 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         return () => {document.removeEventListener('click', handleOutsideClick);};
     }, []);
 
+    const handleUpdateDarkMode = () => {
+        updateDarkMode(!darkMode);
+        console.log("lol")
+        console.log(darkMode)
+    }
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
-                    <a className="navbar-brand" href="/home">Ans2Ask</a>
+                    <a className="navbar-brand" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} href="/home">Ans2Ask</a>
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
                         <div className="autocomplete">
                             <input
@@ -121,9 +127,9 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
                         </div>
                     </div>
                     <div className="d-flex align-items-center">
-                        <Link to={`/ask`} className="btn btn-outline-dark"> Ask </Link>
-                        <div style={{ marginLeft: "1.75rem" }}>
-                            <FontAwesomeIcon icon={faBell} />
+                        <Link to={`/ask`} className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`}> Ask </Link>
+                        <div onClick={() => handleUpdateDarkMode()} style={{ marginLeft: "1.75rem" }}>
+                            <FontAwesomeIcon style={{ color: darkMode ? "white" : "" }}  icon={faBell} />
                         </div>
                         <NavDropdown
                             style={{ marginLeft: "1.55rem" }}
