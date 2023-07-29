@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { UserContext } from "../../UserContext.js";
 import "./Answer.css";
 
 export default function Answer({images, answer,handleGiveThanks,user,question,thankedAnswerExist}) {
+    const { darkMode } = useContext(UserContext);
     const image = images.filter(image => image.public_id === answer.user.email);
 
     return (
         <div className="d-flex justify-content-center align-items-center">
-            <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
+            <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
                 <div style={{border: '0.5px solid gray' }} className="custom-container-question-details-answer mt-0 p-2 px-3 position-relative">
                     <div className="row mr-0">
                         <div className='col-auto'>

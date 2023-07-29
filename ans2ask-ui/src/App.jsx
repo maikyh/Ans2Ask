@@ -83,6 +83,15 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [images])
 
+  useEffect(() => {
+    if(darkMode){
+      document.body.style.backgroundColor = '#1A202C';
+    }
+    else{
+      document.body.style.backgroundColor = '';
+    }
+  }, [darkMode]);
+
   return (
     <div className="app">
       <ChakraProvider>
