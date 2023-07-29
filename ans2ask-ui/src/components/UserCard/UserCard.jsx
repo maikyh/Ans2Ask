@@ -18,13 +18,13 @@ import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import "./UserCard.css";
-  
+
 const UserCard = ({ user, images }) => {
   const [username, setUsername] = useState(user.username);
   const [title, setTitle] = useState(user.title);
   const [about, setAbout] = useState(user.about);
   const [coins, setCoins] = useState(user.coins);
-  const [isUpdating,setIsUpdating] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const { updateUser, darkMode } = useContext(UserContext);
 
   const handleSetIsUpdating = () => {
@@ -181,118 +181,118 @@ const UserCard = ({ user, images }) => {
   }
 
   return (
-    <div className="UserCard justify-content-center align-items-center" style={{marginLeft: "152px"}}>
+    <div className="UserCard justify-content-center align-items-center" style={{ marginLeft: "95px" }}>
       {
-        !isUpdating && 
-      <div className="card-body d-flex align-items-center">
-        <div className='preview-container' style={{ margin: "10px", marginRight: "30px", width: "200px", height: "200px" }}>
-          {image && image[0] && image[0].url &&
-            <img className='preview-image' src={image[0].url} alt="lol" />
-          }
+        !isUpdating &&
+        <div className="card-body d-flex align-items-center">
+          <div className='preview-container' style={{ margin: "10px", marginRight: "30px", width: "200px", height: "200px" }}>
+            {image && image[0] && image[0].url &&
+              <img className='preview-image' src={image[0].url} alt="lol" />
+            }
+          </div>
+          <div className='mx-2' style={{ marginRight: "100px" }}>
+            <div className="row">
+              <div className="col d-flex align-items-center">
+                <Editable
+                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  textAlign='center'
+                  defaultValue={user.username}
+                  fontSize='calc(1.325rem + .9vw)'
+                  isPreviewFocusable={false}
+                >
+                  <div className="row">
+                    <div className="col d-flex align-items-center">
+                      <EditablePreview />
+                      <Input
+                        onKeyDown={(event) => event.key === 'Enter' && UpdateUsernameHelper(event)}
+                        onChange={(e) => setUsername(e.target.value)}
+                        style={{ fontSize: 'calc(1.325rem + .9vw)' }}
+                        as={EditableInput}
+                      />
+                    </div>
+                    <div className="col-auto d-flex align-items-center">
+                      <EditableControls />
+                    </div>
+                  </div>
+                </Editable>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col d-flex align-items-center">
+                <Editable
+                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  textAlign='center'
+                  defaultValue={user.title}
+                  fontSize='1.25rem'
+                  className='fw-bold'
+                  isPreviewFocusable={false}
+                >
+                  <div className="row">
+                    <div className="col d-flex align-items-center">
+                      <EditablePreview />
+                      <Input
+                        className='fw-bold'
+                        onKeyDown={(event) => event.key === 'Enter' && UpdateTitleHelper(event)}
+                        onChange={(e) => setTitle(e.target.value)}
+                        style={{ fontSize: '1.25rem' }}
+                        as={EditableInput}
+                      />
+                    </div>
+                    <div className="col-auto d-flex align-items-center">
+                      <EditableControls />
+                    </div>
+                  </div>
+                </Editable>
+              </div>
+            </div>
+
+            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-0">{user.email}</p>
+            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-1">{user.coins} coins</p>
+
+            <div className="row">
+              <div className="col d-flex align-items-center">
+                <Editable
+                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  defaultValue={about}
+                  isPreviewFocusable={false}
+                >
+                  <div className="row">
+                    <div className="col d-flex align-items-center">
+                      <EditablePreview />
+                      <Input
+                        onKeyDown={(event) => event.key === 'Enter' && UpdateAboutHelper(event)}
+                        onChange={(e) => setAbout(e.target.value)}
+                        as={EditableTextarea}
+                      />
+                    </div>
+                    <div className="col-auto d-flex align-items-center">
+                      <EditableControls />
+                    </div>
+                  </div>
+                </Editable>
+              </div>
+            </div>
+
+            <div className='row'>
+              <div className="mt-3">
+                <button onClick={() => { handleSetIsUpdating() }} className='btn btn-primary p-1 px-2'> Update Photo </button>
+              </div>
+            </div>
+
+          </div>
+          <div style={{ borderLeft: '2px solid grey', height: '270px', marginLeft: "98px" }}></div>
+          <div className='row justify-content-center align-items-center' style={{ margin: "10px", marginLeft: "100px", marginRight: "10px", width: "400px", height: "250px" }}>
+            {metaImage && metaImage[0] && metaImage[0].url &&
+              <img className='' src={metaImage[0].url} alt="lol" />
+            }
+          </div>
         </div>
-        <div className='mx-2'>
-          <div className="row">
-            <div className="col d-flex align-items-center">
-              <Editable
-                style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
-                textAlign='center'
-                defaultValue={user.username}
-                fontSize='calc(1.325rem + .9vw)'
-                isPreviewFocusable={false}
-              >
-                <div className="row">
-                  <div className="col d-flex align-items-center">
-                    <EditablePreview />
-                    <Input
-                      onKeyDown={(event) => event.key === 'Enter' && UpdateUsernameHelper(event)}
-                      onChange={(e) => setUsername(e.target.value)}
-                      style={{ fontSize: 'calc(1.325rem + .9vw)' }}
-                      as={EditableInput}
-                    />
-                  </div>
-                  <div className="col-auto d-flex align-items-center">
-                    <EditableControls />
-                  </div>
-                </div>
-              </Editable>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col d-flex align-items-center">
-              <Editable
-                style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
-                textAlign='center'
-                defaultValue={user.title}
-                fontSize='1.25rem'
-                className='fw-bold'
-                isPreviewFocusable={false}
-              >
-                <div className="row">
-                  <div className="col d-flex align-items-center">
-                    <EditablePreview />
-                    <Input
-                      className='fw-bold'
-                      onKeyDown={(event) => event.key === 'Enter' && UpdateTitleHelper(event)}
-                      onChange={(e) => setTitle(e.target.value)}
-                      style={{ fontSize: '1.25rem' }}
-                      as={EditableInput}
-                    />
-                  </div>
-                  <div className="col-auto d-flex align-items-center">
-                    <EditableControls />
-                  </div>
-                </div>
-              </Editable>
-            </div>
-          </div>
-
-          <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="mb-0">{user.email}</p>
-          <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="mb-1">{user.coins} coins</p>
-
-          <div className="row">
-            <div className="col d-flex align-items-center">
-              <Editable
-                style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
-                defaultValue={about}
-                isPreviewFocusable={false}
-              >
-                <div className="row">
-                  <div className="col d-flex align-items-center">
-                    <EditablePreview />
-                    <Input
-                      onKeyDown={(event) => event.key === 'Enter' && UpdateAboutHelper(event)}
-                      onChange={(e) => setAbout(e.target.value)}
-                      as={EditableTextarea}
-                    />
-                  </div>
-                  <div className="col-auto d-flex align-items-center">
-                    <EditableControls />
-                  </div>
-                </div>
-              </Editable>
-            </div>
-          </div>
-
-          <div className='row'>
-            <div className="mt-3">
-              <button onClick={() => {handleSetIsUpdating()}} className='btn btn-primary p-1 px-2'> Update Photo </button>
-            </div>
-          </div>
-
-        </div>
-        <div style={{ borderLeft: '2px solid grey', height: '270px', marginLeft: "40px" }}></div>
-        <div className='row justify-content-center align-items-center' style={{ margin: "10px", marginLeft: "45px", marginRight: "10px", width: "400px", height: "250px" }}>
-          {metaImage && metaImage[0] && metaImage[0].url &&
-            <img className='' src={metaImage[0].url} alt="lol" />
-          }
-        </div>
-      </div>
       }
       {
-        isUpdating && 
+        isUpdating &&
         <div>
-          <Uploadimage handleSetIsUpdating={handleSetIsUpdating}/>
+          <Uploadimage handleSetIsUpdating={handleSetIsUpdating} />
         </div>
       }
     </div>
