@@ -49,8 +49,9 @@ const Login = () => {
       }
   };
 
-  updateDarkMode(true);
-  console.log(darkMode);
+  const handleUpdateDarkMode = () => {
+    updateDarkMode(!darkMode);
+  }
 
   return (
     <div className="login">
@@ -58,6 +59,9 @@ const Login = () => {
           <div className="container">
               <div className="d-flex justify-content-between align-items-center w-100">
               <a className="navbar-brand" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} href="#">Ans2Ask</a>
+              <button className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`} onClick={() => handleUpdateDarkMode()}>
+                darkMode
+              </button>
               <Link to={`/register`} className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`}>
                 Register
               </Link>
