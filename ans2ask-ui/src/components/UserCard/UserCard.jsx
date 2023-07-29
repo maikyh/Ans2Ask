@@ -281,7 +281,7 @@ const UserCard = ({ user, images }) => {
           </div>
 
         </div>
-        <div style={{ borderLeft: '2px solid gray', height: '270px', marginLeft: "40px" }}></div>
+        <div style={{ borderLeft: '2px solid grey', height: '270px', marginLeft: "40px" }}></div>
         <div className='row justify-content-center align-items-center' style={{ margin: "10px", marginLeft: "45px", marginRight: "10px", width: "400px", height: "250px" }}>
           {metaImage && metaImage[0] && metaImage[0].url &&
             <img className='' src={metaImage[0].url} alt="lol" />

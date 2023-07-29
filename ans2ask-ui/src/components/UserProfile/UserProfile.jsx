@@ -44,13 +44,13 @@ const UserProfile = ({images, handleSetSearchQuery}) => {
                   <LazyUserCard images={images} user={user} />
                 </Suspense>
 
-                <div className="row border border-dark my-4"></div>
+                <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
 
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyQuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
                 </Suspense>
 
-                <div className="row border border-dark my-4"></div>
+                <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
 
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user.id}/>
