@@ -25,7 +25,7 @@ const UserCard = ({ user, images }) => {
   const [about, setAbout] = useState(user.about);
   const [coins, setCoins] = useState(user.coins);
   const [isUpdating,setIsUpdating] = useState(false);
-  const { updateUser } = useContext(UserContext);
+  const { updateUser, darkMode } = useContext(UserContext);
 
   const handleSetIsUpdating = () => {
     setIsUpdating(!isUpdating);
@@ -181,7 +181,7 @@ const UserCard = ({ user, images }) => {
   }
 
   return (
-    <div className="UserCard card row justify-content-center align-items-center">
+    <div className="UserCard justify-content-center align-items-center" style={{marginLeft: "152px"}}>
       {
         !isUpdating && 
       <div className="card-body d-flex align-items-center">
@@ -194,6 +194,7 @@ const UserCard = ({ user, images }) => {
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
+                style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
                 textAlign='center'
                 defaultValue={user.username}
                 fontSize='calc(1.325rem + .9vw)'
@@ -220,6 +221,7 @@ const UserCard = ({ user, images }) => {
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
+                style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
                 textAlign='center'
                 defaultValue={user.title}
                 fontSize='1.25rem'
@@ -245,12 +247,13 @@ const UserCard = ({ user, images }) => {
             </div>
           </div>
 
-          <p className="mb-0">{user.email}</p>
-          <p className="mb-1">{user.coins} coins</p>
+          <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="mb-0">{user.email}</p>
+          <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="mb-1">{user.coins} coins</p>
 
           <div className="row">
             <div className="col d-flex align-items-center">
               <Editable
+                style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
                 defaultValue={about}
                 isPreviewFocusable={false}
               >

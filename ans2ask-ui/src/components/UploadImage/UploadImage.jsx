@@ -6,7 +6,7 @@ import './UploadImage.css';
 const url = 'http://localhost:3001';
 
 const UploadImage = ({handleSetIsUpdating}) => {
-    const { user } = useContext(UserContext);
+    const { user, darkMode } = useContext(UserContext);
 
     const [image, setImage] = useState("");
     const [allowZoomOut, setAllowZoomOut] = useState(false);
@@ -56,8 +56,9 @@ const UploadImage = ({handleSetIsUpdating}) => {
     return (
         <div className="container">
             <div className="row justify-content-center align-items-center">
-                <div className="col-md-4">
+                <div className="col-md-4" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
                     <ReactAvatarEditor
+                        style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}
                         ref={editorRef}
                         scale={parseFloat(scale)}
                         width={width}
