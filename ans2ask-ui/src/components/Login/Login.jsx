@@ -69,12 +69,12 @@ const Login = () => {
           </div>
       </nav>
 
-      <div className="d-flex justify-content-center align-items-center custom-margin-login" style={{backgroundColor: darkMode ? "#1A202C" : "", height: "762px"}}>
+      <div className="d-flex justify-content-center align-items-center custom-margin-login" style={{backgroundColor: darkMode ? "#1A202C" : "", height: "764px"}}>
           <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
               <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Ans2Ask</h1>
               <form onSubmit={handleLogin}>
                   <div className="form-group mb-4">
-                      <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Username or Email</label>
+                      <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Username</label>
                       <input 
                           style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
                           className="form-control" 
