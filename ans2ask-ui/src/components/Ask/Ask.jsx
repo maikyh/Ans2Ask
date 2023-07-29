@@ -11,7 +11,7 @@ import "./Ask.css";
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
 const Ask = ({images, handleSetSearchQuery}) => {
-    const { user, updateUser } = useContext(UserContext);
+    const { user, updateUser, darkMode } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
     const [subject, setSubject] = useState("Select Subject");
@@ -162,13 +162,14 @@ const Ask = ({images, handleSetSearchQuery}) => {
 
             
   
-            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>
-                <div className="custom-container-ask bg-light p-4 border rounded px-5">
-                    <h1 className="text-center mb-4 fw-bold">Ask Your Question !</h1>
+            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{backgroundColor: darkMode ? "#1A202C" : "", height: "822px"}}>
+                <div className="custom-container-ask p-4 border rounded px-5" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)",marginTop: "4rem"}}>
+                    <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Ask Your Question !</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-4">
-                            <label className="mb-2 fw-bold" htmlFor="title">Title</label>
+                            <label className="mb-2 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} htmlFor="title">Title</label>
                             <input 
+                                style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
                                 className="form-control bg-lighter" 
                                 type="text"
                                 id="title"
@@ -178,8 +179,9 @@ const Ask = ({images, handleSetSearchQuery}) => {
                             />
                         </div>
                         <div className="form-group mb-4">
-                            <label className="mb-2 fw-bold" htmlFor="password">Text</label>
+                            <label style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="mb-2 fw-bold" htmlFor="password">Text</label>
                             <textarea 
+                                style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
                                 class="form-control bg-lighter" 
                                 id="text" 
                                 rows="6"
@@ -226,23 +228,22 @@ const Ask = ({images, handleSetSearchQuery}) => {
                             </button>
                         </div>
                         <div className="text-center mt-4">
-                            <button className='btn btn-dark w-100 d-block fw-bold mb-4'> Ask </button>
+                            <button className={`btn ${darkMode ? 'btn-light' : 'btn-dark'} w-100 d-block fw-bold mb-4`}> Ask </button>
                         </div>
                     </form>
                 </div>
             </div>
-
             <div>
     </div>
   
-            <footer className="bg-light py-4">
-                <div className="container text-center">
-                    <p className="text-muted mb-0">
-                        &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
-                    </p>
-                </div>
-            </footer>
-        </div>
+        <footer className="bg-light">
+            <div className="text-center" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", height:"72px"}}>
+                <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", paddingTop: "25px"}}>
+                &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </div>
     );
 }
 
