@@ -129,7 +129,7 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
                     <div className="d-flex align-items-center">
                         <Link to={`/ask`} className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`}> Ask </Link>
                         <div onClick={() => handleUpdateDarkMode()} style={{ marginLeft: "1.75rem" }}>
-                            <FontAwesomeIcon style={{ color: darkMode ? "white" : "" }}  icon={faBell} />
+                            <FontAwesomeIcon style={{ color: darkMode ? "white" : "" }} icon={faBell} />
                         </div>
                         <NavDropdown
                             style={{ marginLeft: "1.55rem" }}
