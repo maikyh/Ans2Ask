@@ -59,12 +59,6 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
           <div className="col-auto">
             <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", fontStyle: "italic" }}> {userTitle} </h6>
           </div>
-
-          <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
-
-          <div className="col-auto">
-            <h6 className="mt-1 underline-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {subject} </h6>
-          </div>
           <div>
 
           </div>
@@ -97,9 +91,12 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
         </div>
         <div class="">
           <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "10px"}}>
-            <Badge variant='solid' colorScheme='red'>
+          <div className="col-auto">
+            <Badge>{subject}</Badge>
+            <Badge style={{marginLeft: "10px"}} variant='solid' colorScheme='red'>
               {coins} coins
             </Badge>
+          </div>
           </div>
         </div>
       </div>

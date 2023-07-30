@@ -297,12 +297,6 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                             <div className="col-auto">
                                 <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", fontStyle: "italic" }}> {userFromQuestion.title} </h6>
                             </div>
-
-                            <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
-
-                            <div className="col-auto">
-                                <h6 className="mt-1 text-decoration-underline" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {question.subject} </h6>
-                            </div>
                         </div>
                         <div>
                             <span className="fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>{question.title}</span>
@@ -324,9 +318,12 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                             }
                         <div class="">
                             <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "10px"}}>
-                                <Badge variant='solid' colorScheme='red'>
+                                <div className="col-auto">
+                                    <Badge>{question.subject}</Badge>
+                                    <Badge style={{marginLeft: "10px"}} variant='solid' colorScheme='red'>
                                     {question.coins} coins
-                                </Badge>
+                                    </Badge>
+                                </div>
                              </div>
                         </div>
                     </div>
