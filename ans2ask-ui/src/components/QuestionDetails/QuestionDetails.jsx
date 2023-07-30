@@ -302,7 +302,7 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                             <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
 
                             <div className="col-auto">
-                                <h6 className="mt-1 underline-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {question.subject} </h6>
+                                <h6 className="mt-1 text-decoration-underline" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {question.subject} </h6>
                             </div>
                         </div>
                         <div>
@@ -313,13 +313,13 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                         </div>
                             {
                                 answersOfCurrentQuestion.length > 0 && 
-                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 underline-text">
+                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
                                     {answersOfCurrentQuestion.length} answers
                                 </div>
                             }
                             {
                                 answersOfCurrentQuestion.length == 0 && 
-                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 underline-text">
+                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
                                     No answers, be the first!
                                 </div>
                             }

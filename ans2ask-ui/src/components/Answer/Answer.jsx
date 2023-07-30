@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import { UserContext } from "../../UserContext.js";
+import { Badge } from '@chakra-ui/react'
 import "./Answer.css";
 
 export default function Answer({images, answer,handleGiveThanks,user,question,thankedAnswerExist}) {
@@ -37,7 +38,7 @@ export default function Answer({images, answer,handleGiveThanks,user,question,th
                     </div>
                     {
                         thankedAnswerExist === false && question.userId === user.id &&
-                        <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
+                        <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "3px"}}>
                             <button onClick={() => handleGiveThanks(answer.id,answer.body,answer.user)} className="btn btn-danger py-0 px-1">
                                 Give Thanks
                             </button>
@@ -45,10 +46,8 @@ export default function Answer({images, answer,handleGiveThanks,user,question,th
                     }
                     {
                         answer.thanks === true &&
-                        <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                            <p className="text-white bg-danger py-0 px-1">
-                                Thanked Answer
-                            </p>
+                        <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "3px"}}>
+                            <Badge colorScheme='red'>Thanked By Author</Badge>
                         </div>
                     }
                 </div>
