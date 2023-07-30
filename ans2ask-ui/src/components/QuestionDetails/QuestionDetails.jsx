@@ -3,8 +3,7 @@ import { useState, useEffect, useContext, Suspense, useMemo } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Badge } from '@chakra-ui/react'
 import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
@@ -324,9 +323,11 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                                 </div>
                             }
                         <div class="">
-                            <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                {question.coins} coins
-                            </div>
+                            <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "10px"}}>
+                                <Badge variant='solid' colorScheme='red'>
+                                    {question.coins} coins
+                                </Badge>
+                             </div>
                         </div>
                     </div>
                 </div>

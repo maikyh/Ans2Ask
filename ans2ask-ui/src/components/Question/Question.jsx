@@ -1,11 +1,10 @@
 import React from "react";  
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../UserContext.js';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { url } from "../../utils/Constants.jsx";
 import Highlighter from "react-highlight-words";
+import { Badge } from '@chakra-ui/react'
 import "./Question.css";
 
 const MAX_LENGTH = 369;
@@ -97,8 +96,10 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
           }
         </div>
         <div class="">
-          <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-            {coins} coins
+          <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "10px"}}>
+            <Badge variant='solid' colorScheme='red'>
+              {coins} coins
+            </Badge>
           </div>
         </div>
       </div>
