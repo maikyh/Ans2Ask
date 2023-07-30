@@ -3,7 +3,7 @@ import { UserContext } from "../../UserContext.js";
 import { useNavigate } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";

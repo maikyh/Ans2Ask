@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from '../../UserContext.js';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
+import { Button } from "@chakra-ui/button";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import "./Register.css";
 
 const Register = () => {
@@ -67,12 +69,16 @@ const Register = () => {
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <a className="navbar-brand" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} href="#">Ans2Ask</a>
-                    <button className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`} onClick={() => handleUpdateDarkMode()}>
-                      darkMode
-                    </button>
-                    <Link to={`/login`} className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`}  >
-                        Login
-                    </Link>
+                    <Button
+                        onClick={() => updateDarkMode(!darkMode)}
+                        marginLeft={"27px"}
+                    >
+                    {!darkMode ? (
+                        <SunIcon color="black.200" />
+                    ) : (
+                        <MoonIcon color="blue.700" />
+                    )}
+                    </Button>
                 </div>
             </div>
         </nav>
