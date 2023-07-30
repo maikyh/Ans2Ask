@@ -3,9 +3,11 @@ import { UserContext } from "../../UserContext.js";
 import { useNavigate } from "react-router-dom";
 import { NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSun, faMoon, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { Button } from "@chakra-ui/button";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
@@ -128,9 +130,16 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
                     </div>
                     <div className="d-flex align-items-center">
                         <Link to={`/ask`} className={`btn ${darkMode ? 'btn-outline-light' : 'btn-outline-dark'}`}> Ask </Link>
-                        <div onClick={() => handleUpdateDarkMode()} style={{ marginLeft: "1.75rem" }}>
-                            <FontAwesomeIcon style={{ color: darkMode ? "white" : "" }} icon={faBell} />
-                        </div>
+                        <Button
+                            onClick={() => updateDarkMode(!darkMode)}
+                            marginLeft={"27px"}
+                        >
+                        {!darkMode ? (
+                            <SunIcon color="black.200" />
+                        ) : (
+                            <MoonIcon color="blue.700" />
+                        )}
+                        </Button>
                         <NavDropdown
                             style={{ marginLeft: "1.55rem" }}
                             alignRight
