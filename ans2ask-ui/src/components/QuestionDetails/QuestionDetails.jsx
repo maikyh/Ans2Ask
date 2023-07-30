@@ -281,7 +281,7 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
 
             <div className="d-flex justify-content-center align-items-center" style={{ marginTop: "3rem" }}>
                 <div className="custom-container-question-details px-4 pt-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
-                    <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: '0.9px solid gray' }} className="question-card position-relative mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
+                    <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card position-relative mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
                                 <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
