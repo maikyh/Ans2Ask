@@ -41,7 +41,7 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
   
   return (
     <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
-      <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: '0.9px solid gray' }} className="question-card mt-4 p-3">
+      <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card mt-4 p-3">
         <div className="row">
           <div className="col-auto">
             <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
