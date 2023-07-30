@@ -181,7 +181,7 @@ const UserCard = ({ user, images }) => {
   }
 
   return (
-    <div className="UserCard justify-content-center align-items-center" style={{ marginLeft: "95px" }}>
+    <div className="UserCard justify-content-center align-items-center" style={{padding:"10px", marginLeft: "95px" }}>
       {
         !isUpdating &&
         <div className="card-body d-flex align-items-center">
@@ -281,8 +281,8 @@ const UserCard = ({ user, images }) => {
             </div>
 
           </div>
-          <div style={{ borderLeft: '2px solid grey', height: '270px', marginLeft: "98px" }}></div>
-          <div className='row justify-content-center align-items-center' style={{ margin: "10px", marginLeft: "100px", marginRight: "10px", width: "400px", height: "250px" }}>
+          <div style={{position:"absolute", right:"862px", borderLeft: '2px solid grey', height: '270px', marginLeft: "98px" }}></div>
+          <div className='row justify-content-center align-items-center' style={{position:"absolute", right:"350px", margin: "10px", marginLeft: "196px", marginRight: "10px", width: "400px", height: "250px" }}>
             {metaImage && metaImage[0] && metaImage[0].url &&
               <img className='' src={metaImage[0].url} alt="lol" />
             }
