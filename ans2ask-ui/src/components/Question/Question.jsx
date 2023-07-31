@@ -7,7 +7,7 @@ import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
 import "./Question.css";
 
-const MAX_LENGTH = 369;
+const MAX_LENGTH = 450;
 
 const Question = ({sentence, images, id, username, email, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
@@ -31,6 +31,9 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
 
   const handleNavigateToQuestionDetails = () => {
     navigate(`/question/${id}`);
+    setTimeout(() => {
+      window.location.reload();
+    }, 0);
   }
 
   function truncateText(body) {
