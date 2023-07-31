@@ -13,14 +13,14 @@ const QuestionsOrCourses = ({selectedOption, handleSetSelectedOption}) => {
         <button
           onClick={() => handleSetSelectedOption(1)}
           className={ !darkMode ? selectedOption === Options.question ? StatusL.activeQuestions : StatusL.inactiveQuestions : selectedOption === Options.question ? StatusD.activeQuestions : StatusD.inactiveQuestions}
-          data-tooltip="MOST RECENT QUESTIONS"
+          data-tooltip="Most Recent Questions"
         >
           <h4>Questions</h4>
         </button>
         <button
           onClick={() => handleSetSelectedOption(2)}
           className={ !darkMode ? selectedOption === Options.course ? StatusL.activeCourses : StatusL.inactiveCourses : selectedOption === Options.course ? StatusD.activeCourses : StatusD.inactiveCourses}
-          data-tooltip="BEST YOUTUBE COURSES (Google/Youtube Scraping)"
+          data-tooltip="Out of coins? Watch the Best Free Youtube Courses!"
         >
           <h4>Courses</h4>
         </button>
