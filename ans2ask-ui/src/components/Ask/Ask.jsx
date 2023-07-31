@@ -128,9 +128,19 @@ const Ask = ({images, handleSetSearchQuery}) => {
                     text: "Invalid Upload. Please try again."
                 });
               }
+
+              Swal.fire({
+                icon: 'success',
+                title: 'Question Asked Successfully',
+                text: 'Your question has been submitted!',
+                timer: 850,
+                showConfirmButton: false, 
+              });
               
-            // Navigate to question details
-            navigate(`/question/${data.id}`);
+                // Navigate to question details
+                setTimeout(() => {
+                    navigate(`/question/${data.id}`);
+                }, 850); 
           } else {
             // Handle upload failure case
             Swal.fire({
