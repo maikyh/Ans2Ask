@@ -201,7 +201,7 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
     }
 
     getContent();
-  },[selectedOption,selectedSubject,questions,searchQuery])
+  },[selectedOption,selectedSubject,questions,searchQuery,courses])
 
   useEffect(() => {
     localStorage.removeItem('questions');
