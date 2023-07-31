@@ -35,8 +35,13 @@ const Register = () => {
             const data = await response.json();
             const loggedInUser = data.user;
     
-            console.log('The user was successfully registered');
-    
+            const img = `https://ui-avatars.com/api/?name=${username}&background=random`;
+            const responseImg = await fetch(url + `/upload` + `/${email}`, {
+                method: 'POST',
+                body: JSON.stringify({ data: img }),
+                headers: { 'Content-type': 'application/json' },
+            });
+
             setUsername('');
             setEmail('');
             setPassword('');
@@ -50,6 +55,10 @@ const Register = () => {
             });        
     
             navigate('/login');
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 0);
           } else {
             Swal.fire({
               icon: 'error',
@@ -66,10 +75,6 @@ const Register = () => {
           });
         }
       };
-
-      const handleUpdateDarkMode = () => {
-        updateDarkMode(!darkMode);
-      }
     
     return (
       <div className="register">
