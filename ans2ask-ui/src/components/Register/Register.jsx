@@ -40,6 +40,14 @@ const Register = () => {
             setUsername('');
             setEmail('');
             setPassword('');
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Successfully Registered',
+              text: 'You have been registered!',
+              timer: 850,
+              showConfirmButton: false,
+            });        
     
             navigate('/login');
           } else {
