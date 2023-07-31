@@ -129,6 +129,19 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
     
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
 
+    //Show thanked answer first
+    answersOfCurrentQuestion.sort((a, b) => {
+        if (a.thanks && !b.thanks) {
+          return -1; 
+        } 
+        else if (!a.thanks && b.thanks) {
+          return 1; 
+        } 
+        else {
+          return 0; 
+        }
+    });
+
     const handleSubmit = async (e) => {
         const questionId = id;
 
