@@ -145,7 +145,7 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
                             alignRight
                             title={
                                 <div>
-                                    <div className='preview-container' style={{position: 'absolute', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: "30px", height: "30px" }}>
+                                    <div className='preview-container' style={{position: 'absolute', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: "38px", height: "38px", top: "-5px" }}>
                                         {image && image[0] && image[0].url &&
                                             <img  className='preview-image' src={image[0].url} alt="profilePicture" />
                                         }
