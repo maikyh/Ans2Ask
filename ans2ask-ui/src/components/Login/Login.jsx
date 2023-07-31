@@ -1,10 +1,16 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 import "./Login.css";
 
 const Login = () => {
@@ -32,6 +38,14 @@ const Login = () => {
           const loggedInUser = data.user;
   
           updateUser(loggedInUser);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Successfully Logged In',
+            text: 'You have been logged in!',
+            timer: 850, 
+            showConfirmButton: false, 
+          });
   
           navigate('/home');
         } else {
@@ -51,10 +65,6 @@ const Login = () => {
       }
   };
 
-  const handleUpdateDarkMode = () => {
-    updateDarkMode(!darkMode);
-  }
-
   return (
     <div className="login">
       <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
@@ -62,15 +72,15 @@ const Login = () => {
               <div className="d-flex justify-content-between align-items-center w-100">
               <a className="navbar-brand" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} href="#">Ans2Ask</a>
               <Button
-                            onClick={() => updateDarkMode(!darkMode)}
-                            marginLeft={"27px"}
-                        >
-                        {!darkMode ? (
-                            <SunIcon color="black.200" />
-                        ) : (
-                            <MoonIcon color="blue.700" />
-                        )}
-                        </Button>
+                onClick={() => updateDarkMode(!darkMode)}
+                marginLeft={"27px"}
+              >
+              {!darkMode ? (
+                  <SunIcon color="black.200" />
+              ) : (
+                  <MoonIcon color="blue.700" />
+              )}
+              </Button>
               </div>
           </div>
       </nav>
