@@ -58,7 +58,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
           // Make the question API request
           const coins = questionCoins;
           
-          const clicks = 0;
+          const clickCounts = 0;
           
           const mapOfWords = {};
 
@@ -79,7 +79,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, body, subject, coins, clicks, mapOfWords }),
+            body: JSON.stringify({ title, body, subject, coins, clickCounts, mapOfWords }),
             credentials: 'include'
           });
     

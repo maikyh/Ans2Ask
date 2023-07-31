@@ -172,9 +172,9 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
               try {
                 const response = await axios.post('http://127.0.0.1:5000/checkCosineSimilarity', data);
                 const cosineSim = response.data.result;
-                rating[question.id] = (numberOfSameWords * percentNumberOfSameWords * 10) + (question.clicks * percentQuestionClicks) + (cosineSim * percentCosineSim);
+                rating[question.id] = (numberOfSameWords * percentNumberOfSameWords * 10) + (question.clickCounts * percentQuestionClicks) + (cosineSim * percentCosineSim);
               } catch (error) {
-                rating[question.id] = numberOfSameWords * percentNumberOfSameWords + question.clicks * percentQuestionClicks;
+                rating[question.id] = numberOfSameWords * percentNumberOfSameWords + question.clickCounts * percentQuestionClicks;
               }
 
               const cachedUserInteraction = localStorage.getItem(`/questions` + `/${question.id}`);
