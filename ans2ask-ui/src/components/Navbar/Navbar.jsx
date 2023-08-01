@@ -24,8 +24,8 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
         return body;
     }
-      
-    const image = images?.filter(image => image.public_id === user.email);
+
+    const image = user ? images?.filter(image => image.public_id === user.email) : "";
 
     const removeQuestionsFromLocalStorage = () => {
         localStorage.removeItem('questions');

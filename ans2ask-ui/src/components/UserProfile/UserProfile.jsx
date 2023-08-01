@@ -53,7 +53,7 @@ const UserProfile = ({images, handleSetSearchQuery}) => {
                 <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
 
                 <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user.id}/>
+                  <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user?user.id:""}/>
                 </Suspense>
             </div>
         </div>

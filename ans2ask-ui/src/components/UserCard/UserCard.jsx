@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserContext } from '../../UserContext.js';
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { url } from "../../utils/Constants.jsx";
 import {
   Editable,
@@ -20,10 +18,10 @@ import Uploadimage from '../UploadImage/UploadImage.jsx';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {
-  const [username, setUsername] = useState(user.username);
-  const [title, setTitle] = useState(user.title);
-  const [about, setAbout] = useState(user.about);
-  const [coins, setCoins] = useState(user.coins);
+  const [username, setUsername] = useState(user?user.username:"");
+  const [title, setTitle] = useState(user?user.title:"");
+  const [about, setAbout] = useState(user?user.about:"");
+  const [coins, setCoins] = useState(user?user.coins:"");
   const [isUpdating, setIsUpdating] = useState(false);
   const { updateUser, darkMode } = useContext(UserContext);
 
@@ -31,7 +29,7 @@ const UserCard = ({ user, images }) => {
     setIsUpdating(!isUpdating);
   }
 
-  const image = images?.filter(image => image.public_id === user.email);
+  const image = images?.filter(image => image.public_id === user?user.email:"");
   const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
 
   const handleUpdateUsername = async () => {
@@ -196,7 +194,7 @@ const UserCard = ({ user, images }) => {
                 <Editable
                   style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
                   textAlign='center'
-                  defaultValue={user.username}
+                  defaultValue={user?user.username:""}
                   fontSize='calc(1.325rem + .9vw)'
                   isPreviewFocusable={false}
                 >
@@ -223,7 +221,7 @@ const UserCard = ({ user, images }) => {
                 <Editable
                   style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
                   textAlign='center'
-                  defaultValue={user.title}
+                  defaultValue={user?user.title:""}
                   fontSize='1.25rem'
                   className='fw-bold'
                   isPreviewFocusable={false}
@@ -247,8 +245,8 @@ const UserCard = ({ user, images }) => {
               </div>
             </div>
 
-            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-0">{user.email}</p>
-            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-1">{user.coins} coins</p>
+            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-0">{user?user.email:""}</p>
+            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-1">{user?user.coins:""} coins</p>
 
             <div className="row">
               <div className="col d-flex align-items-center">
