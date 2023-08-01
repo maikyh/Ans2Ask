@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { url } from "../../utils/Constants.jsx";
 import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./Question.css";
 
 const MAX_LENGTH = 450;
@@ -43,7 +45,7 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
   
   return (
     <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
-      <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card mt-4 p-3">
+      <div style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card mt-4 p-3">
         <div className="row">
           <div className="col-auto">
             <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
@@ -53,26 +55,26 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
             </div>
           </div>
 
-          <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
-            <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {username} </h6>
+          <div className="col-auto" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>
+            <h6 className="mt-1" style={{color: darkMode ? Text.darkMode : Text.lightMode}}> {username} </h6>
           </div>
 
-          <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
+          <div className="col-auto" style={{color: darkMode ? Text.darkMode : Text.lightMode}}> <h6 className="mt-1"> - </h6> </div>
 
           <div className="col-auto">
-            <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", fontStyle: "italic" }}> {userTitle} </h6>
+            <h6 className="mt-1" style={{color: darkMode ? Text.darkMode : Text.lightMode, fontStyle: "italic" }}> {userTitle} </h6>
           </div>
           <div>
 
           </div>
         </div>
         <div>
-          <span className="fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>{title}</span>
+          <span className="fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>{title}</span>
         </div>
         <div className="">
           <div style={{marginBottom:"10px"}}>
             <Highlighter
-              style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
+              style={{color: darkMode ? Text.darkMode : Text.lightMode}}
               highlightClassName="YourHighlightClass"
               searchWords={sentence ? sentence.split(' ') : []}
               autoEscape={true}
@@ -81,13 +83,13 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
           </div>
           {
             answersOfCurrentQuestion.length > 0 && 
-            <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>
                 {answersOfCurrentQuestion.length} answers
             </div>
           }
           {
             answersOfCurrentQuestion.length == 0 && 
-            <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>
                 No answers, be the first!
             </div>
           }
