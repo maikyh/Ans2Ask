@@ -198,7 +198,7 @@ const UserCard = ({ user, images }) => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <Editable
-                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                   textAlign='center'
                   defaultValue={user?user.username:""}
                   fontSize='calc(1.325rem + .9vw)'
@@ -225,7 +225,7 @@ const UserCard = ({ user, images }) => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <Editable
-                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                   textAlign='center'
                   defaultValue={user?user.title:""}
                   fontSize='1.25rem'
@@ -251,13 +251,13 @@ const UserCard = ({ user, images }) => {
               </div>
             </div>
 
-            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-0">{user?user.email:""}</p>
-            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-1">{user?user.coins:""} coins</p>
+            <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-0">{user?user.email:""}</p>
+            <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-1">{user?user.coins:""} coins</p>
 
             <div className="row">
               <div className="col d-flex align-items-center">
                 <Editable
-                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                   defaultValue={about}
                   isPreviewFocusable={false}
                 >

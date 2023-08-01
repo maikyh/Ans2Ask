@@ -181,7 +181,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
                         <div className="form-group mb-4">
                             <label className="mb-2 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}} htmlFor="title">Title</label>
                             <input 
-                                style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
+                                style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                                 className="form-control bg-lighter" 
                                 type="text"
                                 id="title"
@@ -193,7 +193,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
                         <div className="form-group mb-4">
                             <label style={{color: darkMode ? Text.darkMode : Text.lightMode}} className="mb-2 fw-bold" htmlFor="password">Text</label>
                             <textarea 
-                                style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
+                                style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                                 class="form-control bg-lighter" 
                                 id="text" 
                                 rows="6"
@@ -249,7 +249,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
     </div>
   
         <footer className="bg-light">
-            <div className="text-center" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", height:"72px"}}>
+            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)", height:"72px"}}>
                 <p style={{color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px"}}>
                 &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
                 </p>

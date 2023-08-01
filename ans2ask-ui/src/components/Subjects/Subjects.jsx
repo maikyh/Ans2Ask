@@ -3,6 +3,7 @@ import { UserContext } from '../../UserContext.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBrain, faSquareRootAlt, faCode, faMicroscope, faHeartbeat, faPalette, faChartLine, faBalanceScale, faDollarSign } from "@fortawesome/free-solid-svg-icons";
 import { faGamepad, faScroll, faFlask, faBolt, faFilm, faGlobeAmericas, faBook, faUtensils, faLanguage } from "@fortawesome/free-solid-svg-icons";
+import Text from '../../utils/Text.jsx';
 import "./Subjects.css";
 
 const Subjects = ({selectedSubject, handleSetSelectedSubject}) => {
@@ -118,7 +119,7 @@ const Subjects = ({selectedSubject, handleSetSelectedSubject}) => {
   
       <div className={`row border ${darkMode ? "border-white" : "border-dark"} my-4`}></div>
       
-      <h1 className="text-center mb-2 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}  >{selectedSubject}</h1>
+      <h1 className="text-center mb-2 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}  >{selectedSubject}</h1>
     </div>
   );
 }

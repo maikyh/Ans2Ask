@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import Options from "../../utils/OptionsQA.jsx"
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./UserProfile.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -39,7 +41,7 @@ const UserProfile = ({images, handleSetSearchQuery}) => {
             <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{backgroundColor: darkMode ? "#1A202C" : "", marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
+            <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)" }}>
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyUserCard images={images} user={user} />
                 </Suspense>
