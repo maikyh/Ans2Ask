@@ -32,7 +32,7 @@ router.get('/questions/:id', async (req, res) => {
     }
 });
   
-  // Route to create a new question
+// Route to create a new question
 router.post('/questions', async (req, res) => {
     try {
         // Check if user is logged in
@@ -58,6 +58,27 @@ router.post('/questions', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
+});
+
+// Route to increase the user interaction (clickCounts) of a specific question
+router.put('/questions/:id', async (req, res) => {
+  const { id } = req.params; // Get the user ID from the request parameters
+
+  try {
+    const existingQuestion = await Question.findByPk(id);
+    
+    if (!existingQuestion) {
+      return res.status(404).json({ message: 'Question not found' });
+    }
+
+    existingQuestion.clickCounts = existingQuestion.clickCounts + 1;
+
+    await existingQuestion.save();
+
+    res.json(existingQuestion);
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;

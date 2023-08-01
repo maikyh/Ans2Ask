@@ -18,5 +18,13 @@ export const Question = sequelize.define('Question', {
   coins: {
     type: DataTypes.INTEGER,
     allowNull: false
-  }
+  },
+  clickCounts: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  mapOfWords: {
+    type: DataTypes.JSON,
+    allowNull: false,
+  },
 });

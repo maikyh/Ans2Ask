@@ -5,6 +5,7 @@ import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
+import { removeStopWords } from "../../utils/StopWords.jsx";
 import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -56,12 +57,29 @@ const Ask = ({images, handleSetSearchQuery}) => {
         try {
           // Make the question API request
           const coins = questionCoins;
+          
+          const clickCounts = 0;
+          
+          const mapOfWords = {};
+
+          const titleWithoutStopWords = removeStopWords(title).split(' ');
+          for(const word of titleWithoutStopWords){
+            if(!mapOfWords[word]) mapOfWords[word] = 1;
+            else mapOfWords[word]++;
+          }
+
+          const bodyWithoutStopWords = removeStopWords(body).split(' ');
+          for(const word of bodyWithoutStopWords){
+            if(!mapOfWords[word]) mapOfWords[word] = 1;
+            else mapOfWords[word]++;
+          }
+
           const response = await fetch(url + `/questions`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, body, subject, coins }),
+            body: JSON.stringify({ title, body, subject, coins, clickCounts, mapOfWords }),
             credentials: 'include'
           });
     
@@ -141,6 +159,8 @@ const Ask = ({images, handleSetSearchQuery}) => {
             <Suspense fallback={<div>Loading...</div>}>
                 <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
+
+            
   
             <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{marginTop: "10rem"}}>
                 <div className="custom-container-ask bg-light p-4 border rounded px-5">
@@ -211,6 +231,9 @@ const Ask = ({images, handleSetSearchQuery}) => {
                     </form>
                 </div>
             </div>
+
+            <div>
+    </div>
   
             <footer className="bg-light py-4">
                 <div className="container text-center">

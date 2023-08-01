@@ -129,6 +129,19 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
     
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
 
+    //Show thanked answer first
+    answersOfCurrentQuestion.sort((a, b) => {
+        if (a.thanks && !b.thanks) {
+          return -1; 
+        } 
+        else if (!a.thanks && b.thanks) {
+          return 1; 
+        } 
+        else {
+          return 0; 
+        }
+    });
+
     const handleSubmit = async (e) => {
         const questionId = id;
 
@@ -236,12 +249,7 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                     credentials: 'include'
                     });
             
-                    if (response.ok) {
-                    const data = await response.json();
-                    const UpdatedUser = data.user;
-            
-                    updateUser(UpdatedUser);
-                    } else {
+                    if (!response.ok) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Thanked Failed',
@@ -256,10 +264,10 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                         });
                     }
       
-              // Refresh the page
-              setTimeout(() => {
-                window.location.reload();
-              }, 100);
+                // Refresh the page
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
             } else {
               // Handle upload failure case
               Swal.fire({
