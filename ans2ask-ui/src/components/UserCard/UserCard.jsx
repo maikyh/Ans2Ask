@@ -22,6 +22,7 @@ const UserCard = ({ user, images }) => {
   const [title, setTitle] = useState(user?user.title:"");
   const [about, setAbout] = useState(user?user.about:"");
   const [coins, setCoins] = useState(user?user.coins:"");
+  const [image, setImage] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const { updateUser, darkMode } = useContext(UserContext);
 
@@ -29,8 +30,13 @@ const UserCard = ({ user, images }) => {
     setIsUpdating(!isUpdating);
   }
 
-  const image = images?.filter(image => image.public_id === user?user.email:"");
   const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
+  
+  useEffect (()=> {
+    if(user){
+      setImage(images?.filter(image => image.public_id === user.email));
+    }
+  }, [user])
 
   const handleUpdateUsername = async () => {
     try {

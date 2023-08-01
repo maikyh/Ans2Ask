@@ -5,12 +5,8 @@ import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from '@chakra-ui/react'
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./Login.css";
 
 const Login = () => {
@@ -67,10 +63,10 @@ const Login = () => {
 
   return (
     <div className="login">
-      <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
+      <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
           <div className="container">
               <div className="d-flex justify-content-between align-items-center w-100">
-              <a className="navbar-brand" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} href="#">Ans2Ask</a>
+              <a className="navbar-brand" style={{color: darkMode ? Text.darkMode : Text.lightMode}} href="#">Ans2Ask</a>
               <Button
                 onClick={() => updateDarkMode(!darkMode)}
                 marginLeft={"27px"}
@@ -85,14 +81,14 @@ const Login = () => {
           </div>
       </nav>
 
-      <div className="d-flex justify-content-center align-items-center custom-margin-login" style={{backgroundColor: darkMode ? "#1A202C" : "", height: "764px"}}>
-          <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
-              <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Ans2Ask</h1>
+      <div className="d-flex justify-content-center align-items-center custom-margin-login" style={{height: "764px"}}>
+          <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
+              <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Ans2Ask</h1>
               <form onSubmit={handleLogin}>
                   <div className="form-group mb-4">
-                      <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Username</label>
+                      <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Username</label>
                       <input 
-                          style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                          style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                           className="form-control" 
                           type="text"
                           id="username"
@@ -102,9 +98,9 @@ const Login = () => {
                       />
                   </div>
                   <div className="form-group mb-5">
-                      <label className="mb-2 fw-bold" htmlFor="password" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Password</label>
+                      <label className="mb-2 fw-bold" htmlFor="password" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Password</label>
                       <input 
-                          style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                          style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                           className="form-control"  
                           type="password"
                           id="password"
@@ -116,10 +112,10 @@ const Login = () => {
                   <div className="text-center">
                   <button className={`btn ${darkMode ? 'btn-light' : 'btn-dark'} w-100 d-block fw-bold mb-4`}> Login </button>
                       <div className="mb-2">
-                          <a className="custom-link" href="#" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Forgot password?</a>
+                          <a className="custom-link" href="#" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Forgot password?</a>
                       </div>
                       <div className="mb-2">
-                          <a className="custom-link" href="/register"style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Don't have an account?</a>
+                          <a className="custom-link" href="/register"style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Don't have an account?</a>
                       </div>
                   </div>
               </form>
@@ -127,8 +123,8 @@ const Login = () => {
       </div>
 
       <footer className="bg-light">
-          <div className="text-center" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", height:"72px"}}>
-              <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", paddingTop: "25px"}}>
+          <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, height:"72px"}}>
+              <p style={{color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px"}}>
               &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
               </p>
           </div>
