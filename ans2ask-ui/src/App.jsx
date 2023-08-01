@@ -20,6 +20,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [images, setImages] = useState([]);
 
+  //user
   const [user, setUser] = useState(() => {
     // Retrieve the user data from storage or set it to null if not found
     const storedUser = localStorage.getItem('user');
@@ -34,6 +35,22 @@ export default function App() {
     // Save the user data to storage whenever the user state changes
     localStorage.setItem('user', JSON.stringify(user));
   }, [user]);
+
+  //dark mode
+  const [darkMode, setDarkMode] = useState(() => {
+    // Retrieve the user data from storage or set it to null if not found
+    const storedDarkMode = localStorage.getItem('darkMode');
+    return storedDarkMode ? JSON.parse(storedDarkMode) : true;
+  });
+  
+  const updateDarkMode = (newDarkMode) => {
+    setDarkMode(newDarkMode);
+  };
+
+  useEffect(() => {
+    // Save the user data to storage whenever the user state changes
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  }, [darkMode]);
 
   const handleSetSearchQuery = (query) => {
     setSearchQuery(query);
@@ -66,10 +83,19 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [images])
 
+  useEffect(() => {
+    if(darkMode){
+      document.body.style.backgroundColor = '#1A202C';
+    }
+    else{
+      document.body.style.backgroundColor = '';
+    }
+  }, [darkMode]);
+
   return (
     <div className="app">
       <ChakraProvider>
-        <UserContext.Provider value={{ user, updateUser }}>
+        <UserContext.Provider value={{ user, updateUser, darkMode, updateDarkMode }}>
           <BrowserRouter>
             <main>
               <Routes>

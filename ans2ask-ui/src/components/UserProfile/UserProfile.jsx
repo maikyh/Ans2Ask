@@ -13,7 +13,7 @@ const LazyQuestionsOrAnswers = React.lazy(() => import('../QuestionsOrAnswers/Qu
 const LazyUserProfileGrid = React.lazy(() => import('../UserProfileGrid/UserProfileGrid'));
 
 const UserProfile = ({images, handleSetSearchQuery}) => {
-  const { user, updateUser } = useContext(UserContext);
+  const { user, updateUser, darkMode } = useContext(UserContext);
   const [selectedOption, setSelectedOption] = useState(Options.questions);
 
   const handleSetSelectedOption = (option) => {
@@ -38,19 +38,19 @@ const UserProfile = ({images, handleSetSearchQuery}) => {
         <Suspense fallback={<PersonalizedFallback />}>
             <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
-        <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-UserProfile bg-light px-4 pt-4 pb-2">
+        <div className="d-flex justify-content-center align-items-center" style={{backgroundColor: darkMode ? "#1A202C" : "", marginBottom: "4rem", marginTop: "3rem"}}>
+            <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyUserCard images={images} user={user} />
                 </Suspense>
 
-                <div className="row border border-dark my-4"></div>
+                <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
 
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyQuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
                 </Suspense>
 
-                <div className="row border border-dark my-4"></div>
+                <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
 
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user.id}/>

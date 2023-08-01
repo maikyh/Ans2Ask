@@ -1,13 +1,8 @@
 .custom-container-ask {
     max-width: 600px;
-    max-height: 1000px; 
+    max-height: 550px; 
     width: 100%;
     height: 100%;
-}
-
-.custom-margin-ask {
-    margin-top: 102px;
-    margin-bottom: 102px;
 }
 
 .custom-link {

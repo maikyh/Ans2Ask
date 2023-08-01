@@ -3,8 +3,7 @@ import { useState, useEffect, useContext, Suspense, useMemo } from "react";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Badge } from '@chakra-ui/react'
 import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
@@ -21,7 +20,7 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
     const [FinishStatus, setFinishStatus] = useState(false);
     const [body, setBody] = useState("");
     const [thanks, setThanks] = useState(false);
-    const { user, updateUser } = useContext(UserContext);
+    const { user, updateUser, darkMode } = useContext(UserContext);
     const { id } = useParams();
 
     const image = images.filter(image => image.public_id === userFromQuestion.email);
@@ -292,9 +291,9 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                 <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
 
-            <div className="d-flex justify-content-center align-items-center" style={{marginTop: "3rem"}}>
-                <div className="custom-container-question-details bg-light px-4 pt-2">
-                    <div style={{border: '0.9px solid gray' }} className="question-card position-relative bg-white mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
+            <div className="d-flex justify-content-center align-items-center" style={{ marginTop: "3rem" }}>
+                <div className="custom-container-question-details px-4 pt-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
+                    <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card position-relative mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
                                 <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
@@ -304,42 +303,41 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                                 </div>
                             </div>
                             <div className="col-auto">
-                                <h6 className="mt-1"> {userFromQuestion.username} </h6>
+                                <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {userFromQuestion.username} </h6>
                             </div>
-                            <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
+                            <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
 
                             <div className="col-auto">
-                                <h6 className="mt-1" style={{ fontStyle: "italic" }}> {userFromQuestion.title} </h6>
-                            </div>
-
-                            <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
-
-                            <div className="col-auto">
-                                <h6 className="mt-1 underline-text"> {question.subject} </h6>
+                                <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", fontStyle: "italic" }}> {userFromQuestion.title} </h6>
                             </div>
                         </div>
                         <div>
-                            <span className="fw-bold">{question.title}</span>
+                            <span className="fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>{question.title}</span>
                         </div>
                         <div className="">
-                            <p> {question.body} </p>
+                            <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {question.body} </p>
                         </div>
                             {
                                 answersOfCurrentQuestion.length > 0 && 
-                                <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
                                     {answersOfCurrentQuestion.length} answers
                                 </div>
                             }
                             {
                                 answersOfCurrentQuestion.length == 0 && 
-                                <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
                                     No answers, be the first!
                                 </div>
                             }
                         <div class="">
-                            <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-                                {question.coins} coins
-                            </div>
+                            <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "10px"}}>
+                                <div className="col-auto">
+                                    <Badge>{question.subject}</Badge>
+                                    <Badge style={{marginLeft: "10px"}} variant='solid' colorScheme='red'>
+                                    {question.coins} coins
+                                    </Badge>
+                                </div>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -352,12 +350,12 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
             }
 
             <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem"}}>
-                <div className="d-flex justify-content-center align-items-center custom-container-question-details bg-light px-4 pt-3 pb-2">
+                <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
                         <form onSubmit={handleSubmit}>
                             <input onChange={(e) => setBody(e.target.value)} placeholder="Ans the question.." type="text" className="form-control custom-input-question-details" />
                             <div className="d-flex justify-content-center">
-                                <button className="form-group btn btn-dark fw-bold mt-4">Send Answer</button>
+                                <button className={`form-group btn ${darkMode ? 'btn-light' : 'btn-dark'} fw-bold mt-4`}>Send Answer</button>
                             </div>
                         </form>
                     </div>

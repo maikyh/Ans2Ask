@@ -1,18 +1,11 @@
 .custom-container-question-details {
-    max-width: 1000px; 
+    max-width: 1200px; 
     height: 100%;
     width: 100%;
 }
 
 .custom-margin-question-details {
     height: auto;
-}
-
-.custom-container-question-details-answer {
-    max-width: 850px; 
-    height: 100%;
-    width: 100%;
-    background-color:  RGB(230, 245, 255)
 }
 
 .custom-input-question-details {

@@ -1,16 +1,17 @@
 import React from "react";  
-import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from '../../UserContext.js';
 import { useNavigate } from "react-router-dom";
 import { url } from "../../utils/Constants.jsx";
 import Highlighter from "react-highlight-words";
+import { Badge } from '@chakra-ui/react'
 import "./Question.css";
 
-const MAX_LENGTH = 369;
+const MAX_LENGTH = 450;
 
 const Question = ({sentence, images, id, username, email, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
+  const { darkMode } = useContext(UserContext);
 
   const image = images.filter(image => image.public_id === email);
 
@@ -30,6 +31,9 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
 
   const handleNavigateToQuestionDetails = () => {
     navigate(`/question/${id}`);
+    setTimeout(() => {
+      window.location.reload();
+    }, 0);
   }
 
   function truncateText(body) {
@@ -39,7 +43,7 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
   
   return (
     <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
-      <div style={{border: '0.9px solid gray' }} className="question-card bg-white mt-4 p-3">
+      <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card mt-4 p-3">
         <div className="row">
           <div className="col-auto">
             <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
@@ -49,31 +53,26 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
             </div>
           </div>
 
-          <div className="col-auto">
-            <h6 className="mt-1"> {username} </h6>
+          <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
+            <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {username} </h6>
           </div>
 
-          <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
+          <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
 
           <div className="col-auto">
-            <h6 className="mt-1" style={{ fontStyle: "italic" }}> {userTitle} </h6>
-          </div>
-
-          <div className="col-auto"> <h6 className="mt-1"> - </h6> </div>
-
-          <div className="col-auto">
-            <h6 className="mt-1 underline-text"> {subject} </h6>
+            <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", fontStyle: "italic" }}> {userTitle} </h6>
           </div>
           <div>
 
           </div>
         </div>
         <div>
-          <span className="fw-bold">{title}</span>
+          <span className="fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>{title}</span>
         </div>
         <div className="">
           <div style={{marginBottom:"10px"}}>
             <Highlighter
+              style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}
               highlightClassName="YourHighlightClass"
               searchWords={sentence ? sentence.split(' ') : []}
               autoEscape={true}
@@ -82,20 +81,25 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
           </div>
           {
             answersOfCurrentQuestion.length > 0 && 
-            <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
                 {answersOfCurrentQuestion.length} answers
             </div>
           }
           {
             answersOfCurrentQuestion.length == 0 && 
-            <div className="position-absolute bottom-0 end-0 p-1 px-3 text-dark underline-text">
+            <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
                 No answers, be the first!
             </div>
           }
         </div>
         <div class="">
-          <div class="position-absolute top-0 end-0 p-1 px-3 text-danger fw-bold">
-            {coins} coins
+          <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{top: "10px"}}>
+          <div className="col-auto">
+            <Badge>{subject}</Badge>
+            <Badge style={{marginLeft: "10px"}} variant='solid' colorScheme='red'>
+              {coins} coins
+            </Badge>
+          </div>
           </div>
         </div>
       </div>
