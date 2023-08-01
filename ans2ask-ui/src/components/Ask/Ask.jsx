@@ -166,8 +166,6 @@ const Ask = ({images, handleSetSearchQuery}) => {
         navigate('/login');
     };
 
-    console.log(Text);
-
     return (
         <div className="ask">
             <Suspense fallback={<div>Loading...</div>}>

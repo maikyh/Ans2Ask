@@ -52,7 +52,6 @@ const Login = () => {
           });
         }
       } catch (error) {
-        console.log('Login failed: ' + error);
         Swal.fire({
           icon: 'error',
           title: 'Login Failed',

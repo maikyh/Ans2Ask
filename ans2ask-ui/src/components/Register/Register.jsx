@@ -69,7 +69,6 @@ const Register = () => {
             });
           }
         } catch (error) {
-          console.log("Error: " + error);
           Swal.fire({
             icon: 'error',
             title: 'Registration Failed',

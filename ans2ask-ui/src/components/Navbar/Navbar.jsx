@@ -89,12 +89,6 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         return () => {document.removeEventListener('click', handleOutsideClick);};
     }, []);
 
-    const handleUpdateDarkMode = () => {
-        updateDarkMode(!darkMode);
-        console.log("lol")
-        console.log(darkMode)
-    }
-
     return (
         <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
             <div className="container">

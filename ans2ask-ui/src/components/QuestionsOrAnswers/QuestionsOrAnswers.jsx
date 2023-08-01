@@ -6,7 +6,7 @@ import "./QuestionsOrAnswers.css";
 
 const QuestionsOrAnswers = ({selectedOption, handleSetSelectedOption}) => {
   const { darkMode } = useContext(UserContext);
-    console.log(selectedOption);
+
   return (
     <div className="QuestionsOrCourses">
         <div className="d-flex">
