@@ -1,5 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../UserContext.js';
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./Course.css";
 
 const Course = ({video}) => {
@@ -7,7 +9,7 @@ const Course = ({video}) => {
 
     return (
         <div className="Course">
-            <div className="card border mt-4" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", width: '900px' }}>
+            <div className="card border mt-4" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, width: '900px' }}>
                 <div className="row no-gutters">
                 <div className="col-md-6">
                     <iframe
@@ -22,8 +24,8 @@ const Course = ({video}) => {
                 </div>
                 <div className="col-md-6">
                     <div className="card-body">
-                        <h5 className="card-title" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>{video.title}</h5>
-                        <p className="card-text" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>
+                        <h5 className="card-title" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>{video.title}</h5>
+                        <p className="card-text" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>
                             {video.views} | {video.date} | Duration: {video.duration} | {video.likes} likes
                         </p>
                         <div className="d-flex flex-column align-items-center" style={{marginTop: "30px"}}>
