@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Options from "../../utils/OptionsQA.jsx"
 import { UserContext } from "../../UserContext.js";
-import { StatusL, StatusD } from "../../utils/StatusQC.jsx";
+import { StatusL, StatusD } from "../../utils/Status.jsx";
 import "./QuestionsOrAnswers.css";
 
 const QuestionsOrAnswers = ({selectedOption, handleSetSelectedOption}) => {
