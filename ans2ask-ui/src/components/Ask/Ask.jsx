@@ -247,7 +247,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
     </div>
   
         <footer className="bg-light">
-            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)", height:"72px"}}>
+            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, height:"72px"}}>
                 <p style={{color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px"}}>
                 &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
                 </p>

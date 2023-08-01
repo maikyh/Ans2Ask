@@ -35,7 +35,7 @@ const SearchResults = ({images, searchQuery, handleSetSearchQuery}) => {
             <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{backgroundColor: darkMode ? "#1A202C" : "", marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-searchResults px-4 pt-4 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)" }}>
+            <div className="custom-container-searchResults px-4 pt-4 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <h1 className="text-center mb-2 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>All Results</h1>
                 <div className={`row border ${darkMode ? "border-white" : "border-dark"} my-4`}></div>
                 <Suspense fallback={<PersonalizedFallback />}>

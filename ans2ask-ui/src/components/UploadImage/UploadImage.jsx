@@ -60,7 +60,7 @@ const UploadImage = ({handleSetIsUpdating}) => {
             <div className="row justify-content-center align-items-center">
                 <div className="col-md-4" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>
                     <ReactAvatarEditor
-                        style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)" }}
+                        style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}
                         ref={editorRef}
                         scale={parseFloat(scale)}
                         width={width}

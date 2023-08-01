@@ -15,6 +15,7 @@ import {
 import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
+import Text from '../../utils/Text.jsx';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {

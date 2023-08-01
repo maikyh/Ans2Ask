@@ -41,7 +41,7 @@ const UserProfile = ({images, handleSetSearchQuery}) => {
             <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
         </Suspense>
         <div className="d-flex justify-content-center align-items-center" style={{backgroundColor: darkMode ? "#1A202C" : "", marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)" }}>
+            <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <Suspense fallback={<PersonalizedFallback />}>
                   <LazyUserCard images={images} user={user} />
                 </Suspense>

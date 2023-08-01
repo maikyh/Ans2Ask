@@ -79,7 +79,7 @@ const Register = () => {
     
     return (
       <div className="register">
-        <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)" }}>
+        <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
                     <a className="navbar-brand" style={{color: darkMode ? Text.darkMode : Text.lightMode}} href="#">Ans2Ask</a>
@@ -98,7 +98,7 @@ const Register = () => {
         </nav>
 
         <div className="d-flex justify-content-center align-items-center custom-margin-register" style={{backgroundColor: darkMode ? "#1A202C" : "", height: "764px"}}>
-            <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)" }}>
+            <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Welcome to Ans2Ask</h1>
                 <form onSubmit={handleSubmit}>
                   <div className="form-group mb-4">
@@ -148,7 +148,7 @@ const Register = () => {
         </div>
 
         <footer className="bg-light">
-            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : "rgba(248,249,250,1)", height:"72px"}}>
+            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, height:"72px"}}>
                 <p style={{color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px"}}>
                 &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
                 </p>
