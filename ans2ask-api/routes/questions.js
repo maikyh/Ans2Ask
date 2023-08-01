@@ -60,7 +60,7 @@ router.post('/questions', async (req, res) => {
     }
 });
 
-// Route to increase the user interaction (clicks) of a specific question
+// Route to increase the user interaction (clickCounts) of a specific question
 router.put('/questions/:id', async (req, res) => {
   const { id } = req.params; // Get the user ID from the request parameters
 
@@ -71,7 +71,7 @@ router.put('/questions/:id', async (req, res) => {
       return res.status(404).json({ message: 'Question not found' });
     }
 
-    existingQuestion.clicks = existingQuestion.clicks + 1;
+    existingQuestion.clickCounts = existingQuestion.clickCounts + 1;
 
     await existingQuestion.save();
 

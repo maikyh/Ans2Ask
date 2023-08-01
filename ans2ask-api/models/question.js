@@ -19,7 +19,7 @@ export const Question = sequelize.define('Question', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  clicks: {
+  clickCounts: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
