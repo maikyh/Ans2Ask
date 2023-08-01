@@ -192,12 +192,17 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
         questionsSorted.sort(function(a,b){
           return ratedQuestions[a.id] < ratedQuestions[b.id] ? 1 : -1;
         });
-
         setContent(questionsSorted);
       }
-      else if (selectedOption === Options.course) setContent(courses);
-      else if (selectedSubject !== allSubjects) setContent(questions.filter(question => question.subject === selectedSubject));
-      else setContent(questions);;
+      else if (selectedOption === Options.course){ 
+        setContent(courses);
+      }
+      else if (selectedSubject !== allSubjects){ 
+        setContent(questions.filter(question => question.subject === selectedSubject));
+      }
+      else { 
+        setContent(questions);;
+      }
     }
 
     getContent();

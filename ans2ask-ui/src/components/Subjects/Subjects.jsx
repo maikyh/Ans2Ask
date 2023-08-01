@@ -94,7 +94,7 @@ const Subjects = ({selectedSubject, handleSetSelectedSubject}) => {
             key={subject.title}
             style={{ cursor: 'pointer' }}
             className="col-auto d-flex flex-column align-items-center subject-container" 
-            onClick={() => handleSetSelectedSubject(subject.title)}
+            onClick={() => handleSetSelectedSubject(subject.title.props.children)}
           >
             {subject.icon}
             <p className="text-center">{subject.title}</p>
@@ -108,7 +108,7 @@ const Subjects = ({selectedSubject, handleSetSelectedSubject}) => {
             key={subject.title}
             style={{ cursor: 'pointer' }}
             className="col-auto d-flex flex-column align-items-center subject-container"
-            onClick={() => handleSetSelectedSubject(subject.title)}
+            onClick={() => handleSetSelectedSubject(subject.title.props.children)}
           >
             {subject.icon}
             <p className="text-center">{subject.title}</p>
