@@ -9,6 +9,7 @@ const Course = ({video}) => {
 
     return (
         <div className="Course">
+            {video && video.videoDetails &&
             <div className="card border mt-4" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, width: '900px' }}>
                 <div className="row no-gutters">
                 <div className="col-md-6">
@@ -38,6 +39,7 @@ const Course = ({video}) => {
                 </div>
                 </div>
             </div>
+            }
         </div>
   );
 }
