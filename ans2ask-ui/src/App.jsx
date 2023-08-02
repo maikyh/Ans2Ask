@@ -60,6 +60,7 @@ export default function App() {
     localStorage.removeItem('images');
   };
 
+  //Images
   useEffect(() => {
     const cachedImages = localStorage.getItem('images');
     if(cachedImages && cachedImages.length > nothingInLocalStorage) {
