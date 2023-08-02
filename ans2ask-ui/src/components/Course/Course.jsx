@@ -1,5 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../UserContext.js';
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./Course.css";
 
 const Course = ({video}) => {

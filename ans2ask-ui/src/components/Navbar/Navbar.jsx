@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
 
@@ -87,17 +89,11 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         return () => {document.removeEventListener('click', handleOutsideClick);};
     }, []);
 
-    const handleUpdateDarkMode = () => {
-        updateDarkMode(!darkMode);
-        console.log("lol")
-        console.log(darkMode)
-    }
-
     return (
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
+        <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
-                    <a className="navbar-brand" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} href="/home">Ans2Ask</a>
+                    <a className="navbar-brand" style={{color: darkMode ? Text.darkMode : Text.lightMode}} href="/home">Ans2Ask</a>
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
                         <div className="autocomplete">
                             <input

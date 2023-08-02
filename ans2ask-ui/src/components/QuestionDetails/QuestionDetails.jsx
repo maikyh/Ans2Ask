@@ -8,6 +8,8 @@ import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./QuestionDetails.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -292,8 +294,8 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
             </Suspense>
 
             <div className="d-flex justify-content-center align-items-center" style={{ marginTop: "3rem" }}>
-                <div className="custom-container-question-details px-4 pt-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
-                    <div style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card position-relative mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
+                <div className="custom-container-question-details px-4 pt-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
+                    <div style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card position-relative mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
                         <div className="row">
                             <div className="col-auto">
                                 <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
@@ -303,29 +305,29 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                                 </div>
                             </div>
                             <div className="col-auto">
-                                <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {userFromQuestion.username} </h6>
+                                <h6 className="mt-1" style={{color: darkMode ? Text.darkMode : Text.lightMode}}> {userFromQuestion.username} </h6>
                             </div>
-                            <div className="col-auto" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> <h6 className="mt-1"> - </h6> </div>
+                            <div className="col-auto" style={{color: darkMode ? Text.darkMode : Text.lightMode}}> <h6 className="mt-1"> - </h6> </div>
 
                             <div className="col-auto">
-                                <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", fontStyle: "italic" }}> {userFromQuestion.title} </h6>
+                                <h6 className="mt-1" style={{color: darkMode ? Text.darkMode : Text.lightMode, fontStyle: "italic" }}> {userFromQuestion.title} </h6>
                             </div>
                         </div>
                         <div>
-                            <span className="fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>{question.title}</span>
+                            <span className="fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>{question.title}</span>
                         </div>
                         <div className="">
-                            <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {question.body} </p>
+                            <p style={{color: darkMode ? Text.darkMode : Text.lightMode}}> {question.body} </p>
                         </div>
                             {
                                 answersOfCurrentQuestion.length > 0 && 
-                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
+                                <div style={{color: darkMode ? Text.darkMode : Text.lightMode}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
                                     {answersOfCurrentQuestion.length} answers
                                 </div>
                             }
                             {
                                 answersOfCurrentQuestion.length == 0 && 
-                                <div style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
+                                <div style={{color: darkMode ? Text.darkMode : Text.lightMode}} className="position-absolute bottom-0 end-0 p-1 px-3 text-decoration-underline">
                                     No answers, be the first!
                                 </div>
                             }
@@ -350,7 +352,7 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
             }
 
             <div className="d-flex justify-content-center align-items-center" style={{marginBottom: "4rem"}}>
-                <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
+                <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
                         <form onSubmit={handleSubmit}>
                             <input onChange={(e) => setBody(e.target.value)} placeholder="Ans the question.." type="text" className="form-control custom-input-question-details" />

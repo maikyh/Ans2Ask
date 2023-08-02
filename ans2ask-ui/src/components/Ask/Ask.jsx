@@ -6,6 +6,8 @@ import { NavDropdown } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { removeStopWords } from "../../utils/StopWords.jsx";
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -169,17 +171,15 @@ const Ask = ({images, handleSetSearchQuery}) => {
             <Suspense fallback={<div>Loading...</div>}>
                 <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
             </Suspense>
-
-            
   
-            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{backgroundColor: darkMode ? "#1A202C" : "", height: "822px"}}>
-                <div className="custom-container-ask p-4 border rounded px-5" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)",marginTop: "4rem"}}>
-                    <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}>Ask Your Question !</h1>
+            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{height: "814px"}}>
+                <div className="custom-container-ask p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode,marginTop: "4rem"}}>
+                    <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Ask Your Question !</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-4">
-                            <label className="mb-2 fw-bold" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} htmlFor="title">Title</label>
+                            <label className="mb-2 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}} htmlFor="title">Title</label>
                             <input 
-                                style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                                style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                                 className="form-control bg-lighter" 
                                 type="text"
                                 id="title"
@@ -189,9 +189,9 @@ const Ask = ({images, handleSetSearchQuery}) => {
                             />
                         </div>
                         <div className="form-group mb-4">
-                            <label style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}} className="mb-2 fw-bold" htmlFor="password">Text</label>
+                            <label style={{color: darkMode ? Text.darkMode : Text.lightMode}} className="mb-2 fw-bold" htmlFor="password">Text</label>
                             <textarea 
-                                style={{ backgroundColor: darkMode ? "#2D3748" : "#fff", color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                                style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                                 class="form-control bg-lighter" 
                                 id="text" 
                                 rows="6"
@@ -247,8 +247,8 @@ const Ask = ({images, handleSetSearchQuery}) => {
     </div>
   
         <footer className="bg-light">
-            <div className="text-center" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)", height:"72px"}}>
-                <p style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)", paddingTop: "25px"}}>
+            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, height:"72px"}}>
+                <p style={{color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px"}}>
                 &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
                 </p>
             </div>

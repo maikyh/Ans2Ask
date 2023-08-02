@@ -15,6 +15,7 @@ import {
 import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
+import Text from '../../utils/Text.jsx';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {
@@ -22,6 +23,7 @@ const UserCard = ({ user, images }) => {
   const [title, setTitle] = useState(user?user.title:"");
   const [about, setAbout] = useState(user?user.about:"");
   const [coins, setCoins] = useState(user?user.coins:"");
+  const [image, setImage] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const { updateUser, darkMode } = useContext(UserContext);
 
@@ -29,8 +31,13 @@ const UserCard = ({ user, images }) => {
     setIsUpdating(!isUpdating);
   }
 
-  const image = images?.filter(image => image.public_id === user?user.email:"");
   const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
+  
+  useEffect (()=> {
+    if(user){
+      setImage(images?.filter(image => image.public_id === user.email));
+    }
+  }, [user])
 
   const handleUpdateUsername = async () => {
     try {
@@ -192,7 +199,7 @@ const UserCard = ({ user, images }) => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <Editable
-                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                   textAlign='center'
                   defaultValue={user?user.username:""}
                   fontSize='calc(1.325rem + .9vw)'
@@ -219,7 +226,7 @@ const UserCard = ({ user, images }) => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <Editable
-                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                   textAlign='center'
                   defaultValue={user?user.title:""}
                   fontSize='1.25rem'
@@ -245,13 +252,13 @@ const UserCard = ({ user, images }) => {
               </div>
             </div>
 
-            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-0">{user?user.email:""}</p>
-            <p style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }} className="mb-1">{user?user.coins:""} coins</p>
+            <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-0">{user?user.email:""}</p>
+            <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-1">{user?user.coins:""} coins</p>
 
             <div className="row">
               <div className="col d-flex align-items-center">
                 <Editable
-                  style={{ color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)" }}
+                  style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                   defaultValue={about}
                   isPreviewFocusable={false}
                 >

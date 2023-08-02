@@ -1,6 +1,8 @@
 import React, {useContext} from 'react';
 import { UserContext } from "../../UserContext.js";
 import { Badge } from '@chakra-ui/react'
+import Text from '../../utils/Text.jsx';
+import Content from '../../utils/Content.jsx';
 import "./Answer.css";
 
 export default function Answer({images, answer,handleGiveThanks,user,question,thankedAnswerExist}) {
@@ -9,7 +11,7 @@ export default function Answer({images, answer,handleGiveThanks,user,question,th
 
     return (
         <div className="d-flex justify-content-center align-items-center">
-            <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? "#2D3748" : "rgba(248,249,250,1)" }}>
+            <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <div style={{border: `0.5px solid ${darkMode ? "white" : "gray"}`, backgroundColor: darkMode ? "RGB(25, 32, 45)" : "RGB(230, 245, 255)"}} className="custom-container-answer mt-0 p-2 px-3 position-relative">
                     <div className="row mr-0">
                         <div className='col-auto'>
@@ -29,12 +31,12 @@ export default function Answer({images, answer,handleGiveThanks,user,question,th
                             }
                         </div>
                         <div className="col" style={{padding:"0px"}}>
-                            <h6 className="mt-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {answer.user.username} </h6>
+                            <h6 className="mt-1" style={{color: darkMode ? Text.darkMode : Text.lightMode}}> {answer.user.username} </h6>
                         </div>
                     </div>
                     <div className={`row border ${darkMode ? "border-grey" : "border-dark"} mb-1 mx-0`}></div>
                     <div className="">
-                        <p className="mb-1" style={{color: darkMode ? "rgba(255, 255, 255, 0.92)" : "rgba(0,0,0,1)"}}> {answer.body} </p>
+                        <p className="mb-1" style={{color: darkMode ? Text.darkMode : Text.lightMode}}> {answer.body} </p>
                     </div>
                     {
                         thankedAnswerExist === false && question.userId === user.id &&
