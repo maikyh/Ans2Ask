@@ -34,9 +34,6 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 - **User**: This user can engage in two primary activities: 
   - **Question Seeker**: A user who desires to ask questions and seek assistance with their problems, tasks, projects, or exams.
   - **Problem Solver**: A user who derives satisfaction from answering questions and helping others by offering solutions and insights. 
-- **Recruiter**: individuals who are looking for potential candidates.
-
-*To accumulate points and continue asking questions, users must either solve problems for others or purchase points. However, the only way to earn trust points and improve their rating is by providing answers to questions.*
 
 ## User Personas:
 - Persona 1 - User (Question Seeker):
@@ -53,20 +50,6 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   - Technology Access: Tech-savvy and proficient in using various devices, including smartphones, tablets, and computers.
   - Motivation: John enjoys sharing his expertise and helping others by providing accurate answers and solutions to their questions.
   - Pain Points: John finds it challenging to find a platform where he can contribute his knowledge and receive recognition for his efforts.
-- Persona 3 - Recruiter:
-  - Name: Emma
-  - Location: San Francisco, USA
-  - Age: 35
-  - Technology Access: Regularly uses a smartphone, laptop, and other tech devices for work.
-  - Motivation: Emma works as a recruiter for a tech company and wants to connect with potential candidates who have the right skills and knowledge.
-  - Pain Points: Emma has difficulty finding a reliable platform where she can easily connect with qualified individuals and reach out to them for job opportunities.
-- Persona 4 - Recruiter:
-  - Name: Michael
-  - Location: Sydney, Australia
-  - Age: 28
-  - Technology Access: Proficient in using smartphones, laptops, and other digital devices for work.
-  - Motivation: Michael works as a recruiter in an advertising agency and aims to discover talented individuals for creative roles.
-  - Pain Points: Michael struggles to find a platform that caters specifically to the creative industry and provides a pool of qualified candidates. He often spends significant       time searching for potential candidates and reaching out to them individually.
 
 ## User Stories:
 ### Core
@@ -90,7 +73,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
   18. As a recruiter, I want to reach out to users, so that I can connect with potential candidates.
 
 ## Endpoints
-| HHTP Verb | Name                               | Description                                                          | User Stories |
+| HTTP Verb | Name                               | Description                                                          | User Stories |
 | --------- | ---------------------------------- | -------------------------------------------------------------------- | ------------ |
 | POST      | users                              | Creates new user account                                             | 1, 17        | 
 | GET       | users/me                           | Gets current user information                                        | 1, 2, 12, 18 |
@@ -126,6 +109,8 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | title       | string  | question title   |
 | body        | text    | question body    |
 | subject     | enum    | question subject |
+| coins       | enum    | question coins   |
+| clickCounts | enum    | number of clicks |
 | userId      | integer | user id          |
 
 ### Answer
