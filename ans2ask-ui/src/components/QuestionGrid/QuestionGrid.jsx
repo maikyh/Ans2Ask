@@ -85,13 +85,10 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
           });
           const data = await response.json();
 
-          let filteredYoutubeVideos;
+          let filteredYoutubeVideos = [];
           if (Array.isArray(data)) {
             filteredYoutubeVideos = data.filter(video => video.link && video.link.startsWith("https://www.youtube.com/watch?v="));
           } 
-          else {
-            filteredYoutubeVideos = [];
-          }
 
           const fetchVideoDataPromises = filteredYoutubeVideos.map(async (video) => {
             const videoDataResponse = await fetch(url + '/youtube' + `/${encodeURIComponent(video.link)}`, {
