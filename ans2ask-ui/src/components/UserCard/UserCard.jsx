@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext.js';
-import { url } from "../../utils/Constants.jsx";
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import {
   Editable,
   EditableInput,
@@ -24,6 +24,7 @@ const UserCard = ({ user, images }) => {
   const [about, setAbout] = useState(user?user.about:"");
   const [coins, setCoins] = useState(user?user.coins:"");
   const [image, setImage] = useState("");
+  const [meta, setMeta] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
   const { updateUser, darkMode } = useContext(UserContext);
 
@@ -32,12 +33,58 @@ const UserCard = ({ user, images }) => {
   }
 
   const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
-  
-  useEffect (()=> {
-    if(user){
-      setImage(images?.filter(image => image.public_id === user.email));
+
+  const removeImageQueryFromLocalStorage = (query) => {
+    localStorage.removeItem('images' + '/' + query);
+  };
+
+  //Images/user
+  //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
+  useEffect(() => {
+    const currImage = images?.filter(image => image.public_id === user.email);
+    if(currImage && currImage[0]){ 
+        setImage(currImage[0])
+        return;
     }
-  }, [user])
+    
+    const cachedImage = localStorage.getItem('images' + '/' + user.email);
+    if(cachedImage && cachedImage.length > nothingInLocalStorage) {
+      setImage(JSON.parse(cachedImage));
+    }
+    else {
+      const fetchImage = async () => {
+        const response = await fetch(url + '/images' + '/' + user.email);
+        const data = await response.json();
+        setImage(data);
+      };
+
+      fetchImage(); 
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.removeItem('images' + '/' + user.email);
+    localStorage.setItem('images' + '/' + user.email, JSON.stringify(image));
+    const timer = setTimeout(() => removeImageQueryFromLocalStorage(user.email), MAX_TIME);
+    return () => clearTimeout(timer);
+  }, [image])
+
+  //Meta image
+  useEffect(() => {
+    const cachedMeta = localStorage.getItem('/images' + '/' + "metaa_ez3xnh");
+    if(cachedMeta && cachedMeta.length > nothingInLocalStorage) {
+      setMeta(JSON.parse(cachedMeta));
+    }
+    else {
+      const fetchMeta = async () => {
+        const response = await fetch(url + '/images' + '/' + "metaa_ez3xnh");
+        const data = await response.json();
+        setMeta(data);
+      };
+
+      fetchMeta(); 
+    }
+  }, []);
 
   const handleUpdateUsername = async () => {
     try {
@@ -191,8 +238,8 @@ const UserCard = ({ user, images }) => {
         !isUpdating &&
         <div className="card-body d-flex align-items-center">
           <div className='preview-container' style={{ margin: "10px", marginRight: "30px", width: "200px", height: "200px" }}>
-            {image && image[0] && image[0].url &&
-              <img className='preview-image' src={image[0].url} alt="lol" />
+            {image && image.url &&
+              <img className='preview-image' src={image.url} alt="lol" />
             }
           </div>
           <div className='mx-2' style={{ marginRight: "100px" }}>
@@ -288,8 +335,8 @@ const UserCard = ({ user, images }) => {
           </div>
           <div style={{position:"absolute", right:"862px", borderLeft: '2px solid grey', height: '270px', marginLeft: "98px" }}></div>
           <div className='row justify-content-center align-items-center' style={{position:"absolute", right:"350px", margin: "10px", marginLeft: "196px", marginRight: "10px", width: "400px", height: "250px" }}>
-            {metaImage && metaImage[0] && metaImage[0].url &&
-              <img className='' src={metaImage[0].url} alt="lol" />
+            {meta && meta.url &&
+              <img className='' src={meta.url} alt="lol" />
             }
           </div>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../UserContext.js';
 import { useNavigate } from "react-router-dom";
-import { url } from "../../utils/Constants.jsx";
+import { url, nothingInLocalStorage,MAX_TIME } from "../../utils/Constants.jsx";
 import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
 import Text from '../../utils/Text.jsx';
@@ -13,9 +13,43 @@ const MAX_LENGTH = 450;
 
 const Question = ({sentence, images, id, username, email, userTitle, subject, title, body, coins}) => {
   const [answers, setAnswers] = useState([]);
+  const [image, setImage] = useState([]);
   const { darkMode } = useContext(UserContext);
 
-  const image = images.filter(image => image.public_id === email);
+  const removeImageQueryFromLocalStorage = (query) => {
+    localStorage.removeItem('images' + '/' + query);
+  };
+
+  //Images/user
+  //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
+  useEffect(() => {
+    const currImage = images?.filter(image => image.public_id === email);
+    if(currImage && currImage[0]){ 
+        setImage(currImage[0])
+        return;
+    }
+    
+    const cachedImage = localStorage.getItem('images' + '/' + email);
+    if(cachedImage && cachedImage.length > nothingInLocalStorage) {
+      setImage(JSON.parse(cachedImage));
+    }
+    else {
+      const fetchImage = async () => {
+        const response = await fetch(url + '/images' + '/' + email);
+        const data = await response.json();
+        setImage(data);
+      };
+
+      fetchImage(); 
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.removeItem('images' + '/' + email);
+    localStorage.setItem('images' + '/' + email, JSON.stringify(image));
+    const timer = setTimeout(() => removeImageQueryFromLocalStorage(email), MAX_TIME);
+    return () => clearTimeout(timer);
+  }, [image])
 
   useEffect(() => {
     const fetchAnswers = async () => {
@@ -49,8 +83,8 @@ const Question = ({sentence, images, id, username, email, userTitle, subject, ti
         <div className="row">
           <div className="col-auto">
             <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
-              {image && image[0] && image[0].url && 
-                <img className='preview-image' src={image[0].url} alt="profilePicture" />
+              {image && image.url && 
+                <img className='preview-image' src={image.url} alt="profilePicture" />
               }
             </div>
           </div>

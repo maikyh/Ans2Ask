@@ -18,14 +18,13 @@ const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 const QuestionDetails = ({images, handleSetSearchQuery}) => {
     const [question, setQuestion] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const [image, setImage] = useState([]);
     const [userFromQuestion, setUserFromQuestion] = useState([]);
     const [FinishStatus, setFinishStatus] = useState(false);
     const [body, setBody] = useState("");
     const [thanks, setThanks] = useState(false);
     const { user, updateUser, darkMode } = useContext(UserContext);
     const { id } = useParams();
-
-    const image = images.filter(image => image.public_id === userFromQuestion.email);
   
     const removeAnswersFromLocalStorage = () => {
         localStorage.removeItem('answers');
@@ -38,6 +37,10 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
     const removeUserFromQuestionFromLocalStorage = (id) => {
         localStorage.removeItem('users' + '/' + id);
     };
+    
+    const removeImageQueryFromLocalStorage = (query) => {
+        localStorage.removeItem('images' + '/' + query);
+    };
 
     const navigate = useNavigate();
 
@@ -46,6 +49,39 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
             navigate('/login');
         }
     }, [user]);
+
+    //Images/user
+    //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
+    useEffect(() => {
+        const currImage = images?.filter(image => image.public_id === userFromQuestion.email);
+        if(currImage && currImage[0]){ 
+            setImage(currImage[0])
+            return;
+        }
+
+        if(userFromQuestion && userFromQuestion.email){
+            const cachedImage = localStorage.getItem('images' + '/' + userFromQuestion.email);
+            if(cachedImage && cachedImage.length > nothingInLocalStorage) {
+                setImage(JSON.parse(cachedImage));
+            }
+            else {
+                const fetchImage = async () => {
+                const response = await fetch(url + '/images' + '/' + userFromQuestion.email);
+                const data = await response.json();
+                setImage(data);
+                };
+
+                fetchImage(); 
+            }
+        }
+    }, [userFromQuestion]);
+
+    useEffect(() => {
+        localStorage.removeItem('images' + '/' + userFromQuestion.email);
+        localStorage.setItem('images' + '/' + userFromQuestion.email, JSON.stringify(image));
+        const timer = setTimeout(() => removeImageQueryFromLocalStorage(userFromQuestion.email), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [image])
 
     //For Answers
     useEffect(() => {
@@ -299,8 +335,8 @@ const QuestionDetails = ({images, handleSetSearchQuery}) => {
                         <div className="row">
                             <div className="col-auto">
                                 <div className='preview-container' style={{width: "32px", height: "32px", marginBottom: "8px"}}>
-                                    {image && image[0] && image[0].url && 
-                                        <img className='preview-image' src={image[0].url} alt="lol" />
+                                    {image && image.url && 
+                                        <img className='preview-image' src={image.url} alt="lol" />
                                     }
                                 </div>
                             </div>

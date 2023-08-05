@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from '../../UserContext.js';
 import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
@@ -52,15 +52,11 @@ const Register = () => {
               icon: 'success',
               title: 'Successfully Registered',
               text: 'You have been registered!',
-              timer: 850,
+              timer: 1050,
               showConfirmButton: false,
             });        
     
             navigate('/login');
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 0);
           } else {
             Swal.fire({
               icon: 'error',
