@@ -34,29 +34,29 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
 
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
-      };
-    
+    };
+
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
         const currImage = images?.filter(image => image.public_id === user.email);
-        if(currImage && currImage[0]){ 
+        if (currImage && currImage[0]) {
             setImage(currImage[0])
             return;
         }
 
         const cachedImage = localStorage.getItem('images' + '/' + user.email);
-        if(cachedImage && cachedImage.length > nothingInLocalStorage) {
+        if (cachedImage && cachedImage.length > nothingInLocalStorage) {
             setImage(JSON.parse(cachedImage));
         }
         else {
             const fetchImage = async () => {
-            const response = await fetch(url + '/images' + '/' + user.email);
-            const data = await response.json();
-            setImage(data);
+                const response = await fetch(url + '/images' + '/' + user.email);
+                const data = await response.json();
+                setImage(data);
             };
 
-            fetchImage(); 
+            fetchImage();
         }
     }, []);
 
@@ -66,7 +66,7 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         const timer = setTimeout(() => removeImageQueryFromLocalStorage(user.email), MAX_TIME);
         return () => clearTimeout(timer);
     }, [image])
-    
+
     //For Questions
     useEffect(() => {
         const cachedQuestions = localStorage.getItem('questions');
@@ -120,14 +120,14 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
 
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick);
-        return () => {document.removeEventListener('click', handleOutsideClick);};
+        return () => { document.removeEventListener('click', handleOutsideClick); };
     }, []);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
             <div className="container">
                 <div className="d-flex justify-content-between align-items-center w-100">
-                    <a className="navbar-brand" style={{color: darkMode ? Text.darkMode : Text.lightMode}} href="/home">Ans2Ask</a>
+                    <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="/home">Ans2Ask</a>
                     <div style={{ marginLeft: "4.75rem", marginRight: "4.75rem" }} className="flex-fill" >
                         <div className="autocomplete">
                             <input
@@ -164,20 +164,20 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
                             onClick={() => updateDarkMode(!darkMode)}
                             marginLeft={"27px"}
                         >
-                        {!darkMode ? (
-                            <SunIcon color="black.200" />
-                        ) : (
-                            <MoonIcon color="blue.700" />
-                        )}
+                            {!darkMode ? (
+                                <SunIcon color="black.200" />
+                            ) : (
+                                <MoonIcon color="blue.700" />
+                            )}
                         </Button>
                         <NavDropdown
                             style={{ marginLeft: "1.55rem" }}
                             alignRight
                             title={
                                 <div>
-                                    <div className='preview-container' style={{position: 'absolute', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: "38px", height: "38px", top: "-5px" }}>
+                                    <div className='preview-container' style={{ position: 'absolute', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', width: "38px", height: "38px", top: "-5px" }}>
                                         {image && image.url &&
-                                            <img  className='preview-image' src={image.url} alt="profilePicture" />
+                                            <img className='preview-image' src={image.url} alt="profilePicture" />
                                         }
                                     </div>
                                 </div>

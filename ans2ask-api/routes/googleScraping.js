@@ -17,21 +17,21 @@ const getDataFromGoogleSearchResults = (query) => {
             function getTitlesFromResponse() {
                 const titles = [];
                 $(".DhN8Cf").each((i, el) => {
-                  titles.push($(el).find("h3").text());
+                    titles.push($(el).find("h3").text());
                 });
                 return titles;
             }
 
             function getLinksFromResponse() {
                 const links = [];
-                $(".dXiKIc > a").each((i,el) => {
+                $(".dXiKIc > a").each((i, el) => {
                     const link = $(el).attr("href");
                     const href = link.split('vid:')[1];
                     links.push('https://www.youtube.com/watch?v=' + href);
                 });
                 return links;
             }
-            
+
             const titles = getTitlesFromResponse();
             const links = getLinksFromResponse();
 
@@ -63,4 +63,3 @@ router.get('/google/:query', async (req, res) => {
 });
 
 export default router;
-

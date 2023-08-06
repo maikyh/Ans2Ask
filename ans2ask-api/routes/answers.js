@@ -7,8 +7,8 @@ const router = express.Router();
 router.get('/answers', async (req, res) => {
     try {
         const answers = await Answer.findAll({
-        include: [{ model: User, as: 'user' }],
-        order: [['createdAt', 'DESC']]
+            include: [{ model: User, as: 'user' }],
+            order: [['createdAt', 'DESC']]
         });
         res.json(answers);
     } catch (err) {
@@ -29,13 +29,13 @@ router.post('/answers', async (req, res) => {
 
         // Create the answer with the current user ID
         const answer = await Answer.create({
-        ...req.body,
-        userId: currentUser.id
+            ...req.body,
+            userId: currentUser.id
         });
 
         const answerWithUser = await Answer.findOne({
-        where: { id: answer.id },
-        include: [{ model: User, as: 'user' }]
+            where: { id: answer.id },
+            include: [{ model: User, as: 'user' }]
         });
 
         res.status(201).json(answerWithUser);
@@ -47,22 +47,22 @@ router.post('/answers', async (req, res) => {
 // Route to update an answer
 router.put('/answers/:id', async (req, res) => {
     try {
-      // Find the answer by its ID
-      const answer = await Answer.findOne({ where: { id: req.params.id } });
-  
-      // Check if the answer exists
-      if (!answer) {
-        return res.status(404).json({ error: 'Answer not found' });
-      }
-  
-      // Update the answer
-      await answer.update(req.body);
-  
-      res.status(200).json(answer);
+        // Find the answer by its ID
+        const answer = await Answer.findOne({ where: { id: req.params.id } });
+
+        // Check if the answer exists
+        if (!answer) {
+            return res.status(404).json({ error: 'Answer not found' });
+        }
+
+        // Update the answer
+        await answer.update(req.body);
+
+        res.status(200).json(answer);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
-  });
-  
+});
+
 
 export default router;

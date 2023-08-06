@@ -12,7 +12,7 @@ import "./Ask.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
 
-const Ask = ({images, handleSetSearchQuery}) => {
+const Ask = ({ images, handleSetSearchQuery }) => {
     const { user, updateUser, darkMode } = useContext(UserContext);
     const [title, setTitle] = useState("");
     const [body, setbody] = useState("");
@@ -30,15 +30,15 @@ const Ask = ({images, handleSetSearchQuery}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!user) {
-        navigate('/login');
+        if (!user) {
+            navigate('/login');
         }
     }, [user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(subject === "Select Subject") {
+        if (subject === "Select Subject") {
             Swal.fire({
                 icon: 'warning',
                 title: 'No Subject Selected',
@@ -47,7 +47,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
             return;
         }
 
-        if(questionCoins > user.coins) {
+        if (questionCoins > user.coins) {
             Swal.fire({
                 icon: 'error',
                 title: "You don't have enough coins",
@@ -55,104 +55,104 @@ const Ask = ({images, handleSetSearchQuery}) => {
             });
             return;
         }
-    
+
         try {
-          // Make the question API request
-          const coins = questionCoins;
-          
-          const clickCounts = 0;
-          
-          const mapOfWords = {};
+            // Make the question API request
+            const coins = questionCoins;
 
-          const titleWithoutStopWords = removeStopWords(title).split(' ');
-          for(const word of titleWithoutStopWords){
-            if(!mapOfWords[word]) mapOfWords[word] = 1;
-            else mapOfWords[word]++;
-          }
+            const clickCounts = 0;
 
-          const bodyWithoutStopWords = removeStopWords(body).split(' ');
-          for(const word of bodyWithoutStopWords){
-            if(!mapOfWords[word]) mapOfWords[word] = 1;
-            else mapOfWords[word]++;
-          }
+            const mapOfWords = {};
 
-          const response = await fetch(url + `/questions`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ title, body, subject, coins, clickCounts, mapOfWords }),
-            credentials: 'include'
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-            const loggedInUser = data.user;
-   
-            // Reset form fields
-            setTitle('');
-            setbody('');
-            setSubject("Select Subject");
+            const titleWithoutStopWords = removeStopWords(title).split(' ');
+            for (const word of titleWithoutStopWords) {
+                if (!mapOfWords[word]) mapOfWords[word] = 1;
+                else mapOfWords[word]++;
+            }
 
-            // Make the update of coins API request
-            try {
-                const username = user.username;
-                const title = user.title;
-                const about = user.about;
-                const coins = user.coins - questionCoins;
+            const bodyWithoutStopWords = removeStopWords(body).split(' ');
+            for (const word of bodyWithoutStopWords) {
+                if (!mapOfWords[word]) mapOfWords[word] = 1;
+                else mapOfWords[word]++;
+            }
 
-                const response = await fetch(url + `/users` + `/${user.id}`, {
-                  method: 'PUT',
-                  headers: {
+            const response = await fetch(url + `/questions`, {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ username, title, about, coins }),
-                  credentials: 'include'
-                });
-          
-                if (response.ok) {
-                  const data = await response.json();
-                  const UpdatedUser = data.user;
-          
-                  updateUser(UpdatedUser);
-                } else {
+                },
+                body: JSON.stringify({ title, body, subject, coins, clickCounts, mapOfWords }),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const loggedInUser = data.user;
+
+                // Reset form fields
+                setTitle('');
+                setbody('');
+                setSubject("Select Subject");
+
+                // Make the update of coins API request
+                try {
+                    const username = user.username;
+                    const title = user.title;
+                    const about = user.about;
+                    const coins = user.coins - questionCoins;
+
+                    const response = await fetch(url + `/users` + `/${user.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, title, about, coins }),
+                        credentials: 'include'
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const UpdatedUser = data.user;
+
+                        updateUser(UpdatedUser);
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Upload Failed',
+                            text: "Invalid Upload. Please try again."
+                        });
+                    }
+
+                } catch (error) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Upload Failed',
+                        title: 'Upload Failed: ' + error,
                         text: "Invalid Upload. Please try again."
                     });
                 }
-          
-              } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Upload Failed: ' + error,
-                    text: "Invalid Upload. Please try again."
-                });
-              }
 
-              Swal.fire({
-                icon: 'success',
-                title: 'Question Asked Successfully',
-                text: 'Your question has been submitted!',
-                timer: 850,
-                showConfirmButton: false, 
-              });
-              
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Question Asked Successfully',
+                    text: 'Your question has been submitted!',
+                    timer: 850,
+                    showConfirmButton: false,
+                });
+
                 // Navigate to question details
                 setTimeout(() => {
                     navigate(`/question/${data.id}`);
-                }, 850); 
-          } else {
-            // Handle upload failure case
-            Swal.fire({
-                icon: 'error',
-                title: 'Upload Failed',
-                text: "Invalid Upload. Please try again."
-            });
-          }
+                }, 850);
+            } else {
+                // Handle upload failure case
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Failed',
+                    text: "Invalid Upload. Please try again."
+                });
+            }
         } catch (error) {
-          // Handle any network or API request errors
+            // Handle any network or API request errors
             Swal.fire({
                 icon: 'error',
                 title: 'Upload Failed: ' + error,
@@ -160,7 +160,7 @@ const Ask = ({images, handleSetSearchQuery}) => {
             });
         }
     };
-    
+
     const handleLogout = () => {
         updateUser(null);
         navigate('/login');
@@ -169,18 +169,18 @@ const Ask = ({images, handleSetSearchQuery}) => {
     return (
         <div className="ask">
             <Suspense fallback={<div>Loading...</div>}>
-                <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
+                <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout} />
             </Suspense>
-  
-            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{height: "814px"}}>
-                <div className="custom-container-ask p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode,marginTop: "4rem"}}>
-                    <h1 className="text-center mb-4 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>Ask Your Question !</h1>
+
+            <div className="d-flex justify-content-center align-items-center custom-margin-ask" style={{ height: "814px" }}>
+                <div className="custom-container-ask p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, marginTop: "4rem" }}>
+                    <h1 className="text-center mb-4 fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Ask Your Question !</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group mb-4">
-                            <label className="mb-2 fw-bold" style={{color: darkMode ? Text.darkMode : Text.lightMode}} htmlFor="title">Title</label>
-                            <input 
+                            <label className="mb-2 fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} htmlFor="title">Title</label>
+                            <input
                                 style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
-                                className="form-control bg-lighter" 
+                                className="form-control bg-lighter"
                                 type="text"
                                 id="title"
                                 value={title}
@@ -189,11 +189,11 @@ const Ask = ({images, handleSetSearchQuery}) => {
                             />
                         </div>
                         <div className="form-group mb-4">
-                            <label style={{color: darkMode ? Text.darkMode : Text.lightMode}} className="mb-2 fw-bold" htmlFor="password">Text</label>
-                            <textarea 
+                            <label style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-2 fw-bold" htmlFor="password">Text</label>
+                            <textarea
                                 style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
-                                class="form-control bg-lighter" 
-                                id="text" 
+                                class="form-control bg-lighter"
+                                id="text"
                                 rows="6"
                                 value={body}
                                 onChange={(e) => setbody(e.target.value)}
@@ -204,35 +204,35 @@ const Ask = ({images, handleSetSearchQuery}) => {
                             <button className='btn btn-secondary'>
                                 <NavDropdown required title={subject}>
                                     <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Informatics")}}>Informatics</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Mathematics")}}>Mathematics</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Biology")}}>Biology</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Health")}}>Health</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Art")}}>Art</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Business")}}>Business</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Law")}}>Law</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Investment")}}>Investment</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("History")}}>History</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Videogames")}}>Videogames</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Chemistry")}}>Chemistry</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Physics")}}>Physics</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Animation")}}>Animation</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Geography")}}>Geography</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("SAT")}}>SAT</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Food")}}>Food</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetSubject("Languages")}}>Languages</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Informatics") }}>Informatics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Mathematics") }}>Mathematics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Biology") }}>Biology</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Health") }}>Health</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Art") }}>Art</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Business") }}>Business</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Law") }}>Law</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Investment") }}>Investment</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("History") }}>History</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Videogames") }}>Videogames</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Chemistry") }}>Chemistry</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Physics") }}>Physics</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Animation") }}>Animation</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Geography") }}>Geography</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("SAT") }}>SAT</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Food") }}>Food</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetSubject("Languages") }}>Languages</NavDropdown.Item>
                                     </div>
                                 </NavDropdown>
                             </button>
                             <button className='btn btn-secondary'>
                                 <NavDropdown required title={"Cost of Question: " + questionCoins}>
                                     <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                                        <NavDropdown.Item onClick={() => {handleSetCoins(5)}}>5</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetCoins(10)}}>10</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetCoins(15)}}>15</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetCoins(20)}}>20</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetCoins(25)}}>25</NavDropdown.Item>
-                                        <NavDropdown.Item onClick={() => {handleSetCoins(50)}}>50 (Urgent)</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetCoins(5) }}>5</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetCoins(10) }}>10</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetCoins(15) }}>15</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetCoins(20) }}>20</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetCoins(25) }}>25</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { handleSetCoins(50) }}>50 (Urgent)</NavDropdown.Item>
                                     </div>
                                 </NavDropdown>
                             </button>
@@ -244,16 +244,16 @@ const Ask = ({images, handleSetSearchQuery}) => {
                 </div>
             </div>
             <div>
-    </div>
-  
-        <footer className="bg-light">
-            <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, height:"72px"}}>
-                <p style={{color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px"}}>
-                &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
-                </p>
             </div>
-        </footer>
-    </div>
+
+            <footer className="bg-light">
+                <div className="text-center" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, height: "72px" }}>
+                    <p style={{ color: darkMode ? Text.darkMode : Text.lightMode, paddingTop: "25px" }}>
+                        &copy; {new Date().getFullYear()} Ans2Ask. All rights reserved.
+                    </p>
+                </div>
+            </footer>
+        </div>
     );
 }
 

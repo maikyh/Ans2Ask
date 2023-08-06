@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import Options from "../../utils/OptionsQA.jsx"
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
-import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import "./UserProfile.css";
 
@@ -14,56 +13,56 @@ const LazyUserCard = React.lazy(() => import('../UserCard/UserCard'));
 const LazyQuestionsOrAnswers = React.lazy(() => import('../QuestionsOrAnswers/QuestionsOrAnswers'));
 const LazyUserProfileGrid = React.lazy(() => import('../UserProfileGrid/UserProfileGrid'));
 
-const UserProfile = ({images, handleSetSearchQuery}) => {
-  const { user, updateUser, darkMode } = useContext(UserContext);
-  const [selectedOption, setSelectedOption] = useState(Options.questions);
+const UserProfile = ({ images, handleSetSearchQuery }) => {
+    const { user, updateUser, darkMode } = useContext(UserContext);
+    const [selectedOption, setSelectedOption] = useState(Options.questions);
 
-  const handleSetSelectedOption = (option) => {
-    setSelectedOption(option);
-  };
+    const handleSetSelectedOption = (option) => {
+        setSelectedOption(option);
+    };
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    if(!user) {
-      navigate('/login');
-    }
-  }, [user]);
-  
-  const handleLogout = () => {
-    updateUser(null);
-    navigate('/login');
-  };
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user]);
 
-  return (
-    <div className="UserProfile">
-        <Suspense fallback={<PersonalizedFallback />}>
-            <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout}/>
-        </Suspense>
-        <div className="d-flex justify-content-center align-items-center" style={{backgroundColor: darkMode ? "#1A202C" : "", marginBottom: "4rem", marginTop: "3rem"}}>
-            <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
-                <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyUserCard images={images} user={user} />
-                </Suspense>
+    const handleLogout = () => {
+        updateUser(null);
+        navigate('/login');
+    };
 
-                <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
+    return (
+        <div className="UserProfile">
+            <Suspense fallback={<PersonalizedFallback />}>
+                <LazyNavBar images={images} handleSetSearchQuery={handleSetSearchQuery} handleLogout={handleLogout} />
+            </Suspense>
+            <div className="d-flex justify-content-center align-items-center" style={{ backgroundColor: darkMode ? "#1A202C" : "", marginBottom: "4rem", marginTop: "3rem" }}>
+                <div className="custom-container-UserProfile px-2 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
+                    <Suspense fallback={<PersonalizedFallback />}>
+                        <LazyUserCard images={images} user={user} />
+                    </Suspense>
 
-                <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyQuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption}/>
-                </Suspense>
+                    <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
 
-                <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
+                    <Suspense fallback={<PersonalizedFallback />}>
+                        <LazyQuestionsOrAnswers selectedOption={selectedOption} handleSetSelectedOption={handleSetSelectedOption} />
+                    </Suspense>
 
-                <Suspense fallback={<PersonalizedFallback />}>
-                  <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user?user.id:""}/>
-                </Suspense>
+                    <div className={`row border ${darkMode ? "border-grey" : "border-dark"} my-4 mx-0`}></div>
+
+                    <Suspense fallback={<PersonalizedFallback />}>
+                        <LazyUserProfileGrid images={images} selectedOption={selectedOption} userId={user ? user.id : ""} />
+                    </Suspense>
+                </div>
             </div>
+            <Suspense fallback={<PersonalizedFallback />}>
+                <LazyFooter />
+            </Suspense>
         </div>
-        <Suspense fallback={<PersonalizedFallback />}>
-          <LazyFooter/>
-        </Suspense>
-    </div>
-  );
+    );
 }
 
 export default UserProfile;
