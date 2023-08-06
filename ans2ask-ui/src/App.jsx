@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import PersonalizedFallback from "./components/PersonalizedFallback/PersonalizedFallback";
 import { url, MAX_TIME, nothingInLocalStorage } from "./utils/Constants.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.css';
 import "./App.css";
 
 const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));

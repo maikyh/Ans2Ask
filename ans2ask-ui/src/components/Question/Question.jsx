@@ -2,14 +2,12 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../UserContext.js';
 import { useNavigate } from "react-router-dom";
-import { url, nothingInLocalStorage, MAX_TIME } from "../../utils/Constants.jsx";
+import { url, nothingInLocalStorage, MAX_TIME, MAX_LENGTH } from "../../utils/Constants.jsx";
 import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import "./Question.css";
-
-const MAX_LENGTH = 450;
 
 const Question = ({ sentence, images, id, username, email, userTitle, subject, title, body, coins }) => {
     const [answers, setAnswers] = useState([]);

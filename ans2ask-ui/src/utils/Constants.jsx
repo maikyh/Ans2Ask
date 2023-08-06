@@ -7,6 +7,12 @@ const API_KEY = 'AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI';
 //10 minutes
 const MAX_TIME = 600000; 
 
+//Max number of characters of question
+const MAX_LENGTH = 480;
+
+//Max number of characters of question on search bar
+const MAX_LENGTH_SEARCH = 120;
+
 //Subjects
 const allSubjects = "All";
 
@@ -21,4 +27,4 @@ const percentNumberOfSameWords = 30;
 const percentCosineSim = 600;
 const percentQuestionClicks = 10;
 
-export { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY, percentNumberOfSameWords, percentCosineSim, percentQuestionClicks };
+export { url, MAX_TIME, MAX_LENGTH, MAX_LENGTH_SEARCH, allSubjects, noQuery, nothingInLocalStorage, API_KEY, percentNumberOfSameWords, percentCosineSim, percentQuestionClicks };
