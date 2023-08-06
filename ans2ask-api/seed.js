@@ -11,21 +11,21 @@ const userData = JSON.parse(fs.readFileSync(path.resolve(__dirname, './seeders/u
 const questionData = JSON.parse(fs.readFileSync(path.resolve(__dirname, './seeders/questions.json'), 'utf8'));
 
 const seedDatabase = async () => {
-  try {
-    // Sync all models that aren't already in the database
-    await sequelize.sync({ alter: true });
+    try {
+        // Sync all models that aren't already in the database
+        await sequelize.sync({ alter: true });
 
-    // Then seed the User and Question data
-    await User.bulkCreate(userData);
-    console.log('User data has been seeded!');
+        // Then seed the User and Question data
+        await User.bulkCreate(userData);
+        console.log('User data has been seeded!');
 
-    await Question.bulkCreate(questionData);
-    console.log('Question data has been seeded!');
-  } catch (error) {
-    console.error('Error seeding data:', error);
-  } finally {
-    await sequelize.close();
-  }
+        await Question.bulkCreate(questionData);
+        console.log('Question data has been seeded!');
+    } catch (error) {
+        console.error('Error seeding data:', error);
+    } finally {
+        await sequelize.close();
+    }
 };
 
 seedDatabase();

@@ -7,7 +7,7 @@ import './UploadImage.css';
 
 const url = 'http://localhost:3001';
 
-const UploadImage = ({handleSetIsUpdating}) => {
+const UploadImage = ({ handleSetIsUpdating }) => {
     const { user, darkMode } = useContext(UserContext);
 
     const [image, setImage] = useState("");
@@ -58,7 +58,7 @@ const UploadImage = ({handleSetIsUpdating}) => {
     return (
         <div className="container">
             <div className="row justify-content-center align-items-center">
-                <div className="col-md-4" style={{color: darkMode ? Text.darkMode : Text.lightMode}}>
+                <div className="col-md-4" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
                     <ReactAvatarEditor
                         style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}
                         ref={editorRef}
