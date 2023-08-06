@@ -5,15 +5,12 @@ import { NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { url, MAX_TIME, MAX_LENGTH_SEARCH, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import 'bootstrap/dist/css/bootstrap.css';
 import "./Navbar.css";
-
-const MAX_LENGTH = 120;
 
 const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
     const { user, updateUser, darkMode, updateDarkMode } = useContext(UserContext);
@@ -24,7 +21,7 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
 
     function truncateText(body) {
-        if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
+        if (body.length > MAX_LENGTH_SEARCH) return body.substring(0, MAX_LENGTH_SEARCH) + "...";
         return body;
     }
 
