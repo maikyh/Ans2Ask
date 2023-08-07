@@ -1,6 +1,7 @@
 import express from 'express';
 import { User } from '../models/index.js';
 import { Answer } from '../models/answer.js';
+
 const router = express.Router();
 
 // Route to get all answers, with associated users
