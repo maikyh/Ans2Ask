@@ -94,7 +94,7 @@ const UserProfileGrid = ({ images, selectedOption }) => {
                 content?.map((question) => (
                     <div key={question.id}>
                         <Suspense fallback={<PersonalizedFallback />}>
-                            <LazyQuestion images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                            <LazyQuestion userId={question.user.id} images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
                         </Suspense>
                     </div>
                 ))

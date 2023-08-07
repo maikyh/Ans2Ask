@@ -2,18 +2,26 @@ import React from 'react';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../UserContext.js";
 import { Badge } from '@chakra-ui/react'
+import { useNavigate } from "react-router-dom";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
+import { Tooltip } from '@chakra-ui/react'
 import "./Answer.css";
 
 export default function Answer({ images, answer, handleGiveThanks, user, question, thankedAnswerExist }) {
     const { darkMode } = useContext(UserContext);
     const [image, setImage] = useState([]);
 
+    const navigate = useNavigate();
+
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
     };
+
+    const handleNavigateToUserProfile = () => {
+        navigate(`/user/${answer.user.id}`);
+    }
 
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
@@ -52,27 +60,29 @@ export default function Answer({ images, answer, handleGiveThanks, user, questio
         <div className="d-flex justify-content-center align-items-center">
             <div className="d-flex justify-content-center align-items-center custom-container-question-details px-4 pt-3 pb-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <div style={{ border: `0.5px solid ${darkMode ? "white" : "gray"}`, backgroundColor: darkMode ? "RGB(25, 32, 45)" : "RGB(230, 245, 255)" }} className="custom-container-answer mt-0 p-2 px-3 position-relative">
-                    <div className="row mr-0">
-                        <div className='col-auto'>
-                            {image && image.url &&
-                                <img
-                                    style={{
-                                        width: "30px",
-                                        height: "30px",
-                                        marginRight: "0px",
-                                        borderRadius: "50%",
-                                        marginBottom: "3px"
-                                    }}
-                                    className='preview-image'
-                                    src={image.url}
-                                    alt="profilePicture"
-                                />
-                            }
+                    <Tooltip label='View Profile' placement='left-start' bg='#bee3f0' color="black">
+                        <div className="row mr-0" style={{ cursor: 'pointer' }} onClick={() => handleNavigateToUserProfile()}>
+                            <div className='col-auto'>
+                                {image && image.url &&
+                                    <img
+                                        style={{
+                                            width: "30px",
+                                            height: "30px",
+                                            marginRight: "0px",
+                                            borderRadius: "50%",
+                                            marginBottom: "3px"
+                                        }}
+                                        className='preview-image'
+                                        src={image.url}
+                                        alt="profilePicture"
+                                    />
+                                }
+                            </div>
+                            <div className="col" style={{ padding: "0px" }}>
+                                <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {answer.user.username} </h6>
+                            </div>
                         </div>
-                        <div className="col" style={{ padding: "0px" }}>
-                            <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {answer.user.username} </h6>
-                        </div>
-                    </div>
+                    </Tooltip>
                     <div className={`row border ${darkMode ? "border-grey" : "border-dark"} mb-1 mx-0`}></div>
                     <div className="">
                         <p className="mb-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {answer.body} </p>

@@ -71,20 +71,20 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
         }, 0);
     }
 
+    const handleNavigateToUserProfile = () => {
+        navigate(`/user/${userId}`);
+    }
+
     function truncateText(body) {
         if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
         return body;
-    }
-
-    const check = () => {
-        navigate(`/user/${userId}`);
     }
 
     return (
         <div style={{ position: 'relative' }} className="question">
             <div style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card mt-4 p-3">
                 <Tooltip label='View Profile' placement='left-start' bg='#bee3f0' color="black">
-                    <div className="row" style={{ cursor: 'pointer' }} onClick={() => check()} >
+                    <div className="row" style={{ cursor: 'pointer' }} onClick={() => handleNavigateToUserProfile()} >
                         <div className="col-auto">
                             <div className='preview-container' style={{ width: "32px", height: "32px", marginBottom: "8px" }}>
                                 {image && image.url &&
@@ -94,7 +94,7 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
                         </div>
 
                         <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
-                            <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} onClick={() => check()}> {username} </h6>
+                            <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {username} </h6>
                         </div>
 
                         <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> <h6 className="mt-1"> - </h6> </div>
