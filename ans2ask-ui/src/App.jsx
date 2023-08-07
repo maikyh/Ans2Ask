@@ -22,38 +22,28 @@ export default function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [images, setImages] = useState([]);
 
-    //user
+    //User
     const [user, setUser] = useState(() => {
         // Retrieve the user data from storage or set it to null if not found
         const storedUser = localStorage.getItem('user');
         return storedUser ? JSON.parse(storedUser) : null;
     });
 
-    const updateUser = (newUser) => {
-        setUser(newUser);
-    };
-
-    useEffect(() => {
-        // Save the user data to storage whenever the user state changes
-        localStorage.setItem('user', JSON.stringify(user));
-    }, [user]);
-
-    //dark mode
+    //Dark mode
     const [darkMode, setDarkMode] = useState(() => {
         // Retrieve the user data from storage or set it to null if not found
         const storedDarkMode = localStorage.getItem('darkMode');
         return storedDarkMode ? JSON.parse(storedDarkMode) : true;
     });
 
+    const updateUser = (newUser) => {
+        setUser(newUser);
+    };
+    
     const updateDarkMode = (newDarkMode) => {
         setDarkMode(newDarkMode);
     };
-
-    useEffect(() => {
-        // Save the user data to storage whenever the user state changes
-        localStorage.setItem('darkMode', JSON.stringify(darkMode));
-    }, [darkMode]);
-
+    
     const handleSetSearchQuery = (query) => {
         setSearchQuery(query);
     };
@@ -61,6 +51,16 @@ export default function App() {
     const removeImagesFromLocalStorage = () => {
         localStorage.removeItem('images');
     };
+
+    useEffect(() => {
+        // Save the user data to storage whenever the user state changes
+        localStorage.setItem('user', JSON.stringify(user));
+    }, [user]);
+
+    useEffect(() => {
+        // Save the user data to storage whenever the user state changes
+        localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    }, [darkMode]);
 
     //Images
     useEffect(() => {
@@ -86,6 +86,7 @@ export default function App() {
         return () => clearTimeout(timer);
     }, [images])
 
+    //Dark/Light mode
     useEffect(() => {
         if (darkMode) {
             document.body.style.backgroundColor = '#1A202C';
