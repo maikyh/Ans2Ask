@@ -103,10 +103,10 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
                         if (searchResponse.ok === true) {
                             searchData = await searchResponse.json();
                         } else {
-                            let check = {
+                            let videoIdData = {
                                 items: [{ id: { videoId: getVideoIdFromUrl(video.link) } }]
                             };
-                            searchData = check;
+                            searchData = videoIdData;
                         }
 
                         return {
