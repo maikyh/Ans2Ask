@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext.js';
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { useParams } from 'react-router-dom';
+import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import {
     Editable,
     EditableInput,
@@ -13,10 +15,8 @@ import {
     useEditableControls
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
-import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
-import { useParams } from 'react-router-dom';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {
@@ -39,78 +39,20 @@ const UserCard = ({ user, images }) => {
         localStorage.removeItem('images' + '/' + query);
     };
 
-    //User
-    useEffect(() => {
-        const cachedUser = localStorage.getItem('/users' + '/' + id);
-        if (cachedUser && cachedUser.length > nothingInLocalStorage) {
-            setCurrentUser(JSON.parse(cachedUser));
-            setUsername(cachedUser.username);
-            setTitle(cachedUser.title);
-            setAbout(cachedUser.about);
-        }
-        else {
-            const fetchUser = async () => {
-                const response = await fetch(url + '/users' + '/' + id);
-                const data = await response.json();
-                setCurrentUser(data);
-                setUsername(data.username);
-                setTitle(data.title);
-                setAbout(data.about);
-            };
+    const UpdateUsernameHelper = (e) => {
+        setUsername(e.target.value);
+        handleUpdateUsername();
+    };
 
-            fetchUser();
-        }
-    }, [id]);
+    const UpdateTitleHelper = (e) => {
+        setTitle(e.target.value);
+        handleUpdateTitle();
+    };
 
-    //Images/user
-    //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
-    useEffect(() => {
-        const currImage = images?.filter(image => image.public_id === currentUser.email);
-        if (currImage && currImage[0]) {
-            setImage(currImage[0])
-            return;
-        }
-
-        if (currentUser) {
-            const cachedImage = localStorage.getItem('images' + '/' + currentUser.email);
-            if (cachedImage && cachedImage.length > nothingInLocalStorage) {
-                setImage(JSON.parse(cachedImage));
-            }
-            else {
-                const fetchImage = async () => {
-                    const response = await fetch(url + '/images' + '/' + currentUser.email);
-                    const data = await response.json();
-                    setImage(data);
-                };
-
-                fetchImage();
-            }
-        }
-    }, [currentUser, id]);
-
-    useEffect(() => {
-        localStorage.removeItem('images' + '/' + currentUser.email);
-        localStorage.setItem('images' + '/' + currentUser.email, JSON.stringify(image));
-        const timer = setTimeout(() => removeImageQueryFromLocalStorage(currentUser.email), MAX_TIME);
-        return () => clearTimeout(timer);
-    }, [image])
-
-    //Meta image
-    useEffect(() => {
-        const cachedMeta = localStorage.getItem('/images' + '/' + "metaa_ez3xnh");
-        if (cachedMeta && cachedMeta.length > nothingInLocalStorage) {
-            setMeta(JSON.parse(cachedMeta));
-        }
-        else {
-            const fetchMeta = async () => {
-                const response = await fetch(url + '/images' + '/' + "metaa_ez3xnh");
-                const data = await response.json();
-                setMeta(data);
-            };
-
-            fetchMeta();
-        }
-    }, []);
+    const UpdateAboutHelper = (e) => {
+        setAbout(e.target.value);
+        handleUpdateAbout();
+    };
 
     const handleUpdateUsername = async () => {
         try {
@@ -223,21 +165,6 @@ const UserCard = ({ user, images }) => {
         }
     };
 
-    const UpdateUsernameHelper = (e) => {
-        setUsername(e.target.value);
-        handleUpdateUsername();
-    };
-
-    const UpdateTitleHelper = (e) => {
-        setTitle(e.target.value);
-        handleUpdateTitle();
-    };
-
-    const UpdateAboutHelper = (e) => {
-        setAbout(e.target.value);
-        handleUpdateAbout();
-    };
-
     function EditableControls() {
         const {
             isEditing,
@@ -257,6 +184,79 @@ const UserCard = ({ user, images }) => {
             </Flex>
         );
     }
+
+    //For User
+    useEffect(() => {
+        const cachedUser = localStorage.getItem('/users' + '/' + id);
+        if (cachedUser && cachedUser.length > nothingInLocalStorage) {
+            setCurrentUser(JSON.parse(cachedUser));
+            setUsername(cachedUser.username);
+            setTitle(cachedUser.title);
+            setAbout(cachedUser.about);
+        }
+        else {
+            const fetchUser = async () => {
+                const response = await fetch(url + '/users' + '/' + id);
+                const data = await response.json();
+                setCurrentUser(data);
+                setUsername(data.username);
+                setTitle(data.title);
+                setAbout(data.about);
+            };
+
+            fetchUser();
+        }
+    }, [id]);
+
+    //For Images/user
+    //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
+    useEffect(() => {
+        const currImage = images?.filter(image => image.public_id === currentUser.email);
+        if (currImage && currImage[0]) {
+            setImage(currImage[0])
+            return;
+        }
+
+        if (currentUser) {
+            const cachedImage = localStorage.getItem('images' + '/' + currentUser.email);
+            if (cachedImage && cachedImage.length > nothingInLocalStorage) {
+                setImage(JSON.parse(cachedImage));
+            }
+            else {
+                const fetchImage = async () => {
+                    const response = await fetch(url + '/images' + '/' + currentUser.email);
+                    const data = await response.json();
+                    setImage(data);
+                };
+
+                fetchImage();
+            }
+        }
+    }, [currentUser, id]);
+
+    useEffect(() => {
+        localStorage.removeItem('images' + '/' + currentUser.email);
+        localStorage.setItem('images' + '/' + currentUser.email, JSON.stringify(image));
+        const timer = setTimeout(() => removeImageQueryFromLocalStorage(currentUser.email), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [image])
+
+    //For Meta image
+    useEffect(() => {
+        const cachedMeta = localStorage.getItem('/images' + '/' + "metaa_ez3xnh");
+        if (cachedMeta && cachedMeta.length > nothingInLocalStorage) {
+            setMeta(JSON.parse(cachedMeta));
+        }
+        else {
+            const fetchMeta = async () => {
+                const response = await fetch(url + '/images' + '/' + "metaa_ez3xnh");
+                const data = await response.json();
+                setMeta(data);
+            };
+
+            fetchMeta();
+        }
+    }, []);
 
     return (
         <div className="UserCard justify-content-center align-items-center" style={{ padding: "10px", marginLeft: "95px" }}>

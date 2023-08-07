@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import { Badge } from '@chakra-ui/react'
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { Tooltip } from '@chakra-ui/react'
 import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
-import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import { Tooltip } from '@chakra-ui/react'
 import "./QuestionDetails.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -26,6 +26,8 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
     const [thanks, setThanks] = useState(false);
     const { user, updateUser, darkMode } = useContext(UserContext);
     const { id } = useParams();
+
+    const navigate = useNavigate();
 
     const removeAnswersFromLocalStorage = () => {
         localStorage.removeItem('answers');
@@ -43,13 +45,160 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
         localStorage.removeItem('images' + '/' + query);
     };
 
+    const handleLogout = () => {
+        updateUser(null);
+        navigate('/login');
+    };
+
     const handleNavigateToUserProfile = () => {
         navigate(`/user/${userFromQuestion.id}`);
     }
 
-    const navigate = useNavigate();
+    const checkIfThankedAnswerExist = () => {
+        for (let i = 0; i < answersOfCurrentQuestion.length; i++)
+            if (answersOfCurrentQuestion[i].thanks === true) return true;
+        return false;
+    }
 
-    //Images/user
+    const handleSubmit = async (e) => {
+        const questionId = id;
+
+        if (question.userId === user.id) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: "You can't answer your own questions"
+            });
+            return;
+        }
+
+        if (body.length <= 10) {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: 'Submission Failed',
+                text: "Your answer can't be less than 10 characters"
+            });
+            return;
+        }
+
+        try {
+            // Make the question API request
+            const response = await fetch(url + `/answers`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ body, thanks, questionId }),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const loggedInUser = data.user;
+
+                console.log(`The answer was successfully added on question ${questionId}`);
+
+                // Reset form fields
+                setBody('');
+
+                // Refresh the page
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+            } else {
+                // Handle upload failure case
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Failed',
+                    text: "Invalid Upload. Please try again."
+                });
+            }
+        } catch (error) {
+            // Handle any network or API request errors
+            Swal.fire({
+                icon: 'error',
+                title: 'Upload Failed: ' + error,
+                text: "Invalid Upload. Please try again."
+            });
+        }
+    };
+
+    const handleGiveThanks = async (answerId, answerBody, answerUser) => {
+        try {
+            const questionId = id;
+            const body = answerBody;
+            const thanks = true;
+
+            // Make the question API request
+            const response = await fetch(url + `/answers` + `/${answerId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ body, thanks, questionId }),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const loggedInUser = data.user;
+
+                // Make the update of coins API request
+                try {
+                    const username = answerUser.username;
+                    const title = answerUser.title;
+                    const about = answerUser.about;
+                    const coins = answerUser.coins + question.coins;
+
+                    const response = await fetch(url + `/users` + `/${answerUser.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ username, title, about, coins }),
+                        credentials: 'include'
+                    });
+
+                    if (!response.ok) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thanked Failed',
+                            text: "Please try again."
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thanked Failed: ' + error,
+                        text: "Please try again."
+                    });
+                }
+
+                // Refresh the page
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
+            } else {
+                // Handle upload failure case
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Thanked Failed',
+                    text: "Please try again."
+                });
+            }
+        } catch (error) {
+            // Handle any network or API request errors
+            Swal.fire({
+                icon: 'error',
+                title: 'Thanked Failed: ' + error,
+                text: "Please try again."
+            });
+        }
+    }
+
+    //For Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
         const currImage = images?.filter(image => image.public_id === userFromQuestion.email);
@@ -158,12 +307,9 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
         return () => clearTimeout(timer);
     }, [userFromQuestion])
 
-    const handleLogout = () => {
-        updateUser(null);
-        navigate('/login');
-    };
-
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
+
+    let thankedAnswerExist = useMemo(() => checkIfThankedAnswerExist(answersOfCurrentQuestion), [answersOfCurrentQuestion]);
 
     //Show thanked answer first
     answersOfCurrentQuestion.sort((a, b) => {
@@ -177,150 +323,6 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
             return 0;
         }
     });
-
-    const handleSubmit = async (e) => {
-        const questionId = id;
-
-        if (question.userId === user.id) {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'error',
-                title: 'Submission Failed',
-                text: "You can't answer your own questions"
-            });
-            return;
-        }
-
-        if (body.length <= 10) {
-            e.preventDefault();
-            Swal.fire({
-                icon: 'error',
-                title: 'Submission Failed',
-                text: "Your answer can't be less than 10 characters"
-            });
-            return;
-        }
-
-        try {
-            // Make the question API request
-            const response = await fetch(url + `/answers`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ body, thanks, questionId }),
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const loggedInUser = data.user;
-
-                console.log(`The answer was successfully added on question ${questionId}`);
-
-                // Reset form fields
-                setBody('');
-
-                // Refresh the page
-                navigate(`/question/${id}`);
-            } else {
-                // Handle upload failure case
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Upload Failed',
-                    text: "Invalid Upload. Please try again."
-                });
-            }
-        } catch (error) {
-            // Handle any network or API request errors
-            Swal.fire({
-                icon: 'error',
-                title: 'Upload Failed: ' + error,
-                text: "Invalid Upload. Please try again."
-            });
-        }
-    };
-
-    const checkIfThankedAnswerExist = () => {
-        for (let i = 0; i < answersOfCurrentQuestion.length; i++)
-            if (answersOfCurrentQuestion[i].thanks === true) return true;
-        return false;
-    }
-
-    let thankedAnswerExist = useMemo(() => checkIfThankedAnswerExist(answersOfCurrentQuestion), [answersOfCurrentQuestion]);
-
-    const handleGiveThanks = async (answerId, answerBody, answerUser) => {
-        try {
-            const questionId = id;
-            const body = answerBody;
-            const thanks = true;
-
-            // Make the question API request
-            const response = await fetch(url + `/answers` + `/${answerId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ body, thanks, questionId }),
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const loggedInUser = data.user;
-
-                // Make the update of coins API request
-                try {
-                    const username = answerUser.username;
-                    const title = answerUser.title;
-                    const about = answerUser.about;
-                    const coins = answerUser.coins + question.coins;
-
-                    const response = await fetch(url + `/users` + `/${answerUser.id}`, {
-                        method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ username, title, about, coins }),
-                        credentials: 'include'
-                    });
-
-                    if (!response.ok) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Thanked Failed',
-                            text: "Please try again."
-                        });
-                    }
-                } catch (error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Thanked Failed: ' + error,
-                        text: "Please try again."
-                    });
-                }
-
-                // Refresh the page
-                setTimeout(() => {
-                    window.location.reload();
-                }, 100);
-            } else {
-                // Handle upload failure case
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Thanked Failed',
-                    text: "Please try again."
-                });
-            }
-        } catch (error) {
-            // Handle any network or API request errors
-            Swal.fire({
-                icon: 'error',
-                title: 'Thanked Failed: ' + error,
-                text: "Please try again."
-            });
-        }
-    }
 
     return (
         <div className="question-details">

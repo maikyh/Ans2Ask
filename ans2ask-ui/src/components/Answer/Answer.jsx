@@ -4,9 +4,9 @@ import { UserContext } from "../../UserContext.js";
 import { Badge } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { Tooltip } from '@chakra-ui/react'
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import { Tooltip } from '@chakra-ui/react'
 import "./Answer.css";
 
 export default function Answer({ images, answer, handleGiveThanks, user, question, thankedAnswerExist }) {
@@ -23,7 +23,7 @@ export default function Answer({ images, answer, handleGiveThanks, user, questio
         navigate(`/user/${answer.user.id}`);
     }
 
-    //Images/user
+    //For Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
         const currImage = images?.filter(image => image.public_id === answer.user.email);

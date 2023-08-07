@@ -1,6 +1,7 @@
 import express from 'express';
 import { User } from '../models/index.js';
 import { Question } from '../models/question.js';
+
 const router = express.Router();
 
 // Route to get all questions, with associated users

@@ -1,13 +1,13 @@
 import express from 'express';
 import cloudinary from 'cloudinary';
 
+const router = express.Router();
+
 cloudinary.config({
     cloud_name: 'dwbpcm5wg',
     api_key: '157256983181354',
     api_secret: "7nVNoz4EBMCH1YUzGem-BlGEkFI"
 })
-
-const router = express.Router();
 
 router.post('/upload/:user', async (req, res) => {
     try {

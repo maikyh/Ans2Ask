@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, Suspense } from "react";
-import Options from "../../utils/OptionsQA.jsx"
-import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import { useParams } from 'react-router-dom';
+import Options from "../../utils/OptionsQA.jsx"
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import "./UserProfileGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
@@ -20,6 +20,23 @@ const UserProfileGrid = ({ images, selectedOption }) => {
     const removeAnswersFromLocalStorage = () => {
         localStorage.removeItem('answers');
     };
+
+    function getContent() {
+        if (selectedOption === Options.questions) return questions.filter(question => question.user.id === parseInt(id));
+
+        let UserAnswers = [];
+        let AnswersOfUser = answers.filter(answer => answer.user.id === parseInt(id));
+        for (let i = 0; i < questions.length; i++) {
+            for (let j = 0; j < AnswersOfUser.length; j++) {
+                if (questions[i].id === AnswersOfUser[j].questionId) {
+                    UserAnswers.push(questions[i]);
+                    break;
+                }
+            }
+        }
+
+        return UserAnswers;
+    }
 
     //For Questions
     useEffect(() => {
@@ -68,23 +85,6 @@ const UserProfileGrid = ({ images, selectedOption }) => {
         const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
         return () => clearTimeout(timer);
     }, [answers])
-
-    function getContent() {
-        if (selectedOption === Options.questions) return questions.filter(question => question.user.id === parseInt(id));
-
-        let UserAnswers = [];
-        let AnswersOfUser = answers.filter(answer => answer.user.id === parseInt(id));
-        for (let i = 0; i < questions.length; i++) {
-            for (let j = 0; j < AnswersOfUser.length; j++) {
-                if (questions[i].id === AnswersOfUser[j].questionId) {
-                    UserAnswers.push(questions[i]);
-                    break;
-                }
-            }
-        }
-
-        return UserAnswers;
-    }
 
     let content = getContent();
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext.js';
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import {
     Editable,
     EditableInput,
@@ -13,7 +14,6 @@ import {
     useEditableControls
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
-import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
 import "./PersonalUserCard.css";
@@ -36,53 +36,20 @@ const PersonalUserCard = ({ user, images }) => {
         localStorage.removeItem('images' + '/' + query);
     };
 
-    //Images/user
-    //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
-    useEffect(() => {
-        const currImage = images?.filter(image => image.public_id === user.email);
-        if (currImage && currImage[0]) {
-            setImage(currImage[0])
-            return;
-        }
+    const UpdateUsernameHelper = (e) => {
+        setUsername(e.target.value);
+        handleUpdateUsername();
+    };
 
-        const cachedImage = localStorage.getItem('images' + '/' + user.email);
-        if (cachedImage && cachedImage.length > nothingInLocalStorage) {
-            setImage(JSON.parse(cachedImage));
-        }
-        else {
-            const fetchImage = async () => {
-                const response = await fetch(url + '/images' + '/' + user.email);
-                const data = await response.json();
-                setImage(data);
-            };
+    const UpdateTitleHelper = (e) => {
+        setTitle(e.target.value);
+        handleUpdateTitle();
+    };
 
-            fetchImage();
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.removeItem('images' + '/' + user.email);
-        localStorage.setItem('images' + '/' + user.email, JSON.stringify(image));
-        const timer = setTimeout(() => removeImageQueryFromLocalStorage(user.email), MAX_TIME);
-        return () => clearTimeout(timer);
-    }, [image])
-
-    //Meta image
-    useEffect(() => {
-        const cachedMeta = localStorage.getItem('/images' + '/' + "metaa_ez3xnh");
-        if (cachedMeta && cachedMeta.length > nothingInLocalStorage) {
-            setMeta(JSON.parse(cachedMeta));
-        }
-        else {
-            const fetchMeta = async () => {
-                const response = await fetch(url + '/images' + '/' + "metaa_ez3xnh");
-                const data = await response.json();
-                setMeta(data);
-            };
-
-            fetchMeta();
-        }
-    }, []);
+    const UpdateAboutHelper = (e) => {
+        setAbout(e.target.value);
+        handleUpdateAbout();
+    };
 
     const handleUpdateUsername = async () => {
         try {
@@ -195,20 +162,53 @@ const PersonalUserCard = ({ user, images }) => {
         }
     };
 
-    const UpdateUsernameHelper = (e) => {
-        setUsername(e.target.value);
-        handleUpdateUsername();
-    };
+    //For Images/user
+    //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
+    useEffect(() => {
+        const currImage = images?.filter(image => image.public_id === user.email);
+        if (currImage && currImage[0]) {
+            setImage(currImage[0])
+            return;
+        }
 
-    const UpdateTitleHelper = (e) => {
-        setTitle(e.target.value);
-        handleUpdateTitle();
-    };
+        const cachedImage = localStorage.getItem('images' + '/' + user.email);
+        if (cachedImage && cachedImage.length > nothingInLocalStorage) {
+            setImage(JSON.parse(cachedImage));
+        }
+        else {
+            const fetchImage = async () => {
+                const response = await fetch(url + '/images' + '/' + user.email);
+                const data = await response.json();
+                setImage(data);
+            };
 
-    const UpdateAboutHelper = (e) => {
-        setAbout(e.target.value);
-        handleUpdateAbout();
-    };
+            fetchImage();
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.removeItem('images' + '/' + user.email);
+        localStorage.setItem('images' + '/' + user.email, JSON.stringify(image));
+        const timer = setTimeout(() => removeImageQueryFromLocalStorage(user.email), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [image])
+
+    //For Meta image
+    useEffect(() => {
+        const cachedMeta = localStorage.getItem('/images' + '/' + "metaa_ez3xnh");
+        if (cachedMeta && cachedMeta.length > nothingInLocalStorage) {
+            setMeta(JSON.parse(cachedMeta));
+        }
+        else {
+            const fetchMeta = async () => {
+                const response = await fetch(url + '/images' + '/' + "metaa_ez3xnh");
+                const data = await response.json();
+                setMeta(data);
+            };
+
+            fetchMeta();
+        }
+    }, []);
 
     function EditableControls() {
         const {

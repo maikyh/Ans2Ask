@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState, useEffect, useContext, Suspense } from "react";
+import { useState, useContext, Suspense } from "react";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { NavDropdown } from 'react-bootstrap';
-import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { removeStopWords } from "../../utils/StopWords.jsx";
+import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import "./Ask.css";
@@ -19,6 +19,8 @@ const Ask = ({ images, handleSetSearchQuery }) => {
     const [subject, setSubject] = useState("Select Subject");
     const [questionCoins, setQuestionCoins] = useState(5);
 
+    const navigate = useNavigate();
+
     const handleSetSubject = (selectedSubject) => {
         setSubject(selectedSubject);
     };
@@ -27,7 +29,10 @@ const Ask = ({ images, handleSetSearchQuery }) => {
         setQuestionCoins(selectedCoins);
     };
 
-    const navigate = useNavigate();
+    const handleLogout = () => {
+        updateUser(null);
+        navigate('/login');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -156,11 +161,6 @@ const Ask = ({ images, handleSetSearchQuery }) => {
                 text: "Invalid Upload. Please try again."
             });
         }
-    };
-
-    const handleLogout = () => {
-        updateUser(null);
-        navigate('/login');
     };
 
     return (

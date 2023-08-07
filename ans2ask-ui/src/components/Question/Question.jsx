@@ -3,11 +3,11 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../UserContext.js';
 import { useNavigate } from "react-router-dom";
 import { url, nothingInLocalStorage, MAX_TIME, MAX_LENGTH } from "../../utils/Constants.jsx";
-import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
+import { Tooltip } from '@chakra-ui/react'
+import Highlighter from "react-highlight-words";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import { Tooltip } from '@chakra-ui/react'
 import "./Question.css";
 
 const Question = ({ sentence, userId, images, id, username, email, userTitle, subject, title, body, coins }) => {
@@ -15,11 +15,33 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
     const [image, setImage] = useState([]);
     const { darkMode } = useContext(UserContext);
 
+    const navigate = useNavigate();
+
+    const handleNavigateToQuestionDetails = () => {
+        navigate(`/question/${id}`);
+        setTimeout(() => {
+            window.location.reload();
+        }, 0);
+    }
+
+    const handleNavigateToUserProfile = () => {
+        navigate(`/user/${userId}`);
+    }
+
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
-    };
+    }
 
-    //Images/user
+    const removeAnswersFromLocalStorage = () => {
+        localStorage.removeItem('answers');
+    }
+
+    function truncateText(body) {
+        if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
+        return body;
+    }
+
+    //For Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
         const currImage = images?.filter(image => image.public_id === email);
@@ -50,35 +72,31 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
         return () => clearTimeout(timer);
     }, [image])
 
+    //For Answers
     useEffect(() => {
-        const fetchAnswers = async () => {
-            const response = await fetch(url + '/answers');
-            const data = await response.json();
-            setAnswers(data);
-        };
+        const cachedAnswers = localStorage.getItem('answers');
+        if (cachedAnswers && cachedAnswers.length > nothingInLocalStorage) {
+            setAnswers(JSON.parse(cachedAnswers));
+        }
+        else {
+            const fetchAnswers = async () => {
+                const response = await fetch(url + '/answers');
+                const data = await response.json();
+                setAnswers(data);
+            };
 
-        fetchAnswers();
+            fetchAnswers();
+        }
     }, []);
 
+    useEffect(() => {
+        localStorage.removeItem('answers');
+        localStorage.setItem('answers', JSON.stringify(answers));
+        const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [answers])
+
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
-
-    const navigate = useNavigate();
-
-    const handleNavigateToQuestionDetails = () => {
-        navigate(`/question/${id}`);
-        setTimeout(() => {
-            window.location.reload();
-        }, 0);
-    }
-
-    const handleNavigateToUserProfile = () => {
-        navigate(`/user/${userId}`);
-    }
-
-    function truncateText(body) {
-        if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
-        return body;
-    }
 
     return (
         <div style={{ position: 'relative' }} className="question">
