@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, Suspense } from "react";
-import Options from "../../utils/OptionsQA.jsx"
-import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import { useParams } from 'react-router-dom';
+import Options from "../../utils/OptionsQA.jsx"
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import "./UserProfileGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));

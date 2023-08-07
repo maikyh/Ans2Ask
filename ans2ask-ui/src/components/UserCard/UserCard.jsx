@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext.js';
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { useParams } from 'react-router-dom';
+import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import {
     Editable,
     EditableInput,
@@ -12,8 +14,6 @@ import {
     Flex,
     useEditableControls
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
-import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Swal from 'sweetalert2';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
