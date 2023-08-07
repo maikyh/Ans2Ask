@@ -44,12 +44,6 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user]);
-
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
