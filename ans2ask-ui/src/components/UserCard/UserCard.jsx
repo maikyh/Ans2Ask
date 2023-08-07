@@ -20,10 +20,10 @@ import { useParams } from 'react-router-dom';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {
-    const [username, setUsername] = useState(user ? user.username : "");
-    const [title, setTitle] = useState(user ? user.title : "");
-    const [about, setAbout] = useState(user ? user.about : "");
-    const [coins, setCoins] = useState(user ? user.coins : "");
+    const [username, setUsername] = useState("");
+    const [title, setTitle] = useState("");
+    const [about, setAbout] = useState("");
+    const [coins, setCoins] = useState("");
     const [image, setImage] = useState("");
     const [meta, setMeta] = useState("");
     const [currentUser, setCurrentUser] = useState("");
@@ -65,13 +65,13 @@ const UserCard = ({ user, images }) => {
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
-        if (currentUser) {
-            const currImage = images?.filter(image => image.public_id === currentUser.email);
-            if (currImage && currImage[0]) {
-                setImage(currImage[0])
-                return;
-            }
+        const currImage = images?.filter(image => image.public_id === currentUser.email);
+        if (currImage && currImage[0]) {
+            setImage(currImage[0])
+            return;
+        }
 
+        if (currentUser) {
             const cachedImage = localStorage.getItem('images' + '/' + currentUser.email);
             if (cachedImage && cachedImage.length > nothingInLocalStorage) {
                 setImage(JSON.parse(cachedImage));
@@ -89,9 +89,9 @@ const UserCard = ({ user, images }) => {
     }, [currentUser, id]);
 
     useEffect(() => {
-        localStorage.removeItem('images' + '/' + user.email);
-        localStorage.setItem('images' + '/' + user.email, JSON.stringify(image));
-        const timer = setTimeout(() => removeImageQueryFromLocalStorage(user.email), MAX_TIME);
+        localStorage.removeItem('images' + '/' + currentUser.email);
+        localStorage.setItem('images' + '/' + currentUser.email, JSON.stringify(image));
+        const timer = setTimeout(() => removeImageQueryFromLocalStorage(currentUser.email), MAX_TIME);
         return () => clearTimeout(timer);
     }, [image])
 
