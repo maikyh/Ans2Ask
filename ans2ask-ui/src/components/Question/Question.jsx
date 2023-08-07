@@ -30,7 +30,11 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
 
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
-    };
+    }
+
+    const removeAnswersFromLocalStorage = () => {
+        localStorage.removeItem('answers');
+    }
 
     function truncateText(body) {
         if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
@@ -70,14 +74,27 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
 
     //Answers
     useEffect(() => {
-        const fetchAnswers = async () => {
-            const response = await fetch(url + '/answers');
-            const data = await response.json();
-            setAnswers(data);
-        };
+        const cachedAnswers = localStorage.getItem('answers');
+        if (cachedAnswers && cachedAnswers.length > nothingInLocalStorage) {
+            setAnswers(JSON.parse(cachedAnswers));
+        }
+        else {
+            const fetchAnswers = async () => {
+                const response = await fetch(url + '/answers');
+                const data = await response.json();
+                setAnswers(data);
+            };
 
-        fetchAnswers();
+            fetchAnswers();
+        }
     }, []);
+
+    useEffect(() => {
+        localStorage.removeItem('answers');
+        localStorage.setItem('answers', JSON.stringify(answers));
+        const timer = setTimeout(() => removeAnswersFromLocalStorage(), MAX_TIME);
+        return () => clearTimeout(timer);
+    }, [answers])
 
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
 
