@@ -162,7 +162,7 @@ const PersonalUserCard = ({ user, images }) => {
         }
     };
 
-    //Images/user
+    //For Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
         const currImage = images?.filter(image => image.public_id === user.email);
@@ -193,7 +193,7 @@ const PersonalUserCard = ({ user, images }) => {
         return () => clearTimeout(timer);
     }, [image])
 
-    //Meta image
+    //For Meta image
     useEffect(() => {
         const cachedMeta = localStorage.getItem('/images' + '/' + "metaa_ez3xnh");
         if (cachedMeta && cachedMeta.length > nothingInLocalStorage) {

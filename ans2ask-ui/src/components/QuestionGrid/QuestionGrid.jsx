@@ -179,6 +179,7 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
         return () => clearTimeout(timer);
     }, [courses])
 
+    //For Content
     useEffect(() => {
         const getContent = async () => {
             if (searchQuery.length !== noQuery) {
@@ -239,13 +240,6 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
 
         getContent();
     }, [selectedOption, selectedSubject, questions, searchQuery, courses])
-
-    useEffect(() => {
-        localStorage.removeItem('questions');
-        localStorage.setItem('questions', JSON.stringify(questions));
-        const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
-        return () => clearTimeout(timer);
-    }, [questions])
 
     return (
         <div className="QuestionGrid">

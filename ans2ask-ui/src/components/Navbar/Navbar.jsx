@@ -58,7 +58,7 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         return body;
     }
 
-    //Images/user
+    //For Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
         const currImage = images?.filter(image => image.public_id === user.email);
