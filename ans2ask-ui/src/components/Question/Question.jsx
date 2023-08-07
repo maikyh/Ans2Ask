@@ -3,11 +3,11 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../UserContext.js';
 import { useNavigate } from "react-router-dom";
 import { url, nothingInLocalStorage, MAX_TIME, MAX_LENGTH } from "../../utils/Constants.jsx";
-import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
+import { Tooltip } from '@chakra-ui/react'
+import Highlighter from "react-highlight-words";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import { Tooltip } from '@chakra-ui/react'
 import "./Question.css";
 
 const Question = ({ sentence, userId, images, id, username, email, userTitle, subject, title, body, coins }) => {

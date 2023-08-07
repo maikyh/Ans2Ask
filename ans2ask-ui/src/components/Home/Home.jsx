@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useContext, Suspense } from "react";
 import { UserContext } from "../../UserContext.js";
-import Options from "../../utils/OptionsQC.jsx";
 import { useNavigate } from "react-router-dom";
+import Options from "../../utils/OptionsQC.jsx";
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import Content from '../../utils/Content.jsx';
 import "./Home.css";

@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../../UserContext.js';
-import Swal from 'sweetalert2';
 import { url } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import "./Register.css";

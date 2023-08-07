@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import { Badge } from '@chakra-ui/react'
+import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { Tooltip } from '@chakra-ui/react'
 import Answer from "../Answer/Answer.jsx";
 import Swal from 'sweetalert2';
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
-import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import { Tooltip } from '@chakra-ui/react'
 import "./QuestionDetails.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));

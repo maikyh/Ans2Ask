@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect, Suspense } from "react";
-import Options from "../../utils/OptionsQC.jsx"
 import { Spinner, Flex } from "@chakra-ui/react";
-import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
 import { url, MAX_TIME, allSubjects, noQuery, nothingInLocalStorage, API_KEY, percentNumberOfSameWords, percentCosineSim, percentQuestionClicks } from "../../utils/Constants.jsx";
 import { removeStopWords } from "../../utils/StopWords.jsx";
+import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx"
+import Options from "../../utils/OptionsQC.jsx"
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import "./QuestionGrid.css";

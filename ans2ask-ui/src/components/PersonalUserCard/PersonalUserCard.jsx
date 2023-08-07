@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../UserContext.js';
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import {
     Editable,
     EditableInput,
@@ -13,7 +14,6 @@ import {
     useEditableControls
 } from '@chakra-ui/react';
 import Swal from 'sweetalert2';
-import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
 import "./PersonalUserCard.css";
