@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
+import { useParams } from 'react-router-dom';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {
@@ -25,18 +26,35 @@ const UserCard = ({ user, images }) => {
     const [coins, setCoins] = useState(user ? user.coins : "");
     const [image, setImage] = useState("");
     const [meta, setMeta] = useState("");
+    const [currentUser, setCurrentUser] = useState("");
     const [isUpdating, setIsUpdating] = useState(false);
     const { updateUser, darkMode } = useContext(UserContext);
+    const { id } = useParams();
 
     const handleSetIsUpdating = () => {
         setIsUpdating(!isUpdating);
     }
 
-    const metaImage = images?.filter(image => image.public_id === "metaa_ez3xnh");
-
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
     };
+
+    //User
+    useEffect(() => {
+        const cachedUser = localStorage.getItem('/users' + '/' + id);
+        if (cachedUser && cachedUser.length > nothingInLocalStorage) {
+            setCurrentUser(JSON.parse(cachedUser));
+        }
+        else {
+            const fetchUser = async () => {
+                const response = await fetch(url + '/users' + '/' + id);
+                const data = await response.json();
+                setCurrentUser(data);
+            };
+
+            fetchUser();
+        }
+    }, []);
 
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
@@ -262,9 +280,12 @@ const UserCard = ({ user, images }) => {
                                                 as={EditableInput}
                                             />
                                         </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <EditableControls />
-                                        </div>
+                                        {
+                                            parseInt(id) === user.id &&
+                                            <div className="col-auto d-flex align-items-center">
+                                                <EditableControls />
+                                            </div>
+                                        }
                                     </div>
                                 </Editable>
                             </div>
@@ -291,9 +312,12 @@ const UserCard = ({ user, images }) => {
                                                 as={EditableInput}
                                             />
                                         </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <EditableControls />
-                                        </div>
+                                        {
+                                            parseInt(id) === user.id &&
+                                            <div className="col-auto d-flex align-items-center">
+                                                <EditableControls />
+                                            </div>
+                                        }
                                     </div>
                                 </Editable>
                             </div>
@@ -318,19 +342,25 @@ const UserCard = ({ user, images }) => {
                                                 as={EditableTextarea}
                                             />
                                         </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <EditableControls />
-                                        </div>
+                                        {
+                                            parseInt(id) === user.id &&
+                                            <div className="col-auto d-flex align-items-center">
+                                                <EditableControls />
+                                            </div>
+                                        }
                                     </div>
                                 </Editable>
                             </div>
                         </div>
 
-                        <div className='row'>
-                            <div className="mt-3">
-                                <button onClick={() => { handleSetIsUpdating() }} className='btn btn-primary p-1 px-2'> Update Photo </button>
+                        {
+                            parseInt(id) === user.id &&
+                            <div className='row'>
+                                <div className="mt-3">
+                                    <button onClick={() => { handleSetIsUpdating() }} className='btn btn-primary p-1 px-2'> Update Photo </button>
+                                </div>
                             </div>
-                        </div>
+                        }
 
                     </div>
                     <div style={{ position: "absolute", right: "862px", borderLeft: '2px solid grey', height: '270px', marginLeft: "98px" }}></div>
