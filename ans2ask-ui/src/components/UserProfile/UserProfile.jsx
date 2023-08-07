@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext, Suspense } from "react";
+import { useState, useContext, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import Options from "../../utils/OptionsQA.jsx"
@@ -22,12 +22,6 @@ const UserProfile = ({ images, handleSetSearchQuery }) => {
     };
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user]);
 
     const handleLogout = () => {
         updateUser(null);
