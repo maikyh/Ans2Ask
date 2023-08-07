@@ -12,11 +12,11 @@ import {
     Flex,
     useEditableControls
 } from '@chakra-ui/react';
-import Swal from 'sweetalert2';
+import { useParams } from 'react-router-dom';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
+import Swal from 'sweetalert2';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
-import { useParams } from 'react-router-dom';
 import "./UserCard.css";
 
 const UserCard = ({ user, images }) => {

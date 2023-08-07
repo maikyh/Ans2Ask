@@ -104,7 +104,9 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
                 setBody('');
 
                 // Refresh the page
-                navigate(`/question/${id}`);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 100);
             } else {
                 // Handle upload failure case
                 Swal.fire({
