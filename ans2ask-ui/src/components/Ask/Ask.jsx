@@ -136,6 +136,9 @@ const Ask = ({ images, handleSetSearchQuery }) => {
                 // Navigate to question details
                 setTimeout(() => {
                     navigate(`/question/${data.id}`);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 0);
                 }, 850);
             } else {
                 // Handle upload failure case
