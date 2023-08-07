@@ -55,38 +55,39 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 ### Core
   1. As a user, I want to create an account, so that I can access all the features and functionalities of the platform.
   2. As a user, I want to login, so that I can securely access my account and personalize my experience.
-  3. As a user, I want to create/edit/delete questions, so that I can manage the content I post.
+  3. As a user, I want to create questions, so that I can ask my doubts.
   4. As a user, I want to pick a subject on the creation of each question, so that I can categorize them and receive relevant responses.
   5. As a user, I want to respond to questions, so that I can share my thoughts or provide answers.
-  6. As a user, I want to view a feed of questions/courses of the selected subject, so that I can stay updated on the discussions.
+  6. As a user, I want to view a feed of questions of the selected subject, so that I can stay updated on the discussions.
   7. As a user, I want to search for questions, so that I can find specific topics or information easily.
   8. As a user, I want to thank answers, so that I can provide them the points they earned.
   9. As a user, I want to see my profile, so that I can view my personal information and activity history.
 ### Stretch
+  10. As a user, I want to see courses, so that I be able to learn even if I don't have any coins.
   11. As a user, I want to edit my profile information, so that I can keep it up-to-date.
   12. As a user, I want to see badges on my profile, so that I can showcase my achievements.
   13. As a user, I want to get notifications when someone answers my question, so that I can stay updated on the responses.
   14. As a user, I want to get notifications when someone asks a question related to my area of expertise, so that I can share my knowledge.
   15. As a user, I want to mark questions as urgent, so that they receive immediate attention.
   16. As a user, I want to see a ranking of the top-rated problem solvers, so that I can identify knowledgeable contributors.
-  17. As a user, I want to be certified as a recruiter, so that I can have credibility and access additional features related to recruiting.
-  18. As a recruiter, I want to reach out to users, so that I can connect with potential candidates.
+  17. As a user, I want to see others profile information, so that I can meet new people.
+  
 
 ## Endpoints
 | HTTP Verb | Name                               | Description                                                          | User Stories |
 | --------- | ---------------------------------- | -------------------------------------------------------------------- | ------------ |
 | POST      | users                              | Creates new user account                                             | 1, 17        | 
-| GET       | users/me                           | Gets current user information                                        | 1, 2, 12, 18 |
-| PUT       | users/me                           | Updates current user information                                     | 11           |
+| POST      | users/login                        | Logs an user                                                         | 2            |
+| GET       | users/:id                          | Gets current user information                                        | 9, 12, 17    |
+| PUT       | users/:id                          | Updates current user information                                     | 11           |
+| GET       | google/:query'                     | Gets the courses based on the subject                                | 10           |
+| GET       | youtube/:query'                    | Gets the courses based on the subject                                | 10           |
 | POST      | questions                          | Creates a new question                                               | 3, 4, 15     |
-| GET       | courses/subject                    | Gets the courses based on the subject                                | 6            |
-| GET       | questions/subject                  | Gets the questions based on the subject                              | 6            |
-| GET       | questions/query                    | Get a question based on a query                                      | 7            |
-| GET       | questions/:questionId              | Get a question based on the ID                                       | 5, 6, 8      |
-| PUT       | questions/:questionId              | Updates a question based on the ID                                   | 3            |
-| DELETE    | questions/:questionId              | Deletes a question based on the ID                                   | 3            |
-| GET       | questions/me                       | Gets the questions that the user has asked                           | 9            |
-| GET       | questions/answered                 | Gets the questions that the user has answered                        | 9, 16        |
+| GET       | questions                          | Gets the questions that the user has asked                           | 6            |
+| GET       | questions/:id                      | Get a question based on the ID                                       | 6, 7         |
+| POST      | answers                            | Creates a new answer                                                 | 5            |
+| GET       | answers                            | Gets the answers that the user has made                              | 9, 16        |
+| PUT       | answers                            | Update the answer as thanked                                         | 8            |
 
 ## Data Models
 ### User
