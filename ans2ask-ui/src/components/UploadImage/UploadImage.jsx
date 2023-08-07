@@ -1,15 +1,13 @@
 import React, { useState, useContext, useRef } from 'react';
-import ReactAvatarEditor from "react-avatar-editor";
 import { UserContext } from '../../UserContext.js';
+import { url } from "../../utils/Constants.jsx";
+import ReactAvatarEditor from "react-avatar-editor";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import './UploadImage.css';
 
-const url = 'http://localhost:3001';
-
 const UploadImage = ({ handleSetIsUpdating }) => {
     const { user, darkMode } = useContext(UserContext);
-
     const [image, setImage] = useState("");
     const [allowZoomOut, setAllowZoomOut] = useState(false);
     const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
