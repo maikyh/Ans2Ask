@@ -15,9 +15,27 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
     const [image, setImage] = useState([]);
     const { darkMode } = useContext(UserContext);
 
+    const navigate = useNavigate();
+
+    const handleNavigateToQuestionDetails = () => {
+        navigate(`/question/${id}`);
+        setTimeout(() => {
+            window.location.reload();
+        }, 0);
+    }
+
+    const handleNavigateToUserProfile = () => {
+        navigate(`/user/${userId}`);
+    }
+
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
     };
+
+    function truncateText(body) {
+        if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
+        return body;
+    }
 
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
@@ -50,6 +68,7 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
         return () => clearTimeout(timer);
     }, [image])
 
+    //Answers
     useEffect(() => {
         const fetchAnswers = async () => {
             const response = await fetch(url + '/answers');
@@ -61,24 +80,6 @@ const Question = ({ sentence, userId, images, id, username, email, userTitle, su
     }, []);
 
     const answersOfCurrentQuestion = (answers.filter(answer => answer.questionId == id))
-
-    const navigate = useNavigate();
-
-    const handleNavigateToQuestionDetails = () => {
-        navigate(`/question/${id}`);
-        setTimeout(() => {
-            window.location.reload();
-        }, 0);
-    }
-
-    const handleNavigateToUserProfile = () => {
-        navigate(`/user/${userId}`);
-    }
-
-    function truncateText(body) {
-        if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
-        return body;
-    }
 
     return (
         <div style={{ position: 'relative' }} className="question">
