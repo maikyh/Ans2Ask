@@ -87,7 +87,7 @@ Ans2Ask is about a Q&A network in which users will ask their questions (this wil
 | GET       | questions/:id                      | Get a question based on the ID                                       | 6, 7         |
 | POST      | answers                            | Creates a new answer                                                 | 5            |
 | GET       | answers                            | Gets the answers that the user has made                              | 9, 16        |
-| PUT       | answers                            | Update the answer as thanked                                         | 8            |
+| PUT       | answers/:id                        | Update the answer as thanked based on the ID                         | 8            |
 
 ## Data Models
 ### User
