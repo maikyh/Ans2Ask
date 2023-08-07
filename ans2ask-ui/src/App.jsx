@@ -5,6 +5,7 @@ import { UserContext } from './UserContext';
 import { ChakraProvider } from '@chakra-ui/react';
 import PersonalizedFallback from "./components/PersonalizedFallback/PersonalizedFallback";
 import { url, MAX_TIME, nothingInLocalStorage } from "./utils/Constants.jsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./App.css";
@@ -104,9 +105,11 @@ export default function App() {
                                 <Route
                                     path="/register"
                                     element={
-                                        <Suspense fallback={<PersonalizedFallback />}>
-                                            <LazyRegister />
-                                        </Suspense>
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazyRegister />
+                                            </Suspense>
+                                        } />
                                     }
                                 />
                                 <Route
@@ -120,40 +123,60 @@ export default function App() {
                                 <Route
                                     path="/home"
                                     element={
-                                        <Suspense fallback={<PersonalizedFallback />}>
-                                            <LazyHome images={images} handleSetSearchQuery={handleSetSearchQuery} />
-                                        </Suspense>
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazyHome images={images} handleSetSearchQuery={handleSetSearchQuery} />
+                                            </Suspense>
+                                        } />
                                     }
                                 />
                                 <Route
                                     path="/search"
                                     element={
-                                        <Suspense fallback={<PersonalizedFallback />}>
-                                            <LazySearchResults images={images} searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
-                                        </Suspense>
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazySearchResults images={images} searchQuery={searchQuery} handleSetSearchQuery={handleSetSearchQuery} />
+                                            </Suspense>
+                                        } />
                                     }
                                 />
                                 <Route
                                     path="/ask"
                                     element={
-                                        <Suspense fallback={<PersonalizedFallback />}>
-                                            <LazyAsk images={images} handleSetSearchQuery={handleSetSearchQuery} />
-                                        </Suspense>
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazyAsk images={images} handleSetSearchQuery={handleSetSearchQuery} />
+                                            </Suspense>
+                                        } />
                                     } />
                                 <Route
                                     path="/question/:id"
                                     element={
-                                        <Suspense fallback={<PersonalizedFallback />}>
-                                            <LazyQuestionDetails images={images} handleSetSearchQuery={handleSetSearchQuery} />
-                                        </Suspense>
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazyQuestionDetails images={images} handleSetSearchQuery={handleSetSearchQuery} />
+                                            </Suspense>
+                                        } />
                                     }
                                 />
                                 <Route
                                     path="/user/:id"
                                     element={
-                                        <Suspense fallback={<PersonalizedFallback />}>
-                                            <LazyUserProfile images={images} handleSetSearchQuery={handleSetSearchQuery} />
-                                        </Suspense>
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazyUserProfile images={images} handleSetSearchQuery={handleSetSearchQuery} />
+                                            </Suspense>
+                                        } />
+                                    }
+                                />
+                                <Route
+                                    path="/*"
+                                    element={
+                                        <ProtectedRoute element={
+                                            <Suspense fallback={<PersonalizedFallback />}>
+                                                <LazyLogin />
+                                            </Suspense>
+                                        } />
                                     }
                                 />
                             </Routes>
