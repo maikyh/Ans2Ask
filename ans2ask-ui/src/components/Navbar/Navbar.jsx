@@ -13,17 +13,14 @@ import Content from '../../utils/Content.jsx';
 import "./Navbar.css";
 
 const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
-    const { user, updateUser, darkMode, updateDarkMode } = useContext(UserContext);
+    const { user, darkMode, updateDarkMode } = useContext(UserContext);
     const [questions, setQuestions] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [image, setImage] = useState([]);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
 
-    function truncateText(body) {
-        if (body.length > MAX_LENGTH_SEARCH) return body.substring(0, MAX_LENGTH_SEARCH) + "...";
-        return body;
-    }
+    const navigate = useNavigate();
 
     const removeQuestionsFromLocalStorage = () => {
         localStorage.removeItem('questions');
@@ -32,6 +29,34 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
     };
+
+    const handleOutsideClick = (event) => {
+        if (event.button === 0) {
+            setIsSuggestionsOpen(false);
+        }
+    };
+
+    const handleInput = (event) => {
+        const value = event.target.value;
+        setInputValue(value);
+        const filteredSuggestions = questionsPool.filter(option =>
+            option.toLowerCase().includes(value.toLowerCase())
+        );
+        setSuggestions(filteredSuggestions);
+        setIsSuggestionsOpen(true);
+    };
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            handleSetSearchQuery(inputValue);
+            navigate('/search');
+        }
+    };
+
+    function truncateText(body) {
+        if (body.length > MAX_LENGTH_SEARCH) return body.substring(0, MAX_LENGTH_SEARCH) + "...";
+        return body;
+    }
 
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
@@ -88,37 +113,12 @@ const Navbar = ({ images, handleSetSearchQuery, handleLogout }) => {
         return () => clearTimeout(timer);
     }, [questions])
 
-    const questionsPool = questions.map(question => truncateText(question.body));
-
-    const navigate = useNavigate();
-
-    const handleOutsideClick = (event) => {
-        if (event.button === 0) {
-            setIsSuggestionsOpen(false);
-        }
-    };
-
-    const handleInput = (event) => {
-        const value = event.target.value;
-        setInputValue(value);
-        const filteredSuggestions = questionsPool.filter(option =>
-            option.toLowerCase().includes(value.toLowerCase())
-        );
-        setSuggestions(filteredSuggestions);
-        setIsSuggestionsOpen(true);
-    };
-
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            handleSetSearchQuery(inputValue);
-            navigate('/search');
-        }
-    };
-
     useEffect(() => {
         document.addEventListener('click', handleOutsideClick);
         return () => { document.removeEventListener('click', handleOutsideClick); };
     }, []);
+
+    const questionsPool = questions.map(question => truncateText(question.body));
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
