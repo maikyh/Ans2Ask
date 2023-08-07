@@ -16,20 +16,17 @@ import Swal from 'sweetalert2';
 import { EditIcon, CheckIcon } from '@chakra-ui/icons';
 import Uploadimage from '../UploadImage/UploadImage.jsx';
 import Text from '../../utils/Text.jsx';
-import { useParams } from 'react-router-dom';
-import "./UserCard.css";
+import "./PersonalUserCard.css";
 
-const UserCard = ({ user, images }) => {
-    const [username, setUsername] = useState("");
-    const [title, setTitle] = useState("");
-    const [about, setAbout] = useState("");
-    const [coins, setCoins] = useState("");
+const PersonalUserCard = ({ user, images }) => {
+    const [username, setUsername] = useState(user ? user.username : "");
+    const [title, setTitle] = useState(user ? user.title : "");
+    const [about, setAbout] = useState(user ? user.about : "");
+    const [coins, setCoins] = useState(user ? user.coins : "");
     const [image, setImage] = useState("");
     const [meta, setMeta] = useState("");
-    const [currentUser, setCurrentUser] = useState("");
     const [isUpdating, setIsUpdating] = useState(false);
     const { updateUser, darkMode } = useContext(UserContext);
-    const { id } = useParams();
 
     const handleSetIsUpdating = () => {
         setIsUpdating(!isUpdating);
@@ -39,59 +36,34 @@ const UserCard = ({ user, images }) => {
         localStorage.removeItem('images' + '/' + query);
     };
 
-    //User
-    useEffect(() => {
-        const cachedUser = localStorage.getItem('/users' + '/' + id);
-        if (cachedUser && cachedUser.length > nothingInLocalStorage) {
-            setCurrentUser(JSON.parse(cachedUser));
-            setUsername(cachedUser.username);
-            setTitle(cachedUser.title);
-            setAbout(cachedUser.about);
-        }
-        else {
-            const fetchUser = async () => {
-                const response = await fetch(url + '/users' + '/' + id);
-                const data = await response.json();
-                setCurrentUser(data);
-                setUsername(data.username);
-                setTitle(data.title);
-                setAbout(data.about);
-            };
-
-            fetchUser();
-        }
-    }, [id]);
-
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
-        const currImage = images?.filter(image => image.public_id === currentUser.email);
+        const currImage = images?.filter(image => image.public_id === user.email);
         if (currImage && currImage[0]) {
             setImage(currImage[0])
             return;
         }
 
-        if (currentUser) {
-            const cachedImage = localStorage.getItem('images' + '/' + currentUser.email);
-            if (cachedImage && cachedImage.length > nothingInLocalStorage) {
-                setImage(JSON.parse(cachedImage));
-            }
-            else {
-                const fetchImage = async () => {
-                    const response = await fetch(url + '/images' + '/' + currentUser.email);
-                    const data = await response.json();
-                    setImage(data);
-                };
-
-                fetchImage();
-            }
+        const cachedImage = localStorage.getItem('images' + '/' + user.email);
+        if (cachedImage && cachedImage.length > nothingInLocalStorage) {
+            setImage(JSON.parse(cachedImage));
         }
-    }, [currentUser, id]);
+        else {
+            const fetchImage = async () => {
+                const response = await fetch(url + '/images' + '/' + user.email);
+                const data = await response.json();
+                setImage(data);
+            };
+
+            fetchImage();
+        }
+    }, []);
 
     useEffect(() => {
-        localStorage.removeItem('images' + '/' + currentUser.email);
-        localStorage.setItem('images' + '/' + currentUser.email, JSON.stringify(image));
-        const timer = setTimeout(() => removeImageQueryFromLocalStorage(currentUser.email), MAX_TIME);
+        localStorage.removeItem('images' + '/' + user.email);
+        localStorage.setItem('images' + '/' + user.email, JSON.stringify(image));
+        const timer = setTimeout(() => removeImageQueryFromLocalStorage(user.email), MAX_TIME);
         return () => clearTimeout(timer);
     }, [image])
 
@@ -274,7 +246,7 @@ const UserCard = ({ user, images }) => {
                                 <Editable
                                     style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                                     textAlign='center'
-                                    value={username}
+                                    defaultValue={user ? user.username : ""}
                                     fontSize='calc(1.325rem + .9vw)'
                                     isPreviewFocusable={false}
                                 >
@@ -288,12 +260,9 @@ const UserCard = ({ user, images }) => {
                                                 as={EditableInput}
                                             />
                                         </div>
-                                        {
-                                            parseInt(id) === user.id &&
-                                            <div className="col-auto d-flex align-items-center">
-                                                <EditableControls />
-                                            </div>
-                                        }
+                                        <div className="col-auto d-flex align-items-center">
+                                            <EditableControls />
+                                        </div>
                                     </div>
                                 </Editable>
                             </div>
@@ -304,10 +273,10 @@ const UserCard = ({ user, images }) => {
                                 <Editable
                                     style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                                     textAlign='center'
+                                    defaultValue={user ? user.title : ""}
                                     fontSize='1.25rem'
                                     className='fw-bold'
                                     isPreviewFocusable={false}
-                                    value={title}
                                 >
                                     <div className="row">
                                         <div className="col d-flex align-items-center">
@@ -320,25 +289,22 @@ const UserCard = ({ user, images }) => {
                                                 as={EditableInput}
                                             />
                                         </div>
-                                        {
-                                            parseInt(id) === user.id &&
-                                            <div className="col-auto d-flex align-items-center">
-                                                <EditableControls />
-                                            </div>
-                                        }
+                                        <div className="col-auto d-flex align-items-center">
+                                            <EditableControls />
+                                        </div>
                                     </div>
                                 </Editable>
                             </div>
                         </div>
 
-                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-0">{currentUser ? currentUser.email : ""}</p>
-                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-1">{currentUser ? currentUser.coins : ""} coins</p>
+                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-0">{user ? user.email : ""}</p>
+                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-1">{user ? user.coins : ""} coins</p>
 
                         <div className="row">
                             <div className="col d-flex align-items-center">
                                 <Editable
                                     style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
-                                    value={about}
+                                    defaultValue={about}
                                     isPreviewFocusable={false}
                                 >
                                     <div className="row">
@@ -350,25 +316,19 @@ const UserCard = ({ user, images }) => {
                                                 as={EditableTextarea}
                                             />
                                         </div>
-                                        {
-                                            parseInt(id) === user.id &&
-                                            <div className="col-auto d-flex align-items-center">
-                                                <EditableControls />
-                                            </div>
-                                        }
+                                        <div className="col-auto d-flex align-items-center">
+                                            <EditableControls />
+                                        </div>
                                     </div>
                                 </Editable>
                             </div>
                         </div>
 
-                        {
-                            parseInt(id) === user.id &&
-                            <div className='row'>
-                                <div className="mt-3">
-                                    <button onClick={() => { handleSetIsUpdating() }} className='btn btn-primary p-1 px-2'> Update Photo </button>
-                                </div>
+                        <div className='row'>
+                            <div className="mt-3">
+                                <button onClick={() => { handleSetIsUpdating() }} className='btn btn-primary p-1 px-2'> Update Photo </button>
                             </div>
-                        }
+                        </div>
 
                     </div>
                     <div style={{ position: "absolute", right: "862px", borderLeft: '2px solid grey', height: '270px', marginLeft: "98px" }}></div>
@@ -389,4 +349,4 @@ const UserCard = ({ user, images }) => {
     );
 }
 
-export default UserCard;
+export default PersonalUserCard;

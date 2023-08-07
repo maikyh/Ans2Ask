@@ -10,6 +10,7 @@ import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.j
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
+import { Tooltip } from '@chakra-ui/react'
 import "./QuestionDetails.css";
 
 const LazyNavBar = React.lazy(() => import('../Navbar/Navbar'));
@@ -41,6 +42,10 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
     const removeImageQueryFromLocalStorage = (query) => {
         localStorage.removeItem('images' + '/' + query);
     };
+
+    const handleNavigateToUserProfile = () => {
+        navigate(`/user/${userFromQuestion.id}`);
+    }
 
     const navigate = useNavigate();
 
@@ -326,23 +331,25 @@ const QuestionDetails = ({ images, handleSetSearchQuery }) => {
             <div className="d-flex justify-content-center align-items-center" style={{ marginTop: "3rem" }}>
                 <div className="custom-container-question-details px-4 pt-2" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                     <div style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card position-relative mt-0 px-3 pb-1 pt-3 custom-margin-question-details">
-                        <div className="row">
-                            <div className="col-auto">
-                                <div className='preview-container' style={{ width: "32px", height: "32px", marginBottom: "8px" }}>
-                                    {image && image.url &&
-                                        <img className='preview-image' src={image.url} alt="lol" />
-                                    }
+                        <Tooltip label='View Profile' placement='left-start' bg='#bee3f0' color="black">
+                            <div className="row" style={{ cursor: 'pointer' }} onClick={() => handleNavigateToUserProfile()}>
+                                <div className="col-auto">
+                                    <div className='preview-container' style={{ width: "32px", height: "32px", marginBottom: "8px" }}>
+                                        {image && image.url &&
+                                            <img className='preview-image' src={image.url} alt="lol" />
+                                        }
+                                    </div>
+                                </div>
+                                <div className="col-auto">
+                                    <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {userFromQuestion.username} </h6>
+                                </div>
+                                <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> <h6 className="mt-1"> - </h6> </div>
+
+                                <div className="col-auto">
+                                    <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode, fontStyle: "italic" }}> {userFromQuestion.title} </h6>
                                 </div>
                             </div>
-                            <div className="col-auto">
-                                <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {userFromQuestion.username} </h6>
-                            </div>
-                            <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> <h6 className="mt-1"> - </h6> </div>
-
-                            <div className="col-auto">
-                                <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode, fontStyle: "italic" }}> {userFromQuestion.title} </h6>
-                            </div>
-                        </div>
+                        </Tooltip>
                         <div>
                             <span className="fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>{question.title}</span>
                         </div>

@@ -3,13 +3,15 @@ import { useState, useEffect, Suspense } from "react";
 import Options from "../../utils/OptionsQA.jsx"
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import { url, MAX_TIME, nothingInLocalStorage } from "../../utils/Constants.jsx";
+import { useParams } from 'react-router-dom';
 import "./UserProfileGrid.css";
 
 const LazyQuestion = React.lazy(() => import('../Question/Question'));
 
-const UserProfileGrid = ({ images, selectedOption, userId }) => {
+const UserProfileGrid = ({ images, selectedOption }) => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
+    const { id } = useParams();
 
     const removeQuestionsFromLocalStorage = () => {
         localStorage.removeItem('questions');
@@ -68,10 +70,10 @@ const UserProfileGrid = ({ images, selectedOption, userId }) => {
     }, [answers])
 
     function getContent() {
-        if (selectedOption === Options.questions) return questions.filter(question => question.user.id === userId);
+        if (selectedOption === Options.questions) return questions.filter(question => question.user.id === parseInt(id));
 
         let UserAnswers = [];
-        let AnswersOfUser = answers.filter(answer => answer.user.id === userId);
+        let AnswersOfUser = answers.filter(answer => answer.user.id === parseInt(id));
         for (let i = 0; i < questions.length; i++) {
             for (let j = 0; j < AnswersOfUser.length; j++) {
                 if (questions[i].id === AnswersOfUser[j].questionId) {
@@ -92,7 +94,7 @@ const UserProfileGrid = ({ images, selectedOption, userId }) => {
                 content?.map((question) => (
                     <div key={question.id}>
                         <Suspense fallback={<PersonalizedFallback />}>
-                            <LazyQuestion images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
+                            <LazyQuestion userId={question.user.id} images={images} id={question.id} username={question.user.username} email={question.user.email} userTitle={question.user.title} subject={question.subject} title={question.title} body={question.body} coins={question.coins} />
                         </Suspense>
                     </div>
                 ))

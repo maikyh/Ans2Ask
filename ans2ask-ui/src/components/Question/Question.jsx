@@ -7,9 +7,10 @@ import Highlighter from "react-highlight-words";
 import { Badge } from '@chakra-ui/react'
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
+import { Tooltip } from '@chakra-ui/react'
 import "./Question.css";
 
-const Question = ({ sentence, images, id, username, email, userTitle, subject, title, body, coins }) => {
+const Question = ({ sentence, userId, images, id, username, email, userTitle, subject, title, body, coins }) => {
     const [answers, setAnswers] = useState([]);
     const [image, setImage] = useState([]);
     const { darkMode } = useContext(UserContext);
@@ -70,72 +71,82 @@ const Question = ({ sentence, images, id, username, email, userTitle, subject, t
         }, 0);
     }
 
+    const handleNavigateToUserProfile = () => {
+        navigate(`/user/${userId}`);
+    }
+
     function truncateText(body) {
         if (body.length > MAX_LENGTH) return body.substring(0, MAX_LENGTH) + "...";
         return body;
     }
 
     return (
-        <div style={{ cursor: 'pointer', position: 'relative' }} className="question" onClick={() => handleNavigateToQuestionDetails(id)}>
+        <div style={{ position: 'relative' }} className="question">
             <div style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode, border: `0.9px solid ${darkMode ? "white" : "gray"}` }} className="question-card mt-4 p-3">
-                <div className="row">
-                    <div className="col-auto">
-                        <div className='preview-container' style={{ width: "32px", height: "32px", marginBottom: "8px" }}>
-                            {image && image.url &&
-                                <img className='preview-image' src={image.url} alt="profilePicture" />
+                <Tooltip label='View Profile' placement='left-start' bg='#bee3f0' color="black">
+                    <div className="row" style={{ cursor: 'pointer' }} onClick={() => handleNavigateToUserProfile()} >
+                        <div className="col-auto">
+                            <div className='preview-container' style={{ width: "32px", height: "32px", marginBottom: "8px" }}>
+                                {image && image.url &&
+                                    <img className='preview-image' src={image.url} alt="profilePicture" />
+                                }
+                            </div>
+                        </div>
+
+                        <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
+                            <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {username} </h6>
+                        </div>
+
+                        <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> <h6 className="mt-1"> - </h6> </div>
+
+                        <div className="col-auto">
+                            <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode, fontStyle: "italic" }}> {userTitle} </h6>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </Tooltip>
+                <Tooltip label='View More Details' placement='left-end' bg='#bee3f0' color="black">
+                    <div style={{ cursor: 'pointer' }} onClick={() => handleNavigateToQuestionDetails(id)}>
+                        <div>
+                            <span className="fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>{title}</span>
+                        </div>
+                        <div className="">
+                            <div style={{ marginBottom: "10px" }}>
+                                <Highlighter
+                                    style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
+                                    highlightClassName="YourHighlightClass"
+                                    searchWords={sentence ? sentence.split(' ') : []}
+                                    autoEscape={true}
+                                    textToHighlight={truncateText(body)}
+                                />
+                            </div>
+                            {
+                                answersOfCurrentQuestion.length > 0 &&
+                                <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
+                                    {answersOfCurrentQuestion.length} answers
+                                </div>
+                            }
+                            {
+                                answersOfCurrentQuestion.length == 0 &&
+                                <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
+                                    No answers, be the first!
+                                </div>
                             }
                         </div>
-                    </div>
-
-                    <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
-                        <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> {username} </h6>
-                    </div>
-
-                    <div className="col-auto" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}> <h6 className="mt-1"> - </h6> </div>
-
-                    <div className="col-auto">
-                        <h6 className="mt-1" style={{ color: darkMode ? Text.darkMode : Text.lightMode, fontStyle: "italic" }}> {userTitle} </h6>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-                <div>
-                    <span className="fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>{title}</span>
-                </div>
-                <div className="">
-                    <div style={{ marginBottom: "10px" }}>
-                        <Highlighter
-                            style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
-                            highlightClassName="YourHighlightClass"
-                            searchWords={sentence ? sentence.split(' ') : []}
-                            autoEscape={true}
-                            textToHighlight={truncateText(body)}
-                        />
-                    </div>
-                    {
-                        answersOfCurrentQuestion.length > 0 &&
-                        <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
-                            {answersOfCurrentQuestion.length} answers
-                        </div>
-                    }
-                    {
-                        answersOfCurrentQuestion.length == 0 &&
-                        <div className="position-absolute bottom-0 end-0 p-1 px-3 underline-text" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>
-                            No answers, be the first!
-                        </div>
-                    }
-                </div>
-                <div class="">
-                    <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{ top: "10px" }}>
-                        <div className="col-auto">
-                            <Badge>{subject}</Badge>
-                            <Badge style={{ marginLeft: "10px" }} variant='solid' colorScheme='red'>
-                                {coins} coins
-                            </Badge>
+                        <div class="">
+                            <div class="position-absolute end-0 p-1 px-3 text-danger fw-bold" style={{ top: "10px" }}>
+                                <div className="col-auto">
+                                    <Badge>{subject}</Badge>
+                                    <Badge style={{ marginLeft: "10px" }} variant='solid' colorScheme='red'>
+                                        {coins} coins
+                                    </Badge>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Tooltip>
             </div>
         </div>
     );
