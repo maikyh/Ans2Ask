@@ -26,6 +26,36 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
         localStorage.removeItem('questions');
     };
 
+    const handleOnClick = async (questionId) => {
+        if (searchQuery.length !== noQuery) {
+            const cachedUserInteraction = localStorage.getItem(`/questions` + `/${questionId}`);
+            if (cachedUserInteraction) {
+                localStorage.setItem(`/questions` + `/${questionId}`, JSON.stringify(parseInt(cachedUserInteraction) + 3));
+            }
+            else {
+                localStorage.setItem(`/questions` + `/${questionId}`, JSON.stringify(3));
+            }
+        }
+
+        try {
+            // Make the question API request
+            const response = await fetch(url + `/questions` + `/${questionId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+        } catch (error) {
+            // Handle any network or API request errors
+            Swal.fire({
+                icon: 'error',
+                title: 'User Interaction Failed: ' + error,
+                text: "Invalid OnClick. Please try again."
+            });
+        }
+    };
+
     //For Questions
     useEffect(() => {
         const cachedQuestions = localStorage.getItem('questions');
@@ -216,36 +246,6 @@ const QuestionGrid = ({ images, searchQuery, selectedOption, selectedSubject }) 
         const timer = setTimeout(() => removeQuestionsFromLocalStorage(), MAX_TIME);
         return () => clearTimeout(timer);
     }, [questions])
-
-    const handleOnClick = async (questionId) => {
-        if (searchQuery.length !== noQuery) {
-            const cachedUserInteraction = localStorage.getItem(`/questions` + `/${questionId}`);
-            if (cachedUserInteraction) {
-                localStorage.setItem(`/questions` + `/${questionId}`, JSON.stringify(parseInt(cachedUserInteraction) + 3));
-            }
-            else {
-                localStorage.setItem(`/questions` + `/${questionId}`, JSON.stringify(3));
-            }
-        }
-
-        try {
-            // Make the question API request
-            const response = await fetch(url + `/questions` + `/${questionId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include'
-            });
-        } catch (error) {
-            // Handle any network or API request errors
-            Swal.fire({
-                icon: 'error',
-                title: 'User Interaction Failed: ' + error,
-                text: "Invalid OnClick. Please try again."
-            });
-        }
-    };
 
     return (
         <div className="QuestionGrid">
