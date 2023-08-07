@@ -44,41 +44,49 @@ const UserCard = ({ user, images }) => {
         const cachedUser = localStorage.getItem('/users' + '/' + id);
         if (cachedUser && cachedUser.length > nothingInLocalStorage) {
             setCurrentUser(JSON.parse(cachedUser));
+            setUsername(cachedUser.username);
+            setTitle(cachedUser.title);
+            setAbout(cachedUser.about);
         }
         else {
             const fetchUser = async () => {
                 const response = await fetch(url + '/users' + '/' + id);
                 const data = await response.json();
                 setCurrentUser(data);
+                setUsername(data.username);
+                setTitle(data.title);
+                setAbout(data.about);
             };
 
             fetchUser();
         }
-    }, []);
+    }, [id]);
 
     //Images/user
     //The Cloudinary API is limited to fetching 10 images per request. That's why I needed to individually recall images if the user's picture didn't appear in the initial fetch in app.jsx.
     useEffect(() => {
-        const currImage = images?.filter(image => image.public_id === user.email);
-        if (currImage && currImage[0]) {
-            setImage(currImage[0])
-            return;
-        }
+        if (currentUser) {
+            const currImage = images?.filter(image => image.public_id === currentUser.email);
+            if (currImage && currImage[0]) {
+                setImage(currImage[0])
+                return;
+            }
 
-        const cachedImage = localStorage.getItem('images' + '/' + user.email);
-        if (cachedImage && cachedImage.length > nothingInLocalStorage) {
-            setImage(JSON.parse(cachedImage));
-        }
-        else {
-            const fetchImage = async () => {
-                const response = await fetch(url + '/images' + '/' + user.email);
-                const data = await response.json();
-                setImage(data);
-            };
+            const cachedImage = localStorage.getItem('images' + '/' + currentUser.email);
+            if (cachedImage && cachedImage.length > nothingInLocalStorage) {
+                setImage(JSON.parse(cachedImage));
+            }
+            else {
+                const fetchImage = async () => {
+                    const response = await fetch(url + '/images' + '/' + currentUser.email);
+                    const data = await response.json();
+                    setImage(data);
+                };
 
-            fetchImage();
+                fetchImage();
+            }
         }
-    }, []);
+    }, [currentUser, id]);
 
     useEffect(() => {
         localStorage.removeItem('images' + '/' + user.email);
@@ -266,7 +274,7 @@ const UserCard = ({ user, images }) => {
                                 <Editable
                                     style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                                     textAlign='center'
-                                    defaultValue={user ? user.username : ""}
+                                    value={username}
                                     fontSize='calc(1.325rem + .9vw)'
                                     isPreviewFocusable={false}
                                 >
@@ -296,10 +304,10 @@ const UserCard = ({ user, images }) => {
                                 <Editable
                                     style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
                                     textAlign='center'
-                                    defaultValue={user ? user.title : ""}
                                     fontSize='1.25rem'
                                     className='fw-bold'
                                     isPreviewFocusable={false}
+                                    value={title}
                                 >
                                     <div className="row">
                                         <div className="col d-flex align-items-center">
@@ -323,14 +331,14 @@ const UserCard = ({ user, images }) => {
                             </div>
                         </div>
 
-                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-0">{user ? user.email : ""}</p>
-                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-1">{user ? user.coins : ""} coins</p>
+                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-0">{currentUser ? currentUser.email : ""}</p>
+                        <p style={{ color: darkMode ? Text.darkMode : Text.lightMode }} className="mb-1">{currentUser ? currentUser.coins : ""} coins</p>
 
                         <div className="row">
                             <div className="col d-flex align-items-center">
                                 <Editable
                                     style={{ color: darkMode ? Text.darkMode : Text.lightMode }}
-                                    defaultValue={about}
+                                    value={about}
                                     isPreviewFocusable={false}
                                 >
                                     <div className="row">
