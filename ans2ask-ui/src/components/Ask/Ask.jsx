@@ -29,12 +29,6 @@ const Ask = ({ images, handleSetSearchQuery }) => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 

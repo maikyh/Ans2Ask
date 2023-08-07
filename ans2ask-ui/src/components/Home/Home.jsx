@@ -1,8 +1,8 @@
 import React from "react";
-import { useState, useEffect, useContext, Suspense } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, Suspense } from "react";
 import { UserContext } from "../../UserContext.js";
 import Options from "../../utils/OptionsQC.jsx";
+import { useNavigate } from "react-router-dom";
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
 import Content from '../../utils/Content.jsx';
 import "./Home.css";
@@ -27,12 +27,6 @@ const Home = ({ images, handleSetSearchQuery }) => {
     };
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user]);
 
     const handleLogout = () => {
         updateUser(null);

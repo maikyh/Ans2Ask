@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext, Suspense } from "react";
+import { useState, useContext, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext.js";
 import PersonalizedFallback from "../PersonalizedFallback/PersonalizedFallback.jsx";
@@ -12,17 +12,11 @@ const LazyQuestionGrid = React.lazy(() => import('../QuestionGrid/QuestionGrid')
 const LazyFooter = React.lazy(() => import('../Footer/Footer'));
 
 const SearchResults = ({ images, searchQuery, handleSetSearchQuery }) => {
-    const { user, updateUser, darkMode } = useContext(UserContext);
+    const { updateUser, darkMode } = useContext(UserContext);
     const [selectedSubject, setSelectedSubject] = useState("All");
     const [selectedOption, setSelectedOption] = useState(1);
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, [user]);
 
     const handleLogout = () => {
         updateUser(null);
