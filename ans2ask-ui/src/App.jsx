@@ -39,11 +39,11 @@ export default function App() {
     const updateUser = (newUser) => {
         setUser(newUser);
     };
-    
+
     const updateDarkMode = (newDarkMode) => {
         setDarkMode(newDarkMode);
     };
-    
+
     const handleSetSearchQuery = (query) => {
         setSearchQuery(query);
     };
@@ -106,11 +106,9 @@ export default function App() {
                                 <Route
                                     path="/register"
                                     element={
-                                        <ProtectedRoute element={
-                                            <Suspense fallback={<PersonalizedFallback />}>
-                                                <LazyRegister />
-                                            </Suspense>
-                                        } />
+                                        <Suspense fallback={<PersonalizedFallback />}>
+                                            <LazyRegister />
+                                        </Suspense>
                                     }
                                 />
                                 <Route
