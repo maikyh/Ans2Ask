@@ -14,9 +14,11 @@ const LazyQuestionsOrCourses = React.lazy(() => import('../QuestionsOrCourses/Qu
 const LazyQuestionGrid = React.lazy(() => import('../QuestionGrid/QuestionGrid'));
 
 const Home = ({ images, handleSetSearchQuery }) => {
-    const { user, updateUser, darkMode } = useContext(UserContext);
+    const { updateUser, darkMode } = useContext(UserContext);
     const [selectedSubject, setSelectedSubject] = useState("All");
     const [selectedOption, setSelectedOption] = useState(Options.question);
+
+    const navigate = useNavigate();
 
     const handleSetSelectedSubject = (subject) => {
         setSelectedSubject(subject);
@@ -25,8 +27,6 @@ const Home = ({ images, handleSetSearchQuery }) => {
     const handleSetSelectedOption = (option) => {
         setSelectedOption(option);
     };
-
-    const navigate = useNavigate();
 
     const handleLogout = () => {
         updateUser(null);
