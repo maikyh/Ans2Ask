@@ -9,7 +9,11 @@ import answerRoutes from './routes/answers.js';
 import googleScrapingRoutes from './routes/googleScraping.js';
 import youtubeScrapingRoutes from './routes/youtubeScraping.js';
 import cloudinaryRoutes from './routes/cloudinary.js';
+import sendEmailRoutes from './routes/sendEmail.js';
 import SequelizeStoreInit from 'connect-session-sequelize';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -48,6 +52,7 @@ app.use(answerRoutes);
 app.use(googleScrapingRoutes);
 app.use(youtubeScrapingRoutes);
 app.use(cloudinaryRoutes);
+app.use(sendEmailRoutes);
 
 sequelize.sync({ alter: true })
     .then(() => {

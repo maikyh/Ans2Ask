@@ -18,28 +18,23 @@ const CodeVerification = () => {
     const handleVerifyAccount = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(url + `/users/verify`, {
+        const recipient_email = "miguelgrza.12@gmail.com";
+        const OTP = 12323;
+
+        const response = await fetch(url + `/sendEmail`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ usernameOrEmail }),
+            body: JSON.stringify({ recipient_email, OTP }),
             credentials: 'include'
         });
+
+        console.log(response);
 
         if (response.ok) {
             const data = await response.json();
             console.log(data);
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Account found',
-                text: 'You can proceed!',
-                timer: 850,
-                showConfirmButton: false,
-            });
-
-            navigate('/CodeVerification');
         }
     }
 
