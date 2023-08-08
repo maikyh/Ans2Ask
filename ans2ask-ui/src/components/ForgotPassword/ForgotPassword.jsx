@@ -10,13 +10,27 @@ import Content from '../../utils/Content.jsx';
 import "./ForgotPassword.css";
 
 const ForgotPassword = () => {
-    const [username, setUsername] = useState('');
+    const [usernameOrEmail, setUsernameOrEmail] = useState('');
     const { darkMode, updateDarkMode } = useContext(UserContext);
 
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        console.log("hey");
+    const handleVerifyAccount = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(url + `/users/verify`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ usernameOrEmail }),
+            credentials: 'include'
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+        }
     }
 
     return (
@@ -42,16 +56,16 @@ const ForgotPassword = () => {
             <div className="d-flex justify-content-center align-items-center custom-margin-login" style={{ height: "764px" }}>
                 <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                     <h1 className="text-center mb-4 fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Forgot Password?</h1>
-                    <form onSubmit={handleLogin}>
+                    <form onSubmit={handleVerifyAccount}>
                         <div className="form-group mb-4">
                             <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Please enter your username or email to search for your account.</label>
                             <input
                                 style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                                 className="form-control"
                                 type="text"
-                                id="username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                id="usernameOrEmail"
+                                value={usernameOrEmail}
+                                onChange={(e) => setUsernameOrEmail(e.target.value)}
                                 required
                             />
                         </div>

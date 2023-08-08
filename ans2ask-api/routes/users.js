@@ -122,4 +122,31 @@ router.get('/users/:id', async (req, res) => {
     }
 });
 
+// Route to get username if user exist
+router.post('/users/verify', async (req, res) => {
+    const { usernameOrEmail } = req.body;
+
+    const username = usernameOrEmail;
+    const email = usernameOrEmail;
+
+    try {
+        // Check if username or email already exists
+        const existingUser = await User.findOne({
+            where: {
+                [Op.or]: [{ username }, { email }]
+            }
+        });
+
+        if (!existingUser) {
+            return res.status(400).json({ error: "Username or email isn't related to any account" });
+        }
+
+        // Return the user email in the response
+        res.json({email: existingUser.email});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 export default router;
