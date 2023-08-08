@@ -18,15 +18,15 @@ const CodeVerification = () => {
     const handleVerifyAccount = async (e) => {
         e.preventDefault();
 
-        const recipient_email = "miguelgrza.12@gmail.com";
-        const OTP = 12323;
+        const recipient = "miguelgrza.12@gmail.com";
+        const text = 12323;
 
         const response = await fetch(url + `/sendEmail`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ recipient_email, OTP }),
+            body: JSON.stringify({ recipient, text }),
             credentials: 'include'
         });
 
