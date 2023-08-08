@@ -7,9 +7,9 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
-import "./ForgotPassword.css";
+import "./CodeVerification.css";
 
-const ForgotPassword = () => {
+const CodeVerification = () => {
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
     const { darkMode, updateDarkMode } = useContext(UserContext);
 
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
                 showConfirmButton: false,
             });
 
-            navigate('/verify');
+            navigate('/CodeVerification');
         }
     }
 
@@ -65,10 +65,10 @@ const ForgotPassword = () => {
 
             <div className="d-flex justify-content-center align-items-center custom-margin-login" style={{ height: "764px" }}>
                 <div className="custom-container p-4 border rounded px-5" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
-                    <h1 className="text-center mb-4 fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Forgot Password?</h1>
+                    <h1 className="text-center mb-4 fw-bold" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Confirm your account</h1>
                     <form onSubmit={handleVerifyAccount}>
                         <div className="form-group mb-4">
-                            <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Please enter your username or email to search for your account.</label>
+                            <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>A code has been sent to your email. Enter that code here:</label>
                             <input
                                 style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
                                 className="form-control"
@@ -80,9 +80,9 @@ const ForgotPassword = () => {
                             />
                         </div>
                         <div className="text-center">
-                            <button className={`btn ${darkMode ? 'btn-light' : 'btn-dark'} w-100 d-block fw-bold mb-4`}> Search </button>
+                            <button className={`btn ${darkMode ? 'btn-light' : 'btn-dark'} w-100 d-block fw-bold mb-4`}> Submit </button>
                             <div className="mb-2">
-                                <a className="custom-link" href="/register" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Don't have an account?</a>
+                                <a className="custom-link" href="/recover" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>Not your account?</a>
                             </div>
                         </div>
                     </form>
@@ -100,4 +100,4 @@ const ForgotPassword = () => {
     );
 }
 
-export default ForgotPassword;
+export default CodeVerification;
