@@ -45,14 +45,29 @@ const CodeVerification = () => {
 
                 setIsOpen(true);
             }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Wrong Code',
+                    text: 'Try Again.',
+                    timer: 850,
+                    showConfirmButton: false,
+                });
+            }
         }
         catch (e) {
-            console.log(e);
+            Swal.fire({
+                icon: 'error',
+                title: 'Wrong Code',
+                text: 'Try Again.',
+                timer: 850,
+                showConfirmButton: false,
+            });
         }
     }
 
     const handleUpdatePassword = async (e) => {
-        if(password == confirmPassword){
+        if (password == confirmPassword) {
             setIsOpen(false);
 
             const response = await fetch(url + `/users` + `/updatePassword` + `/${userId}`, {
@@ -117,10 +132,10 @@ const CodeVerification = () => {
                             <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>A code has been sent to your email. Enter that code here:</label>
                             <div className='text-center mt-2'>
                                 <PinInput size="lg" onChange={(e) => setCode(e)}>
-                                    <PinInputField className='mx-2 text-white' />
-                                    <PinInputField className='mx-2 text-white' />
-                                    <PinInputField className='mx-2 text-white' />
-                                    <PinInputField className='mx-2 text-white' />
+                                    <PinInputField className='mx-2' style={{ color: darkMode ? Text.darkMode : Text.lightMode }} />
+                                    <PinInputField className='mx-2' style={{ color: darkMode ? Text.darkMode : Text.lightMode }} />
+                                    <PinInputField className='mx-2' style={{ color: darkMode ? Text.darkMode : Text.lightMode }} />
+                                    <PinInputField className='mx-2' style={{ color: darkMode ? Text.darkMode : Text.lightMode }} />
                                 </PinInput>
                             </div>
                         </div>

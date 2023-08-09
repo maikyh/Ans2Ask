@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
-import { url } from "../../utils/Constants.jsx";
+import { url, MAX_TIME_TO_DELETE } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Swal from 'sweetalert2';
@@ -18,48 +18,81 @@ const ForgotPassword = () => {
     const handleVerifyAccount = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(url + `/users/verify`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ usernameOrEmail }),
-            credentials: 'include'
-        });
-
-        if (response.ok) {
-            const recipient = "miguelgrza.12@gmail.com";
-            const OTP = Math.floor(Math.random() * 9000 + 1000);
-            const text = `Here is the code: ${OTP}`;
-
-            const response = await fetch(url + `/sendEmail`, {
+        try {
+            const response = await fetch(url + `/users/verify`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ recipient, text }),
+                body: JSON.stringify({ usernameOrEmail }),
                 credentials: 'include'
             });
 
-            //
-            const uploadToken = await fetch(url + `/tokens`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token: OTP }),
-                credentials: 'include'
-            });
+            if (response.ok) {
+                const recipient = "miguelgrza.12@gmail.com";
+                const OTP = Math.floor(Math.random() * 9000 + 1000);
+                const text = `Here is the code: ${OTP}`;
 
+                const response = await fetch(url + `/sendEmail`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ recipient, text }),
+                    credentials: 'include'
+                });
+
+                const uploadToken = await fetch(url + `/tokens`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ token: OTP }),
+                    credentials: 'include'
+                });
+
+                //function to DeleteToken after 1 minute
+                const performDelete = async () => {
+                    const deleteToken = await fetch(url + `/tokens`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ token: OTP.toString() }),
+                        credentials: 'include'
+                    });
+                }
+
+                setTimeout(performDelete, MAX_TIME_TO_DELETE);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Account found',
+                    text: 'You can proceed!',
+                    timer: 850,
+                    showConfirmButton: false,
+                });
+
+                navigate('/verify');
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Account not found',
+                    text: 'Try Again.',
+                    timer: 850,
+                    showConfirmButton: false,
+                });
+            }
+        }
+        catch (e) {
             Swal.fire({
-                icon: 'success',
-                title: 'Account found',
-                text: 'You can proceed!',
+                icon: 'error',
+                title: 'Account not found',
+                text: 'Try Again.',
                 timer: 850,
                 showConfirmButton: false,
             });
-
-            navigate('/verify');
         }
     }
 
