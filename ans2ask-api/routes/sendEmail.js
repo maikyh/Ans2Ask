@@ -7,7 +7,7 @@ const OAuth2 = google.auth.OAuth2;
 dotenv.config();
 const router = express.Router();
 
-const oauth2Client = new OAuth2(process.env.CLIENT_ID,process.env.CLIENT_SECRET);
+const oauth2Client = new OAuth2(process.env.CLIENT_ID,process.env.CLIENT_SECRET,process.env.REDIRECT_URI);
 
 oauth2Client.setCredentials({
     refresh_token: process.env.REFRESH_TOKEN
@@ -15,14 +15,14 @@ oauth2Client.setCredentials({
 
 const contactAPI = async (recipient, text) => {
     const createTransporter = async () => {
-        // const check = oauth2Client.getAccessToken();
+        const accessToken = await oauth2Client.getAccessToken();
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
                 type: "OAuth2",
                 user: process.env.USER_EMAIL,
-                accessToken: process.env.ACCESS_TOKEN,
+                accessToken,
                 clientId: process.env.CLIENT_ID,
                 clientSecret: process.env.CLIENT_SECRET,
                 refreshToken: process.env.REFRESH_TOKEN,
