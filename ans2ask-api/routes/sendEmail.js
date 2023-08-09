@@ -7,16 +7,10 @@ const OAuth2 = google.auth.OAuth2;
 dotenv.config();
 const router = express.Router();
 
-const USER_EMAIL = "ans2ask.meta@gmail.com"
-const CLIENT_ID = "887566367231-as7lvcgmd1rih9fiahfsaki97clo1819.apps.googleusercontent.com"
-const CLIENT_SECRET = "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"
-const REFRESH_TOKEN = "1//04FsrUsZ8__zhCgYIARAAGAQSNwF-L9IrqUYnLkVdNMDc4gW_HZRQ_UeHiJYDwp7Paywq7sWBom2mcngd0Qvo69l1jEHhLU-pUfw"
-const ACCESS_TOKEN = "ya29.a0AfB_byCnq66vue_4sP8QbJfakGEHuljK3CMY3LNeDuInm9FEsFkPxDCy73Pwd3sCWpM6hJKKa6BswijmH0tsmX7RIRrTcGtY8OFxr5_Rpx-bz2LtFBoidAmKZajYWCLpNJdEIU0S_lUTMnK4g4Gk4MVkZN78aCgYKAToSARMSFQHsvYls6wUBG1vuB4VHXPn9S7Pqpg0163"
-
-const oauth2Client = new OAuth2(CLIENT_ID,CLIENT_SECRET);
+const oauth2Client = new OAuth2(process.env.CLIENT_ID,process.env.CLIENT_SECRET);
 
 oauth2Client.setCredentials({
-    refresh_token: REFRESH_TOKEN
+    refresh_token: process.env.REFRESH_TOKEN
 });
 
 const contactAPI = async () => {
@@ -27,11 +21,11 @@ const contactAPI = async () => {
             service: "gmail",
             auth: {
                 type: "OAuth2",
-                user: USER_EMAIL,
-                accessToken: ACCESS_TOKEN,
-                clientId: CLIENT_ID,
-                clientSecret: CLIENT_SECRET,
-                refreshToken: REFRESH_TOKEN,
+                user: process.env.USER_EMAIL,
+                accessToken: process.env.ACCESS_TOKEN,
+                clientId: process.env.CLIENT_ID,
+                clientSecret: process.env.CLIENT_SECRET,
+                refreshToken: process.env.REFRESH_TOKEN,
             },
         });
 
@@ -45,7 +39,7 @@ const contactAPI = async () => {
     const sendEmail = async () => {
         try {
             const mailOptions = {
-                from: USER_EMAIL,
+                from: process.env.USER_EMAIL,
                 to: "miguelgrza.12@gmail.com",
                 subject: "Ans2Ask",
                 text: "Hi, this is a test email",
@@ -88,6 +82,4 @@ router.post('/sendEmail', async (req, res) => {
     }
 });
 
-
-// contactAPI();
 export default router;
