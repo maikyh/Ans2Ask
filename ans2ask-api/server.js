@@ -10,6 +10,7 @@ import googleScrapingRoutes from './routes/googleScraping.js';
 import youtubeScrapingRoutes from './routes/youtubeScraping.js';
 import cloudinaryRoutes from './routes/cloudinary.js';
 import sendEmailRoutes from './routes/sendEmail.js';
+import tokenRoutes from './routes/tokens.js';
 import SequelizeStoreInit from 'connect-session-sequelize';
 import dotenv from "dotenv";
 
@@ -53,6 +54,7 @@ app.use(googleScrapingRoutes);
 app.use(youtubeScrapingRoutes);
 app.use(cloudinaryRoutes);
 app.use(sendEmailRoutes);
+app.use(tokenRoutes);
 
 sequelize.sync({ alter: true })
     .then(() => {
