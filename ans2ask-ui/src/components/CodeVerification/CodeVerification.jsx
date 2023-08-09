@@ -66,6 +66,16 @@ const CodeVerification = () => {
 
             const data = await response.json();
 
+            const token = code;
+            const deleteToken = await fetch(url + `/tokens`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+                credentials: 'include'
+            });
+
             Swal.fire({
                 icon: 'success',
                 title: 'Passwords match!',

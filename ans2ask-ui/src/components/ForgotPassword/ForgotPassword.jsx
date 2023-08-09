@@ -41,6 +41,16 @@ const ForgotPassword = () => {
                 credentials: 'include'
             });
 
+            //
+            const uploadToken = await fetch(url + `/tokens`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: OTP }),
+                credentials: 'include'
+            });
+
             Swal.fire({
                 icon: 'success',
                 title: 'Account found',
