@@ -7,7 +7,7 @@ const API_KEY = 'AIzaSyDxpVm_ulyGpjBUXnDT1A0QfLT_bBQU1HI';
 //10 minutes
 const MAX_TIME = 600000; 
 
-//1 minutes
+//1 minute
 const MAX_TIME_TO_DELETE = 60000; 
 
 //Max number of characters of question
