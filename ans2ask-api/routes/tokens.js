@@ -1,6 +1,7 @@
 import express from 'express';
 import { User } from '../models/index.js';
 import { Token } from '../models/token.js';
+import { Op } from 'sequelize';
 
 const router = express.Router();
 
@@ -12,6 +13,23 @@ router.get('/tokens', async (req, res) => {
             order: [['createdAt', 'DESC']]
         });
         res.json(tokens);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Route to check if a token exist, with associated user
+router.get('/tokens/verify', async (req, res) => {
+    const { userId, token } = req.body;
+    
+    try {
+        const tokenToVerify = await Token.findOne({
+            where: {
+                [Op.and]: [{ userId }, { token }]
+            }
+        });
+
+        res.json(tokenToVerify);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -46,7 +64,7 @@ router.delete('/tokens', async (req, res) => {
 
     try {
         const tokenToDelete = await Token.destroy({ where: { token } });
-        
+
         res.status(201).json("Token deleted");
     } catch (err) {
         res.status(500).json({ message: err.message });
