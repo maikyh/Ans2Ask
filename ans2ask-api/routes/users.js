@@ -68,6 +68,36 @@ router.put('/users/:id', async (req, res) => {
     }
 });
 
+// Route for updating password
+router.put('/users/updatePassword/:id', async (req, res) => {
+    const { id } = req.params; // Get the user ID from the request parameters
+    const { password } = req.body;
+
+    try {
+        // Check if the user with the given ID exists
+        const existingUser = await User.findByPk(id);
+
+        if (!existingUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Encrypt the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update the user's data
+        existingUser.password = hashedPassword;
+
+        // Save the updated user
+        await existingUser.save();
+
+        // Return the updated user data in the response
+        res.json({ user: existingUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 // Route for user login
 router.post('/users/login', async (req, res) => {
     const { username, password } = req.body;
@@ -119,6 +149,33 @@ router.get('/users/:id', async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ message: err.message });
+    }
+});
+
+// Route to get username if user exist
+router.post('/users/verify', async (req, res) => {
+    const { usernameOrEmail } = req.body;
+
+    const username = usernameOrEmail;
+    const email = usernameOrEmail;
+
+    try {
+        // Check if username or email already exists
+        const existingUser = await User.findOne({
+            where: {
+                [Op.or]: [{ username }, { email }]
+            }
+        });
+
+        if (!existingUser) {
+            return res.status(400).json({ error: "Username or email isn't related to any account" });
+        }
+
+        // Return the user email in the response
+        res.json({email: existingUser.email});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
     }
 });
 

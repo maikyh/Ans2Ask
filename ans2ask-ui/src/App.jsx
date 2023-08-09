@@ -13,6 +13,8 @@ import "./App.css";
 const LazyAsk = React.lazy(() => import('./components/Ask/Ask'));
 const LazyRegister = React.lazy(() => import('./components/Register/Register'));
 const LazyLogin = React.lazy(() => import('./components/Login/Login'));
+const LazyForgotPassword = React.lazy(() => import('./components/ForgotPassword/ForgotPassword'));
+const LazyCodeVerification = React.lazy(() => import('./components/CodeVerification/CodeVerification'));
 const LazyHome = React.lazy(() => import('./components/Home/Home'));
 const LazySearchResults = React.lazy(() => import('./components/SearchResults/SearchResults'));
 const LazyQuestionDetails = React.lazy(() => import('./components/QuestionDetails/QuestionDetails'));
@@ -116,6 +118,22 @@ export default function App() {
                                     element={
                                         <Suspense fallback={<PersonalizedFallback />}>
                                             <LazyLogin />
+                                        </Suspense>
+                                    }
+                                />
+                                <Route
+                                    path="/recover"
+                                    element={
+                                        <Suspense fallback={<PersonalizedFallback />}>
+                                            <LazyForgotPassword />
+                                        </Suspense>
+                                    }
+                                />
+                                <Route
+                                    path="/verify"
+                                    element={
+                                        <Suspense fallback={<PersonalizedFallback />}>
+                                            <LazyCodeVerification />
                                         </Suspense>
                                     }
                                 />
