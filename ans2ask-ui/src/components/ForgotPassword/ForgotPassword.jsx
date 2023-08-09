@@ -31,7 +31,7 @@ const ForgotPassword = () => {
             if (response.ok) {
                 const recipient = "miguelgrza.12@gmail.com";
                 const OTP = Math.floor(Math.random() * 9000 + 1000);
-                const text = `Here is the code: ${OTP}`;
+                const text = `Here is the code: ${OTP}. It's valid for 1 minute`;
 
                 const response = await fetch(url + `/sendEmail`, {
                     method: 'POST',

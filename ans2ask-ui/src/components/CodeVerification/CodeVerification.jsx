@@ -181,12 +181,12 @@ const CodeVerification = () => {
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>Password</FormLabel>
-                            <Input onChange={(e) => setPassword(e.target.value)} placeholder='' />
+                            <Input type='password' onChange={(e) => setPassword(e.target.value)} placeholder='' />
                         </FormControl>
 
                         <FormControl mt={4}>
                             <FormLabel>Confirm Password</FormLabel>
-                            <Input onChange={(e) => setConfirmPassword(e.target.value)} placeholder='' />
+                            <Input type='password' onChange={(e) => setConfirmPassword(e.target.value)} placeholder='' />
                         </FormControl>
                     </ModalBody>
                     <ModalFooter>
