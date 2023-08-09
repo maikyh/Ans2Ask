@@ -68,6 +68,36 @@ router.put('/users/:id', async (req, res) => {
     }
 });
 
+// Route for updating password
+router.put('/users/updatePassword/:id', async (req, res) => {
+    const { id } = req.params; // Get the user ID from the request parameters
+    const { password } = req.body;
+
+    try {
+        // Check if the user with the given ID exists
+        const existingUser = await User.findByPk(id);
+
+        if (!existingUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Encrypt the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update the user's data
+        existingUser.password = hashedPassword;
+
+        // Save the updated user
+        await existingUser.save();
+
+        // Return the updated user data in the response
+        res.json({ user: existingUser });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 // Route for user login
 router.post('/users/login', async (req, res) => {
     const { username, password } = req.body;

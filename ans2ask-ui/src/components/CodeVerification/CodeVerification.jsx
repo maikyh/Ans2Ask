@@ -27,6 +27,7 @@ const CodeVerification = () => {
     const [code, setCode] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [password, setPassword] = useState(false);
+    const [userId, setUserId] = useState(0);
     const [confirmPassword, setConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ const CodeVerification = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data.userId);
+                setUserId(data.userId);
 
                 setIsOpen(true);
             }
@@ -50,9 +51,20 @@ const CodeVerification = () => {
         }
     }
 
-    const handleUpdatePassword = (e) => {
+    const handleUpdatePassword = async (e) => {
         if(password == confirmPassword){
             setIsOpen(false);
+
+            const response = await fetch(url + `/users` + `/updatePassword` + `/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ password }),
+                credentials: 'include'
+            });
+
+            const data = await response.json();
 
             Swal.fire({
                 icon: 'success',
@@ -61,6 +73,7 @@ const CodeVerification = () => {
                 timer: 1000,
                 showConfirmButton: false,
             });
+
             navigate("/login");
         }
 
