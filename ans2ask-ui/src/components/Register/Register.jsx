@@ -78,7 +78,7 @@ const Register = () => {
             <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <div className="container">
                     <div className="d-flex justify-content-between align-items-center w-100">
-                        <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="#">Ans2Ask</a>
+                        <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="/login">Ans2Ask</a>
                         <Button
                             onClick={() => updateDarkMode(!darkMode)}
                             marginLeft={"27px"}

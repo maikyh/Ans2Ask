@@ -15,7 +15,9 @@ import {
     ModalCloseButton,
     FormControl,
     FormLabel,
-    Input
+    Input,
+    Alert,
+    AlertIcon,
 } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
@@ -28,6 +30,7 @@ const CodeVerification = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [password, setPassword] = useState(false);
     const [userId, setUserId] = useState(0);
+    const [match, setMatch] = useState(true);
     const [confirmPassword, setConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
@@ -45,7 +48,7 @@ const CodeVerification = () => {
 
                 setIsOpen(true);
             }
-            else{
+            else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Wrong Code',
@@ -70,36 +73,49 @@ const CodeVerification = () => {
         if (password == confirmPassword) {
             setIsOpen(false);
 
-            const response = await fetch(url + `/users` + `/updatePassword` + `/${userId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ password }),
-                credentials: 'include'
-            });
+            try {
+                const response = await fetch(url + `/users` + `/updatePassword` + `/${userId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ password }),
+                    credentials: 'include'
+                });
 
-            const data = await response.json();
+                const token = code;
+                const deleteToken = await fetch(url + `/tokens`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ token }),
+                    credentials: 'include'
+                });
 
-            const token = code;
-            const deleteToken = await fetch(url + `/tokens`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ token }),
-                credentials: 'include'
-            });
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Passwords match!',
+                    text: 'Password sucessfully updated',
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Passwords match!',
-                text: 'Password sucessfully updated',
-                timer: 1000,
-                showConfirmButton: false,
-            });
+                navigate("/login");
+            }
+            catch (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong!',
+                    text: 'Try again',
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+            }
 
-            navigate("/login");
+        }
+        else {
+            setMatch(false);
         }
 
     }
@@ -109,7 +125,7 @@ const CodeVerification = () => {
             <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>
                 <div className="container">
                     <div className="d-flex justify-content-between align-items-center w-100">
-                        <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="#">Ans2Ask</a>
+                        <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="/login">Ans2Ask</a>
                         <Button
                             onClick={() => updateDarkMode(!darkMode)}
                             marginLeft={"27px"}
@@ -178,6 +194,13 @@ const CodeVerification = () => {
                             Update
                         </Button>
                     </ModalFooter>
+                    {
+                        !match &&
+                        <Alert status='error'>
+                            <AlertIcon />
+                            Make sure that passwords match
+                        </Alert>
+                    }
                 </ModalContent>
             </Modal>
         </div>
