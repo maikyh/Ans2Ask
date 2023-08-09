@@ -19,15 +19,11 @@ router.get('/tokens', async (req, res) => {
 });
 
 // Route to check if a token exist, with associated user
-router.get('/tokens/verify', async (req, res) => {
-    const { userId, token } = req.body;
+router.get('/tokens/verify/:token', async (req, res) => {
+    const token = req.params.token;
     
     try {
-        const tokenToVerify = await Token.findOne({
-            where: {
-                [Op.and]: [{ userId }, { token }]
-            }
-        });
+        const tokenToVerify = await Token.findOne({where: { token }});
 
         res.json(tokenToVerify);
     } catch (err) {

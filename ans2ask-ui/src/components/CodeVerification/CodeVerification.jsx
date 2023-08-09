@@ -18,7 +18,18 @@ const CodeVerification = () => {
 
     const handleVerifyAccount = async (e) => {
         e.preventDefault();
-        console.log(code);
+
+        const token = code;
+        try {
+            const response = await fetch(url + `/tokens/verify/${token}`);
+            const data = await response.json();
+
+            console.log(data);
+        }
+        catch(e){
+            console.log(e);
+        }
+
     }
 
     return (
@@ -27,10 +38,10 @@ const CodeVerification = () => {
                 <div className="container">
                     <div className="d-flex justify-content-between align-items-center w-100">
                         <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="#">Ans2Ask</a>
-                            <Button
-                                onClick={() => updateDarkMode(!darkMode)}
-                                marginLeft={"27px"}
-                            >
+                        <Button
+                            onClick={() => updateDarkMode(!darkMode)}
+                            marginLeft={"27px"}
+                        >
                             {!darkMode ? (
                                 <SunIcon color="black.200" />
                             ) : (
