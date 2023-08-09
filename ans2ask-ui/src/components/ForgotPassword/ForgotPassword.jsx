@@ -28,6 +28,8 @@ const ForgotPassword = () => {
                 credentials: 'include'
             });
 
+            const recipient = await response.json();
+
             if (response.ok) {
                 const recipient = "miguelgrza.12@gmail.com";
                 const OTP = Math.floor(Math.random() * 9000 + 1000);
