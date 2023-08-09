@@ -4,39 +4,23 @@ import { UserContext } from '../../UserContext.js';
 import { url } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { PinInput, PinInputField } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import "./CodeVerification.css";
 
 const CodeVerification = () => {
-    const [usernameOrEmail, setUsernameOrEmail] = useState('');
+    const [code, setCode] = useState('');
     const { darkMode, updateDarkMode } = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const handleVerifyAccount = async (e) => {
         e.preventDefault();
-
-        const recipient = "miguelgrza.12@gmail.com";
-        const text = 12323;
-
-        const response = await fetch(url + `/sendEmail`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ recipient, text }),
-            credentials: 'include'
-        });
-
-        console.log(response);
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-        }
+        console.log(code);
     }
+
 
     return (
         <div className="login">
@@ -44,10 +28,10 @@ const CodeVerification = () => {
                 <div className="container">
                     <div className="d-flex justify-content-between align-items-center w-100">
                         <a className="navbar-brand" style={{ color: darkMode ? Text.darkMode : Text.lightMode }} href="#">Ans2Ask</a>
-                        <Button
-                            onClick={() => updateDarkMode(!darkMode)}
-                            marginLeft={"27px"}
-                        >
+                            <Button
+                                onClick={() => updateDarkMode(!darkMode)}
+                                marginLeft={"27px"}
+                            >
                             {!darkMode ? (
                                 <SunIcon color="black.200" />
                             ) : (
@@ -64,15 +48,14 @@ const CodeVerification = () => {
                     <form onSubmit={handleVerifyAccount}>
                         <div className="form-group mb-4">
                             <label className="mb-2 fw-bold" htmlFor="usernameOrEmail" style={{ color: darkMode ? Text.darkMode : Text.lightMode }}>A code has been sent to your email. Enter that code here:</label>
-                            <input
-                                style={{ backgroundColor: darkMode ? Content.darkMode : "#fff", color: darkMode ? Text.darkMode : Text.lightMode }}
-                                className="form-control"
-                                type="text"
-                                id="usernameOrEmail"
-                                value={usernameOrEmail}
-                                onChange={(e) => setUsernameOrEmail(e.target.value)}
-                                required
-                            />
+                            <div className='text-center mt-2'>
+                                <PinInput size="lg" onChange={(e) => setCode(e)}>
+                                    <PinInputField className='mx-2 text-white' />
+                                    <PinInputField className='mx-2 text-white' />
+                                    <PinInputField className='mx-2 text-white' />
+                                    <PinInputField className='mx-2 text-white' />
+                                </PinInput>
+                            </div>
                         </div>
                         <div className="text-center">
                             <button className={`btn ${darkMode ? 'btn-light' : 'btn-dark'} w-100 d-block fw-bold mb-4`}> Submit </button>

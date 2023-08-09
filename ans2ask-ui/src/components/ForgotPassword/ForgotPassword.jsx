@@ -28,8 +28,17 @@ const ForgotPassword = () => {
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log(data);
+            const recipient = "miguelgrza.12@gmail.com";
+            const text = 12323;
+
+            const response = await fetch(url + `/sendEmail`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ recipient, text }),
+                credentials: 'include'
+            });
 
             Swal.fire({
                 icon: 'success',
