@@ -1,18 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext.js';
 import { url } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { PinInput, PinInputField } from '@chakra-ui/react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    FormControl,
+    FormLabel,
+    Input
+} from '@chakra-ui/react'
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
 import "./CodeVerification.css";
 
 const CodeVerification = () => {
-    const [code, setCode] = useState('');
     const { darkMode, updateDarkMode } = useContext(UserContext);
+    const [code, setCode] = useState('');
+    const [isOpen, setIsOpen] = useState(false);
+    const [password, setPassword] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,12 +37,31 @@ const CodeVerification = () => {
         const token = code;
         try {
             const response = await fetch(url + `/tokens/verify/${token}`);
-            const data = await response.json();
 
-            console.log(data);
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.userId);
+
+                setIsOpen(true);
+            }
         }
-        catch(e){
+        catch (e) {
             console.log(e);
+        }
+    }
+
+    const handleUpdatePassword = (e) => {
+        if(password == confirmPassword){
+            setIsOpen(false);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Passwords match!',
+                text: 'Password sucessfully updated',
+                timer: 1000,
+                showConfirmButton: false,
+            });
+            navigate("/login");
         }
 
     }
@@ -84,6 +118,30 @@ const CodeVerification = () => {
                     </p>
                 </div>
             </footer>
+
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} isCentered>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Update Password</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+                        <FormControl>
+                            <FormLabel>Password</FormLabel>
+                            <Input onChange={(e) => setPassword(e.target.value)} placeholder='' />
+                        </FormControl>
+
+                        <FormControl mt={4}>
+                            <FormLabel>Confirm Password</FormLabel>
+                            <Input onChange={(e) => setConfirmPassword(e.target.value)} placeholder='' />
+                        </FormControl>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button onClick={() => handleUpdatePassword()} colorScheme='blue' mr={160}>
+                            Update
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
