@@ -21,7 +21,6 @@ const CodeVerification = () => {
         console.log(code);
     }
 
-
     return (
         <div className="login">
             <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: darkMode ? Content.darkMode : Content.lightMode }}>

@@ -13,7 +13,7 @@ oauth2Client.setCredentials({
     refresh_token: process.env.REFRESH_TOKEN
 });
 
-const contactAPI = async () => {
+const contactAPI = async (recipient, text) => {
     const createTransporter = async () => {
         // const check = oauth2Client.getAccessToken();
 
@@ -40,9 +40,9 @@ const contactAPI = async () => {
         try {
             const mailOptions = {
                 from: process.env.USER_EMAIL,
-                to: "miguelgrza.12@gmail.com",
-                subject: "Ans2Ask",
-                text: "Hi, this is a test email",
+                to: recipient,
+                subject: "Ans2Ask - Account Recovery",
+                text: text,
             }
 
             let emailTransporter = await createTransporter();
@@ -73,7 +73,7 @@ router.post('/sendEmail', async (req, res) => {
 
     try {
         // Find the user by username
-        const response = await contactAPI();
+        const response = await contactAPI(recipient, text);
 
         // Return the user data in the response
         res.json("Email sent");

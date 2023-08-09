@@ -29,7 +29,8 @@ const ForgotPassword = () => {
 
         if (response.ok) {
             const recipient = "miguelgrza.12@gmail.com";
-            const text = 12323;
+            const OTP = Math.floor(Math.random() * 9000 + 1000);
+            const text = `Here is the code: ${OTP}`;
 
             const response = await fetch(url + `/sendEmail`, {
                 method: 'POST',
