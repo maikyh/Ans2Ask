@@ -19,9 +19,9 @@ import {
     Alert,
     AlertIcon,
 } from '@chakra-ui/react'
+import { validatePassword } from '../../utils/ValidatePassword.jsx';
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
-import {validatePassword} from '../../utils/ValidatePassword.jsx';
 import Content from '../../utils/Content.jsx';
 import "./CodeVerification.css";
 
@@ -72,12 +72,12 @@ const CodeVerification = () => {
     }
 
     const handleUpdatePassword = async (e) => {
-        if(!validatePassword(password)){
+        if (!validatePassword(password)) {
             setMatch(true);
             setValidated(false);
             return;
         }
-        else{
+        else {
             setValidated(true);
         }
 
