@@ -4,6 +4,7 @@ import { UserContext } from '../../UserContext.js';
 import { url } from "../../utils/Constants.jsx";
 import { Button } from "@chakra-ui/button";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { validatePassword } from '../../utils/ValidatePassword.jsx';
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
 import Content from '../../utils/Content.jsx';
@@ -22,6 +23,16 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if(!validatePassword(password)){
+            Swal.fire({
+                icon: 'error',
+                title: 'Insecure Password',
+                text: 'Make sure that password contain at least 8 characters of length, one uppercase letter, one lowercase letter and one digit.',
+            });
+            
+            return;
+        }
 
         try {
             const response = await fetch(url + `/users`, {
