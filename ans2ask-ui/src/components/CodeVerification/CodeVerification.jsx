@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react'
 import Swal from 'sweetalert2';
 import Text from '../../utils/Text.jsx';
+import {validatePassword} from '../../utils/ValidatePassword.jsx';
 import Content from '../../utils/Content.jsx';
 import "./CodeVerification.css";
 
@@ -31,6 +32,7 @@ const CodeVerification = () => {
     const [password, setPassword] = useState(false);
     const [userId, setUserId] = useState(0);
     const [match, setMatch] = useState(true);
+    const [validated, setValidated] = useState(true);
     const [confirmPassword, setConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
@@ -70,6 +72,15 @@ const CodeVerification = () => {
     }
 
     const handleUpdatePassword = async (e) => {
+        if(!validatePassword(password)){
+            setMatch(true);
+            setValidated(false);
+            return;
+        }
+        else{
+            setValidated(true);
+        }
+
         if (password == confirmPassword) {
             setIsOpen(false);
 
@@ -199,6 +210,13 @@ const CodeVerification = () => {
                         <Alert status='error'>
                             <AlertIcon />
                             Make sure that passwords match
+                        </Alert>
+                    }
+                    {
+                        !validated &&
+                        <Alert status='error'>
+                            <AlertIcon />
+                            Make sure that password contain at least 8 characters of length, one uppercase letter, one lowercase letter and one digit
                         </Alert>
                     }
                 </ModalContent>
