@@ -28,10 +28,10 @@ const ForgotPassword = () => {
                 credentials: 'include'
             });
 
-            const recipient = await response.json();
+            const data = await response.json();
+            const recipient = JSON.stringify(data);
 
             if (response.ok) {
-                const recipient = "miguelgrza.12@gmail.com";
                 const OTP = Math.floor(Math.random() * 9000 + 1000);
                 const text = `Here is the code: ${OTP}. It's valid for 1 minute`;
 
